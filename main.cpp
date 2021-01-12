@@ -2,7 +2,8 @@
 
 int main()
 {
-	Simulation * simulation = new Simulation();
-	simulation->start();
+	Simulation simulation;
+	simulation.start(100);
+	simulation.join();
 	return 0;
 }

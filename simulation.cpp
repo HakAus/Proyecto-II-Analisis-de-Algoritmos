@@ -4,12 +4,22 @@ Simulation::Simulation()
 {
 	this->reader = new Reader();
 	this->terrainGenerator = new TerrainGenerator();
+	this->terrainGenerator->setSharedQueue(&this->sharedQueue, &this->mutex, &this->condition);
 	this->geneticAlgorithm = new GeneticAlgorithm();
+	this->geneticAlgorithm->setSharedQueue(&this->sharedQueue, &this->mutex, &this->condition);
+
 }
 
-void Simulation::start()
+void Simulation::start(int pDistance)
 {
+	terrainGenerator->start(pDistance);
+	geneticAlgorithm->start(pDistance);
+}
 
+void Simulation::join()
+{
+	terrainGenerator->join();
+	geneticAlgorithm->join();
 }
 
 void Simulation::showSolution()
