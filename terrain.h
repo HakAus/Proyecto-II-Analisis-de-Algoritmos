@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 #ifndef _TERRAIN_H_
 #define _TERRAIN_H_
 
@@ -12,7 +12,7 @@ private:
 
 public:
 	Terrain(const char * pName, float pAttributes[3],
-		    int pStartKm, int pEndKm);
+	int pStartKm, int pEndKm);
 	const char * getName();
 	const float* getAttributes();
 	const int getStartKm();
