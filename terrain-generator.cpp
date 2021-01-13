@@ -5,20 +5,27 @@
 
 TerrainGenerator::TerrainGenerator(const rapidjson::Document& pConfig)
 {
-	for (auto const& te : pConfig.GetObject())
-	{
-		std::cout << te.name.GetString()<<std::endl;
-	}
 	for (auto const& te : pConfig["terrains"].GetArray())
 	{
+		std::string name;
+		int ranges[6];
+		int counter = 0;
 		for (auto & itr : te.GetObject())
 		{
-			std::cout << itr.name.GetString()<<std::endl;
 			if (itr.value.IsString())
-				std::cout << itr.value.GetString();
+				name = itr.value.GetString();
 			else
-				std::cout << itr.value.GetArray()[0].GetInt() << ":" << itr.value.GetArray()[1].GetInt();
-			std::cout << std::endl;
+			{
+					ranges[counter] = itr.value.GetArray()[0].GetInt();
+					ranges[counter+1] = itr.value.GetArray()[1].GetInt();
+					std::cout << counter;
+					counter+=2;
+			}
 		}
+		terrains.push_back(new TerrainPrototype(name,ranges));
+	}
+	for (auto const& terru : terrains) 
+	{
+		std::cout << terru->toString();
 	}
 }
