@@ -1,0 +1,14 @@
+[
+  {
+    "Node": "9478149a08f9",
+    "Address": "172.17.0.2",
+    "ServiceID": "HSS",
+    "ServiceName": "HSS",
+    "ServiceTags": [],
+    "ServiceAddress": "",
+    "ServicePort": 6666,
+    "ServiceEnableTagOverride": false,
+    "CreateIndex": 2855,
+    "ModifyIndex": 2855
+  }
+]
