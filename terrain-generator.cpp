@@ -1,8 +1,5 @@
 #include "terrain-generator.h"
 
-
-
-
 TerrainGenerator::TerrainGenerator(const rapidjson::Document& pConfig)
 {
 	for (auto const& te : pConfig["terrains"].GetArray())
@@ -18,14 +15,28 @@ TerrainGenerator::TerrainGenerator(const rapidjson::Document& pConfig)
 			{
 					ranges[counter] = itr.value.GetArray()[0].GetInt();
 					ranges[counter+1] = itr.value.GetArray()[1].GetInt();
-					std::cout << counter;
 					counter+=2;
 			}
 		}
 		terrains.push_back(new TerrainPrototype(name,ranges));
 	}
-	for (auto const& terru : terrains) 
+}
+
+void TerrainGenerator::generateTerrains()
+{
+	while (distance < currentDistance)
+	{
+		int pos = Random::RandomRange(0, terrains.size());
+		Terrain * terrain = terrains.at(pos)->getTerrain(currentDistance,distance,minimunTerrainDistancePercentage,maximunTerrainDistancePercentage);
+		currentDistance = terrain->getEndKm();
+	}
+}
+
+void TerrainGenerator::showTerrains()
+{
+	for (auto const& terru : terrains)
 	{
 		std::cout << terru->toString();
 	}
 }
+

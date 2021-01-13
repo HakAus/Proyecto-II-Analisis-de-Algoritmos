@@ -19,7 +19,7 @@ Terrain * TerrainPrototype::getTerrain(int currentDistance,int finalDistance, fl
 	int maximunDistance = distanceLeft * maxPercentage;
 	int terrainDistance = Random::RandomRange(minimumDistance,maximunDistance);
 	float values[3] = {Random::RandomRange(firmessRange[0],firmessRange[1]),Random::RandomRange(humidityRange[0],humidityRange[1]),Random::RandomRange(gripRange[0],gripRange[1])};
-	return new Terrain(name.c_str(),values,currentDistance,terrainDistance);
+	return new Terrain(name.c_str(),values,currentDistance, currentDistance + terrainDistance);
 }
 
 std::string TerrainPrototype::toString()

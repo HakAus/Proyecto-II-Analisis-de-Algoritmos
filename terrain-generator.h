@@ -11,14 +11,13 @@ class TerrainGenerator
 private:
 	const float minimunTerrainDistancePercentage = 0.10;
 	const float maximunTerrainDistancePercentage = 0.20;
+	int currentDistance = 0;
+	int distance;
 	std::queue<std::vector<Terrain*>>* sharedBuffer;
 	std::vector<TerrainPrototype*> terrains;
 
 public:
 	TerrainGenerator(const rapidjson::Document& pConfig);
-	void generateTerrains(int pDistance);
-	//Segun una distancia se va a sacar el numero de terrenos
-	//Esos terrenos se almacenan en listas
-	//Los terrenos tienen que ser generados a partir de los archivos de configuracion
-	std::vector<Terrain*> getStretch();
+	void generateTerrains();
+	void showTerrains();
 };
