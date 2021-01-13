@@ -1,4 +1,5 @@
 #include "terrainPrototype.h"
+#include <iostream>
 
 TerrainPrototype::TerrainPrototype(std::string pName, int* ranges)
 {
@@ -12,12 +13,12 @@ TerrainPrototype::TerrainPrototype(std::string pName, int* ranges)
 
 }
 
-Terrain * TerrainPrototype::getTerrain(int currentDistance,int finalDistance, float minPercentag,float maxPercentage)
+Terrain * TerrainPrototype::getTerrain(int currentDistance,int finalDistance, int minimunTerrainLength,int maximunTerrainLength)
 {
+	int terrainDistance = Random::RandomRange(minimunTerrainLength, maximunTerrainLength);
 	int distanceLeft = finalDistance - currentDistance;
-	int minimumDistance = distanceLeft * minPercentag;
-	int maximunDistance = distanceLeft * maxPercentage;
-	int terrainDistance = Random::RandomRange(minimumDistance,maximunDistance);
+	if (currentDistance + terrainDistance > distanceLeft)
+		terrainDistance = distanceLeft;
 	float values[3] = {Random::RandomRange(firmessRange[0],firmessRange[1]),Random::RandomRange(humidityRange[0],humidityRange[1]),Random::RandomRange(gripRange[0],gripRange[1])};
 	return new Terrain(name.c_str(),values,currentDistance, currentDistance + terrainDistance);
 }

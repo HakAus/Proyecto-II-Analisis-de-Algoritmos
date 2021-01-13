@@ -13,6 +13,6 @@ public:
 	int gripRange[2];
 
 	TerrainPrototype(std::string pName,int * ranges);
-	Terrain * getTerrain(int currentDistance, int finalDistance, float minPercentag, float maxPercentage);
+	Terrain * getTerrain(int currentDistance, int finalDistance, int minPercentag, int maxPercentage);
 	std::string toString();
 };

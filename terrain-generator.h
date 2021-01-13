@@ -9,10 +9,11 @@
 class TerrainGenerator 
 {
 private:
-	const float minimunTerrainDistancePercentage = 0.10;
-	const float maximunTerrainDistancePercentage = 0.20;
 	int currentDistance = 0;
-	int distance;
+	int distance = 200; //Valor de prueba
+	int numeroDeTerrenos = 0;
+	int minimunTerrainLength = 5;
+	int maximunTerrainLength = 20;
 	std::queue<std::vector<Terrain*>>* sharedBuffer;
 	std::vector<TerrainPrototype*> terrains;
 
@@ -20,4 +21,5 @@ public:
 	TerrainGenerator(const rapidjson::Document& pConfig);
 	void generateTerrains();
 	void showTerrains();
+	void increasePercentage(float* percentage);
 };

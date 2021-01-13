@@ -14,22 +14,25 @@ TerrainGenerator::TerrainGenerator(const rapidjson::Document& pConfig)
 			else
 			{
 					ranges[counter] = itr.value.GetArray()[0].GetInt();
-					ranges[counter+1] = itr.value.GetArray()[1].GetInt();
+					ranges[counter+1] = itr.value.GetArray()[1].GetInt();	
 					counter+=2;
 			}
 		}
 		terrains.push_back(new TerrainPrototype(name,ranges));
 	}
+	generateTerrains();
 }
 
 void TerrainGenerator::generateTerrains()
 {
-	while (distance < currentDistance)
+	while (currentDistance < distance)
 	{
 		int pos = Random::RandomRange(0, terrains.size());
-		Terrain * terrain = terrains.at(pos)->getTerrain(currentDistance,distance,minimunTerrainDistancePercentage,maximunTerrainDistancePercentage);
+		Terrain * terrain = terrains.at(pos)->getTerrain(currentDistance,distance,minimunTerrainLength, maximunTerrainLength);
 		currentDistance = terrain->getEndKm();
+		numeroDeTerrenos++;
 	}
+	std::cout << numeroDeTerrenos;
 }
 
 void TerrainGenerator::showTerrains()
@@ -39,4 +42,5 @@ void TerrainGenerator::showTerrains()
 		std::cout << terru->toString();
 	}
 }
+
 
