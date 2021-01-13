@@ -9,6 +9,6 @@ private:
 public:
 	Reader();
 	void read(const char * pJSON);
-	rapidjson::Document* getDocument();
+	rapidjson::Document& getDocument();
 
 };

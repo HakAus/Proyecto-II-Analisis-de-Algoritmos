@@ -1,5 +1,10 @@
 #include <queue>
 #include <vector>
+#include "libs/rapidjson/document.h"
+#include "terrain.h"
+#include "terrainPrototype.h"
+#include <iostream>
+#include <string>
 #include <iostream>
 #include <thread>
 #include <mutex>
@@ -11,8 +16,9 @@
 class TerrainGenerator 
 {
 private:
-	// SyncQueue<int/*std::vector<Terrain*>*/> * queue;
-	std::vector<Terrain*> terrains;
+	const float minimunTerrainDistancePercentage = 0.10;
+	const float maximunTerrainDistancePercentage = 0.20;
+	std::vector<TerrainPrototype*> terrains;
 	int distanceGenerated;
 	int totalDistance;
 	int maxQueueSize = 10;
@@ -24,7 +30,7 @@ private:
 	std::queue<int/*std::vector<Terrain*>*/>* sharedQueue;
 
 public:
-	TerrainGenerator();
+	TerrainGenerator(const rapidjson::Document& pConfig);
 	void generate(int pDistance);
 	std::vector<Terrain*> getStretch();
 	void start(int pDistance);

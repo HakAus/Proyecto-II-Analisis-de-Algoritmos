@@ -3,7 +3,8 @@
 Simulation::Simulation()
 {
 	this->reader = new Reader();
-	this->terrainGenerator = new TerrainGenerator();
+	reader->read("config.json");
+	this->terrainGenerator = new TerrainGenerator(reader->getDocument());
 	this->terrainGenerator->setSharedQueue(&this->sharedQueue, &this->mutex, &this->condition);
 	this->geneticAlgorithm = new GeneticAlgorithm();
 	this->geneticAlgorithm->setSharedQueue(&this->sharedQueue, &this->mutex, &this->condition);
