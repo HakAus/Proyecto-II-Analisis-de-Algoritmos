@@ -1,7 +1,7 @@
 #include "genetic-algorithm.h"
 
 
-GeneticAlgorithm::GeneticAlgorithm()
+GeneticAlgorithm::GeneticAlgorithm(const rapidjson::Document& pConfig)
 {
 	this->convergencePercentage = 0;
 	this->mutationPercentage = 0;
@@ -9,16 +9,53 @@ GeneticAlgorithm::GeneticAlgorithm()
 	this->distanceProcessed = 0;
 	this->totalDistance = 0;
 	this->totalEnergy = 0;
+
+	setSpecifications(pConfig);
 }
 
-void GeneticAlgorithm::startPopulation()
+void setSpecifications(const rapidjson::Document& pConfig)
 {
+	for (auto const& te : pConfig["terrains"].GetArray())
+	{
+		int energy;
+		int ranges[6];
+		int counter = 0;
+		for (auto & itr : te.GetObject())
+		{
+			if (itr.value.IsInt())
+				energy = itr.value.GetInt();
+			else if (itr.value.IsArray())
+			{
+				
+				ranges[counter] = itr.value.GetArray()[0].GetInt();
+				ranges[counter+1] = itr.value.GetArray()[1].GetInt();
+				counter += 2;
+			}
+		}
+		terrains.push_back(new TerrainPrototype(name,ranges));
+	}
+	for (auto const& terru : terrains) 
+	{
+		std::cout << terru->toString();
+	}	
+}
+
+void GeneticAlgorithm::getData()
+{
+
 	while (this->distanceProcessed < this->totalDistance)
 	{
 		int result = this->queue->pop();
 		this->distanceProcessed++;
 	}
 }
+
+void GeneticAlgorithm::startPopulation()
+{
+	// for ()
+	// 	new Vehicle(random);
+}
+
 
 bool GeneticAlgorithm::checkConvergence()
 {
@@ -27,11 +64,11 @@ bool GeneticAlgorithm::checkConvergence()
 
 void GeneticAlgorithm::startEvolution()
 {
-	this->startPopulation();
-	// while (!this->checkConvergence())
-	// {
-	// 	this->evolve();
-	// }
+	/* 
+ 	this->startPopulation();
+ 	while (!this->checkConvergence())
+ 		this->evolve();
+	*/
 }
 
 void GeneticAlgorithm::calculateFitness()
@@ -73,7 +110,7 @@ void GeneticAlgorithm::evolve()
 		fittest.pop();
 		Vehicle * dad = fittest.front();
 		fittest.pop();
-		Vehicle** twins;
+		Vehicle* twins[2];
 		crossover(mom,dad,twins);
 		for (int twinIndex = 0; twinIndex < 2; twinIndex++)
 		{
@@ -85,8 +122,8 @@ void GeneticAlgorithm::evolve()
 
 void GeneticAlgorithm::start(int pDistance)
 {
-	this->consumer = std::thread(&GeneticAlgorithm::startEvolution, this);
 	this->totalDistance = pDistance;
+	// this->consumer = std::thread(&GeneticAlgorithm::startEvolution, this);
 }
 
 void GeneticAlgorithm::join()

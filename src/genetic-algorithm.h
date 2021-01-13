@@ -6,7 +6,7 @@
 #include <condition_variable>
 #include <unordered_map>
 
-
+#include "../libs/rapidjson/document.h"
 #include "vehicle.h"
 #include "terrain.h"
 #include "specification.h"
@@ -34,7 +34,7 @@ private:
 	SyncQueue * queue;
 
 public:
-	GeneticAlgorithm();
+	GeneticAlgorithm(const rapidjson::Document& pConfig);
 	void startPopulation();
 	void calculateFitness();
 	std::queue<Vehicle*> selectFittestParents();
@@ -48,4 +48,5 @@ public:
 	void start(int pDistance);
 	void join();
 	void setSharedQueue(SyncQueue* pSharedQueue);
+	void getData();
 };

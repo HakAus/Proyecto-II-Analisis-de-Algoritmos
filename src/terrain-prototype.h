@@ -8,11 +8,11 @@ class TerrainPrototype
 {
 public:
 	std::string name;
-	int firmnessRange[2];
+	int firmessRange[2];
 	int humidityRange[2];
 	int gripRange[2];
 
 	TerrainPrototype(std::string pName,int * ranges);
-	Terrain * getTerrain(int currentDistance, int finalDistance, float minPercentage, float maxPercentage);
+	Terrain * getTerrain(int currentDistance, int finalDistance, int minPercentag, int maxPercentage);
 	std::string toString();
 };
