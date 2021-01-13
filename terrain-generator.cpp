@@ -9,15 +9,16 @@ TerrainGenerator::TerrainGenerator(const rapidjson::Document& pConfig)
 	{
 		std::cout << te.name.GetString()<<std::endl;
 	}
-	for (auto const& te : pConfig["terrains"].GetArray().Begin()->GetObject())
+	for (auto const& te : pConfig["terrains"].GetArray())
 	{
-		std::cout << te.name.GetString()<<":";
-		if (te.value.IsString()) {
-			std::cout << te.value.GetString();
+		for (auto & itr : te.GetObject())
+		{
+			std::cout << itr.name.GetString()<<std::endl;
+			if (itr.value.IsString())
+				std::cout << itr.value.GetString();
+			else
+				std::cout << itr.value.GetArray()[0].GetInt() << ":" << itr.value.GetArray()[1].GetInt();
+			std::cout << std::endl;
 		}
-		else {
-			std::cout << te.value.GetArray()[0].GetInt()<<":"<< te.value.GetArray()[1].GetInt();
-		}
-		std::cout<<std::endl;
 	}
 }
