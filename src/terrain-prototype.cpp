@@ -1,4 +1,4 @@
-#include "terrainPrototype.h"
+#include "terrain-prototype.h"
 
 TerrainPrototype::TerrainPrototype(std::string pName, int* ranges)
 {

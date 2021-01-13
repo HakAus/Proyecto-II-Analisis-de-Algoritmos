@@ -1,8 +1,9 @@
-#include "reader.h"
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <streambuf>
+
+#include "reader.h"
 
 Reader::Reader(){}
 

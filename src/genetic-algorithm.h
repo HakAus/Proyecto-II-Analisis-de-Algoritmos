@@ -1,16 +1,16 @@
 #include <queue>
 #include <vector>
-#include <unordered_map>
 #include <iostream>
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <unordered_map>
 
 
 #include "vehicle.h"
 #include "terrain.h"
 #include "specification.h"
-// #include "sync-queue.h"
+#include "sync-queue.h"
 
 class GeneticAlgorithm
 {
@@ -31,10 +31,7 @@ private:
 
 	// Concurrency
 	std::thread consumer;
-	std::mutex * mutex;
-	std::condition_variable * condition;
-	std::queue<int/*std::vector<Terrain*>*/>* sharedQueue;
-	// SyncQueue<int/*std::vector<Terrain*>*/> * queue;
+	SyncQueue * queue;
 
 public:
 	GeneticAlgorithm();
@@ -50,6 +47,5 @@ public:
 	Vehicle * getResult();
 	void start(int pDistance);
 	void join();
-	void setSharedQueue(std::queue<int/*std::vector<Terrain*>*/>* pSharedQueue, std::mutex* pMutex, std::condition_variable* pCondition);
-
+	void setSharedQueue(SyncQueue* pSharedQueue);
 };

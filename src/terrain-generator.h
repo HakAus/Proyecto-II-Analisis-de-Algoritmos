@@ -1,8 +1,5 @@
 #include <queue>
 #include <vector>
-#include "libs/rapidjson/document.h"
-#include "terrain.h"
-#include "terrainPrototype.h"
 #include <iostream>
 #include <string>
 #include <iostream>
@@ -10,8 +7,10 @@
 #include <mutex>
 #include <condition_variable>
 
+#include "../libs/rapidjson/document.h"
 #include "terrain.h"
-// #include "sync-queue.h"
+#include "terrain-prototype.h"
+#include "sync-queue.h"
 
 class TerrainGenerator 
 {
@@ -25,9 +24,7 @@ private:
 
 	// Concurrency
 	std::thread producer;
-	std::mutex * mutex;
-	std::condition_variable * condition;
-	std::queue<int/*std::vector<Terrain*>*/>* sharedQueue;
+	SyncQueue * queue;
 
 public:
 	TerrainGenerator(const rapidjson::Document& pConfig);
@@ -35,6 +32,5 @@ public:
 	std::vector<Terrain*> getStretch();
 	void start(int pDistance);
 	void join();
-	void setSharedQueue(std::queue<int/*std::vector<Terrain*>*/>* pSharedQueue, std::mutex* pMutex, std::condition_variable* pCondition);
-
+	void setSharedQueue(SyncQueue* pSharedQueue);
 };

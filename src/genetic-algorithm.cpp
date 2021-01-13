@@ -15,13 +15,7 @@ void GeneticAlgorithm::startPopulation()
 {
 	while (this->distanceProcessed < this->totalDistance)
 	{
-		std::unique_lock<std::mutex> locker(*this->mutex);
-		this->condition->wait(locker, [this](){return !this->sharedQueue->empty();});
-		int result = this->sharedQueue->front();
-		this->sharedQueue->pop();
-		std::cout << "Se consumio " << result << std::endl;
-		locker.unlock();
-		this->condition->notify_one();
+		int result = this->queue->pop();
 		this->distanceProcessed++;
 	}
 }
@@ -100,9 +94,7 @@ void GeneticAlgorithm::join()
 	this->consumer.join();
 }
 
-void GeneticAlgorithm::setSharedQueue(std::queue<int/*std::vector<Terrain*>*/>* pSharedQueue, std::mutex* pMutex, std::condition_variable* pCondition)
+void GeneticAlgorithm::setSharedQueue(SyncQueue* pSharedQueue)
 {
-	this->sharedQueue = pSharedQueue;
-	this->mutex = pMutex;
-	this->condition = pCondition;
+	this->queue = pSharedQueue;
 }

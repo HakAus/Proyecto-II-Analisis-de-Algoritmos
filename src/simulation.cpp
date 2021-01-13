@@ -2,12 +2,13 @@
 
 Simulation::Simulation()
 {
+	this->queue = new SyncQueue(100);
 	this->reader = new Reader();
-	reader->read("config.json");
+	reader->read("../input/config.json");
 	this->terrainGenerator = new TerrainGenerator(reader->getDocument());
-	this->terrainGenerator->setSharedQueue(&this->sharedQueue, &this->mutex, &this->condition);
+	this->terrainGenerator->setSharedQueue(this->queue);
 	this->geneticAlgorithm = new GeneticAlgorithm();
-	this->geneticAlgorithm->setSharedQueue(&this->sharedQueue, &this->mutex, &this->condition);
+	this->geneticAlgorithm->setSharedQueue(this->queue);
 
 }
 
