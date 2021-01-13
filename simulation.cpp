@@ -4,7 +4,7 @@ Simulation::Simulation()
 {
 	this->reader = new Reader();
 	reader->read("config.json");
-	this->terrainGenerator = new TerrainGenerator(reader->getDocument());
+	this->terrainGenerator = new TerrainGenerator(reader->getDocument(),&sharedBuffer);
 	this->geneticAlgorithm = new GeneticAlgorithm();
 }
 

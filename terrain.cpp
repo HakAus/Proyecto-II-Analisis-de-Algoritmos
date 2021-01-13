@@ -22,3 +22,19 @@ const int Terrain::getStartKm() {
 const int Terrain::getEndKm() { 
 	return this->endKm; 
 }
+
+rapidjson::Document Terrain::toJsonObject()
+{
+	rapidjson::Document objValue;
+	objValue.SetObject();
+	rapidjson::Value strName(name, objValue.GetAllocator());
+	rapidjson::Document::AllocatorType& allocator = objValue.GetAllocator();
+	objValue.AddMember("name", strName, allocator);
+	objValue.AddMember("KmStart", startKm, allocator);
+	objValue.AddMember("KmEnd", endKm, allocator);
+	objValue.AddMember("Firmeza", attributes[0], allocator);
+	objValue.AddMember("Humedad", attributes[1], allocator);
+	objValue.AddMember("Agarre", attributes[2], allocator);
+	return objValue;
+}
+
