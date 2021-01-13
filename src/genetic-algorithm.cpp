@@ -1,7 +1,7 @@
 #include "genetic-algorithm.h"
 
 
-GeneticAlgorithm::GeneticAlgorithm(const rapidjson::Document& pConfig)
+GeneticAlgorithm::GeneticAlgorithm(const rapidjson::Document& pConfig, SyncQueue* pSharedQueue)
 {
 	this->convergencePercentage = 0;
 	this->mutationPercentage = 0;
@@ -9,45 +9,46 @@ GeneticAlgorithm::GeneticAlgorithm(const rapidjson::Document& pConfig)
 	this->distanceProcessed = 0;
 	this->totalDistance = 0;
 	this->totalEnergy = 0;
-
-	setSpecifications(pConfig);
+	this->queue = pSharedQueue;
+	
+	this->setSpecifications(pConfig);
 }
 
-void setSpecifications(const rapidjson::Document& pConfig)
+void GeneticAlgorithm::setSpecifications(const rapidjson::Document& pConfig)
 {
-	for (auto const& te : pConfig["terrains"].GetArray())
-	{
-		int energy;
-		int ranges[6];
-		int counter = 0;
-		for (auto & itr : te.GetObject())
-		{
-			if (itr.value.IsInt())
-				energy = itr.value.GetInt();
-			else if (itr.value.IsArray())
-			{
+// 	for (auto const& te : pConfig["terrains"].GetArray())
+// 	{
+// 		int energy;
+// 		int ranges[6];
+// 		int counter = 0;
+// 		for (auto & itr : te.GetObject())
+// 		{
+// 			if (itr.value.IsInt())
+// 				energy = itr.value.GetInt();
+// 			else if (itr.value.IsArray())
+// 			{
 				
-				ranges[counter] = itr.value.GetArray()[0].GetInt();
-				ranges[counter+1] = itr.value.GetArray()[1].GetInt();
-				counter += 2;
-			}
-		}
-		terrains.push_back(new TerrainPrototype(name,ranges));
-	}
-	for (auto const& terru : terrains) 
-	{
-		std::cout << terru->toString();
-	}	
-}
+// 				ranges[counter] = itr.value.GetArray()[0].GetInt();
+// 				ranges[counter+1] = itr.value.GetArray()[1].GetInt();
+// 				counter += 2;
+// 			}
+// 		}
+// 		terrains.push_back(new TerrainPrototype(name,ranges));
+// 	}
+// 	for (auto const& terru : terrains) 
+// 	{
+// 		std::cout << terru->toString();
+// 	}	
+// }
 
-void GeneticAlgorithm::getData()
-{
+// void GeneticAlgorithm::getData()
+// {
 
-	while (this->distanceProcessed < this->totalDistance)
-	{
-		int result = this->queue->pop();
-		this->distanceProcessed++;
-	}
+// 	while (this->distanceProcessed < this->totalDistance)
+// 	{
+// 		int result = this->queue->pop();
+// 		this->distanceProcessed++;
+// 	}
 }
 
 void GeneticAlgorithm::startPopulation()
@@ -129,9 +130,4 @@ void GeneticAlgorithm::start(int pDistance)
 void GeneticAlgorithm::join()
 {
 	this->consumer.join();
-}
-
-void GeneticAlgorithm::setSharedQueue(SyncQueue* pSharedQueue)
-{
-	this->queue = pSharedQueue;
 }

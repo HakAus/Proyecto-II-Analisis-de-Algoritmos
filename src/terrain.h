@@ -1,6 +1,8 @@
 #pragma once
 #ifndef _TERRAIN_H_
 #define _TERRAIN_H_
+#include "libs/rapidjson/document.h"
+#include <iostream>
 
 class Terrain
 {
@@ -17,6 +19,7 @@ public:
 	const float* getAttributes();
 	const int getStartKm();
 	const int getEndKm();
+	rapidjson::Document toJsonObject();
 };
 
 #endif /* _TERRAIN_H_ */

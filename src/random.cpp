@@ -3,7 +3,7 @@
 
 class Random {
 public:
-	static int RandomRange(int minValue, int maxValue) {
+	static float RandomRange(int minValue, int maxValue) {
 		return minValue + rand()%(maxValue - minValue);
 	}
 

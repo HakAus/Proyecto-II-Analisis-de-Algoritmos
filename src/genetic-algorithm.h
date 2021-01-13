@@ -34,7 +34,7 @@ private:
 	SyncQueue * queue;
 
 public:
-	GeneticAlgorithm(const rapidjson::Document& pConfig);
+	GeneticAlgorithm(const rapidjson::Document& pConfig, SyncQueue* pSharedQueue);
 	void startPopulation();
 	void calculateFitness();
 	std::queue<Vehicle*> selectFittestParents();
@@ -47,6 +47,6 @@ public:
 	Vehicle * getResult();
 	void start(int pDistance);
 	void join();
-	void setSharedQueue(SyncQueue* pSharedQueue);
 	void getData();
+	void setSpecifications(const rapidjson::Document& pConfig);
 };

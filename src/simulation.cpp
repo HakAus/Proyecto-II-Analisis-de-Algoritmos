@@ -5,11 +5,8 @@ Simulation::Simulation()
 	this->queue = new SyncQueue(100);
 	this->reader = new Reader();
 	reader->read("../input/config.json");
-	this->terrainGenerator = new TerrainGenerator(reader->getDocument());
-	this->terrainGenerator->setSharedQueue(this->queue);
-	this->geneticAlgorithm = new GeneticAlgorithm(reader->getDocument());
-	this->geneticAlgorithm->setSharedQueue(this->queue);
-
+	this->terrainGenerator = new TerrainGenerator(reader->getDocument(), this->queue);
+	this->geneticAlgorithm = new GeneticAlgorithm(reader->getDocument(), this->queue);
 }
 
 void Simulation::start(int pDistance)
