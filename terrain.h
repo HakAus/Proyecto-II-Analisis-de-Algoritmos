@@ -3,6 +3,7 @@
 #define _TERRAIN_H_
 #include "libs/rapidjson/document.h"
 #include <iostream>
+#include "libs/rapidjson/writer.h"
 
 class Terrain
 {
@@ -19,7 +20,7 @@ public:
 	const float* getAttributes();
 	const int getStartKm();
 	const int getEndKm();
-	rapidjson::Document toJsonObject();
+	void toJsonObject(rapidjson::StringBuffer* pStrBuffer);
 };
 
 #endif /* _TERRAIN_H_ */

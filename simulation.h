@@ -14,7 +14,7 @@ private:
 	Reader * reader;
 	TerrainGenerator * terrainGenerator;
 	GeneticAlgorithm * geneticAlgorithm;
-	std::queue<rapidjson::Document*> sharedBuffer;
+	std::queue<rapidjson::Document> sharedBuffer;
 	std::map<Terrain*, Vehicle*> solution;
 
 public:

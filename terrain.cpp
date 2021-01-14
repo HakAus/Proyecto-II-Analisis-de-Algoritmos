@@ -23,18 +23,24 @@ const int Terrain::getEndKm() {
 	return this->endKm; 
 }
 
-rapidjson::Document Terrain::toJsonObject()
+void Terrain::toJsonObject(rapidjson::StringBuffer* pStrBuffer)
 {
-	rapidjson::Document objValue;
-	objValue.SetObject();
-	rapidjson::Value strName(name, objValue.GetAllocator());
-	rapidjson::Document::AllocatorType& allocator = objValue.GetAllocator();
-	objValue.AddMember("name", strName, allocator);
-	objValue.AddMember("KmStart", startKm, allocator);
-	objValue.AddMember("KmEnd", endKm, allocator);
-	objValue.AddMember("Firmeza", attributes[0], allocator);
-	objValue.AddMember("Humedad", attributes[1], allocator);
-	objValue.AddMember("Agarre", attributes[2], allocator);
-	return objValue;
+	rapidjson::Writer<rapidjson::StringBuffer> writer(*pStrBuffer);
+	writer.StartObject();
+	std::string strName = name;
+	/*writer.Key("name");
+	writer.String(strName);*/
+	writer.Key("KmStart");
+	writer.Uint(startKm);
+	writer.Key("KmEnd");
+	writer.Uint(endKm);
+	writer.Key("Firmeza");
+	writer.Uint(attributes[0]);
+	writer.Key("Humedad");
+	writer.Uint(attributes[1]);
+	writer.Key("Agarre");
+	writer.Uint(attributes[2]);
+	writer.EndObject();
+	//std::cout << ("JsonData1 = %s", strbuf.GetString());
 }
 
