@@ -1,6 +1,6 @@
 #include "terrain-generator.h"
 
-TerrainGenerator::TerrainGenerator(const rapidjson::Document& pConfig,std::queue<rapidjson::Document> *pSharedBuffer)
+TerrainGenerator::TerrainGenerator(const rapidjson::Document& pConfig,std::queue<rapidjson::StringBuffer*> *pSharedBuffer)
 {
 	this->sharedBuffer = pSharedBuffer;
 	for (auto const& te : pConfig["terrains"].GetArray())
@@ -50,10 +50,11 @@ void TerrainGenerator::generateTerrains()//Puede encender un flag para no produc
 	}
 	writer.EndArray();
 	rapidjson::Writer<rapidjson::StringBuffer> newWriter(*strbuf);
-	stretch.Accept(newWriter);
-	assert(stretch.IsArray());
-	//sharedBuffer->push(stretch);
-	std::cout<<("JsonData1 = %s", strbuf->GetString());
+	stretch.Accept(newWriter);//DOM
+	std::ofstream MyFile("tramo.txt");
+	MyFile << strbuf->GetString();//SAX
+	sharedBuffer->push(strbuf);
+	MyFile.close();
 }
 
 void TerrainGenerator::showTerrains()
@@ -67,9 +68,7 @@ void TerrainGenerator::showTerrains()
 void TerrainGenerator::showQueue()
 {
 	std::cout << sharedBuffer->size();
-	for(int i = 0;i <sharedBuffer->size();i++)
-	{
-		assert(sharedBuffer->front().IsArray());
-	}
+	rapidjson::StringBuffer& SB = (*sharedBuffer->front());
+	std::cout<<SB.GetString();
 }
 
