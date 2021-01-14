@@ -6,7 +6,7 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
-
+#include "../libs/rapidjson/pointer.h"
 #include "../libs/rapidjson/document.h"
 #include "terrain.h"
 #include "terrain-prototype.h"
@@ -15,7 +15,7 @@
 class TerrainGenerator 
 {
 private:
-	int currentDistance;
+	int totalDistance;
 	int distance; //Valor de prueba
 	int totalTerrains;
 	int minimunTerrainLength;
@@ -27,6 +27,7 @@ private:
 	std::vector<TerrainPrototype*> terrains;
 
 	// Concurrency
+	bool producing;
 	std::thread producer;
 	SyncQueue * queue;
 
@@ -36,6 +37,8 @@ public:
 	std::vector<Terrain*> getStretch();
 	void start();
 	void join();
+
+	void pushToQueue(rapidjson::Value* value);
 
 	void generateStretch();
 	void showTerrains();

@@ -8,7 +8,8 @@ SyncQueue::SyncQueue(const rapidjson::Document& pConfig)
 
 void SyncQueue::push(rapidjson::Value* pValue)
 {
-	std::unique_lock<std::mutex> locker(this->mutex);
+	std::cout << "Try to push";
+;	std::unique_lock<std::mutex> locker(this->mutex);
 	this->condition.wait(locker, [this](){return this->queue.size() < this->maxSize;});
 	this->queue.push(pValue);
 	std::cout << "Se produjo " << pValue << std::endl;
