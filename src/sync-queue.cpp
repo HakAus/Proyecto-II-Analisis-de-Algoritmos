@@ -1,11 +1,12 @@
 #include "sync-queue.h"
 
-SyncQueue::SyncQueue(int pMaxSize)
+SyncQueue::SyncQueue(const rapidjson::Document& pConfig)
 {
-	maxSize = pMaxSize;
+
+	this->maxSize = pConfig["simulationConfig"].GetObject()["maxQueueItems"].GetInt();
 }
 
-void SyncQueue::push(int pValue)
+void SyncQueue::push(rapidjson::Value* pValue)
 {
 	std::unique_lock<std::mutex> locker(this->mutex);
 	this->condition.wait(locker, [this](){return this->queue.size() < this->maxSize;});
@@ -15,11 +16,11 @@ void SyncQueue::push(int pValue)
 	this->condition.notify_one();
 }
 
-int SyncQueue::pop()
+rapidjson::Value* SyncQueue::pop()
 {
 	std::unique_lock<std::mutex> locker(this->mutex);
 	this->condition.wait(locker, [this](){return !this->queue.empty();});
-	int result = this->queue.front();
+	rapidjson::Value* result = this->queue.front();
 	this->queue.pop();
 	std::cout << "Se consumio " << result << std::endl;
 	locker.unlock();
@@ -27,7 +28,28 @@ int SyncQueue::pop()
 	return result;
 }
 
+rapidjson::Value* SyncQueue::front()
+{
+	std::unique_lock<std::mutex> locker(this->mutex);
+	this->condition.wait(locker, [this](){return !this->queue.empty();});
+	rapidjson::Value* result = this->queue.front();
+	locker.unlock();
+	this->condition.notify_one();
+	return result;
+}
+
 bool SyncQueue::empty()
 {
-	return this->queue.empty();
+	std::unique_lock<std::mutex> locker(this->mutex);
+	bool result =  this->queue.empty();
+	locker.unlock();
+	return result;
+}
+
+int SyncQueue::size()
+{
+	std::unique_lock<std::mutex> locker(this->mutex);
+	int size = this->queue.size();
+	locker.unlock();
+	return size;
 }

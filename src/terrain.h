@@ -1,7 +1,7 @@
 #pragma once
 #ifndef _TERRAIN_H_
 #define _TERRAIN_H_
-#include "libs/rapidjson/document.h"
+#include "../libs/rapidjson/document.h"
 #include <iostream>
 
 class Terrain

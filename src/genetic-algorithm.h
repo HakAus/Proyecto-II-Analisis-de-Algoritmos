@@ -45,7 +45,7 @@ public:
 	void startEvolution();
 	bool checkConvergence();
 	Vehicle * getResult();
-	void start(int pDistance);
+	void start();
 	void join();
 	void getData();
 	void setSpecifications(const rapidjson::Document& pConfig);

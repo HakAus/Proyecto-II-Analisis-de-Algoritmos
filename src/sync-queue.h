@@ -6,20 +6,24 @@
 #include <condition_variable>
 #include <queue>
 #include <iostream>
+#include "../libs/rapidjson/document.h"
 
 class SyncQueue
 {
 private:
-	std::queue<int/*std::vector<Terrain*>*/> queue;
+	std::queue<rapidjson::Value*> queue;
 	std::mutex mutex;
 	std::condition_variable condition;
 	int maxSize;
 
 public:
-	SyncQueue(int pMaxSize);
-	void push(int pValue);
-	int pop();
+	SyncQueue(const rapidjson::Document& pConfig);
+	void push(rapidjson::Value* pValue);
+	rapidjson::Value* pop();
 	bool empty();
+	rapidjson::Value* front();
+	int size();
+
 };
 
 #endif /* _SYNCQUEUE_H_ */

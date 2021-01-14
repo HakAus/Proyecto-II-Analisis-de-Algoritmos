@@ -10,5 +10,4 @@ public:
 	Reader();
 	void read(const char * pJSON);
 	rapidjson::Document& getDocument();
-
 };

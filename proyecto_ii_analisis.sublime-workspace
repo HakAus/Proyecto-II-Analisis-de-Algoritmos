@@ -1,0 +1,1089 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"get",
+				"GetInt"
+			],
+			[
+				"ma",
+				"maxQueueItems"
+			],
+			[
+				"ge",
+				"generationWaitTime"
+			],
+			[
+				"gen",
+				"generateTerrains"
+			],
+			[
+				"Inc",
+				"include"
+			],
+			[
+				"con",
+				"condition_variable"
+			],
+			[
+				"produc",
+				"producerDone"
+			],
+			[
+				"prod",
+				"producerDone"
+			],
+			[
+				"pro",
+				"producerMutex"
+			],
+			[
+				"cons",
+				"consumerMutex"
+			],
+			[
+				"queue",
+				"queue_mutex"
+			],
+			[
+				"Terr",
+				"TerrainGenerator"
+			],
+			[
+				"sta",
+				"startConsumer"
+			],
+			[
+				"st",
+				"startProducer"
+			],
+			[
+				"und",
+				"unordered_map\tstandard header (since c++11)"
+			],
+			[
+				"pare",
+				"parent2"
+			],
+			[
+				"sho",
+				"showbits"
+			],
+			[
+				"mu",
+				"mutation_mask"
+			],
+			[
+				"re",
+				"result"
+			],
+			[
+				"mut",
+				"mutation_mask"
+			],
+			[
+				"inc",
+				"include"
+			],
+			[
+				"sum",
+				"suma_energia"
+			],
+			[
+				"dif",
+				"dif_abs_tt"
+			],
+			[
+				"simi",
+				"similitud_pliegue_terreno"
+			],
+			[
+				"dife",
+				"diferencia_torque_terreno"
+			],
+			[
+				"suma",
+				"suma_parcial_torque_terreno"
+			],
+			[
+				"di",
+				"diferencia_pliegue_terreno"
+			],
+			[
+				"sm",
+				"similitud_pliegue_terreno"
+			],
+			[
+				"si",
+				"similitud_pliegue_terreno"
+			],
+			[
+				"sim",
+				"similitud_torque_terreno"
+			],
+			[
+				"prin",
+				"printJavascriptObject"
+			],
+			[
+				"pCo",
+				"pColorNames"
+			],
+			[
+				"LIGH",
+				"LIGHTGREEN"
+			],
+			[
+				"LIGHT",
+				"LIGHTRED"
+			],
+			[
+				"LI",
+				"LIGHTBLUE"
+			],
+			[
+				"L",
+				"LIGHTGREEN"
+			],
+			[
+				"LIG",
+				"LIGHTRED"
+			],
+			[
+				"ol",
+				"oldIdTmp"
+			],
+			[
+				"oldV",
+				"oldValueTmp"
+			],
+			[
+				"old",
+				"oldValue"
+			],
+			[
+				"vale",
+				"values"
+			],
+			[
+				"rep",
+				"replacementValue"
+			],
+			[
+				"up",
+				"updateMinDistance"
+			],
+			[
+				"s",
+				"smallest"
+			],
+			[
+				"repl",
+				"replacementIndex"
+			],
+			[
+				"replac",
+				"replacedValue"
+			],
+			[
+				"update",
+				"updateBird"
+			],
+			[
+				"pBird",
+				"pBird1"
+			],
+			[
+				"upda",
+				"updateBird"
+			],
+			[
+				"top",
+				"topFurthestDistance"
+			],
+			[
+				"pI",
+				"pInitValue"
+			],
+			[
+				"merge",
+				"mergeIndex"
+			],
+			[
+				"print",
+				"printf\tprintf …"
+			],
+			[
+				"flo",
+				"flock"
+			],
+			[
+				"bir",
+				"birds"
+			],
+			[
+				"mar",
+				"mergePartialFlocks"
+			],
+			[
+				"mer",
+				"mergeIndex"
+			],
+			[
+				"pr",
+				"printIndex"
+			],
+			[
+				"pri",
+				"printIndex"
+			],
+			[
+				"bri",
+				"birdId"
+			],
+			[
+				"pB",
+				"pBirds"
+			],
+			[
+				"bird",
+				"birdId"
+			],
+			[
+				"pBi",
+				"pBirdLog"
+			],
+			[
+				"pBir",
+				"pBirdLog"
+			],
+			[
+				"NUM",
+				"NUM_BIRDS"
+			],
+			[
+				"flock",
+				"flockLogCount"
+			],
+			[
+				"do",
+				"double"
+			],
+			[
+				"pBr",
+				"pBirdLog"
+			],
+			[
+				"max",
+				"maxSpeed"
+			],
+			[
+				"p",
+				"printf\tprintf …"
+			],
+			[
+				"min",
+				"minSpeed"
+			],
+			[
+				"to",
+				"totalChanges"
+			],
+			[
+				"ti",
+				"top_furthest_distance"
+			],
+			[
+				"p_",
+				"p_distance"
+			],
+			[
+				"nth",
+				"nthrds"
+			],
+			[
+				"stdio",
+				"cstdio\tstandard header"
+			],
+			[
+				"Per",
+				"PermissionXUserType"
+			],
+			[
+				"User",
+				"UserData"
+			],
+			[
+				"Perm",
+				"PermissionType"
+			],
+			[
+				"U",
+				"UserData"
+			],
+			[
+				"De",
+				"DECLARE"
+			],
+			[
+				"pU",
+				"pUserType"
+			],
+			[
+				"total",
+				"totalAttempts"
+			],
+			[
+				"para",
+				"paragraph"
+			],
+			[
+				"w",
+				"words"
+			],
+			[
+				"chec",
+				"checkParagraph"
+			],
+			[
+				"che",
+				"checkParagraph"
+			],
+			[
+				"Para",
+				"Paragraph"
+			],
+			[
+				"word",
+				"wordFrequencies"
+			],
+			[
+				"pa",
+				"paragraph"
+			],
+			[
+				"uno",
+				"unordered_map\tstandard header (since c++11)"
+			],
+			[
+				"clea",
+				"cleanWord"
+			],
+			[
+				"ios",
+				"iostream\tstandard header"
+			],
+			[
+				"getL",
+				"getLowerBound"
+			],
+			[
+				"getR",
+				"getRightBound"
+			],
+			[
+				"attempts",
+				"attemptsDsitributed"
+			],
+			[
+				"test",
+				"testSizeDistribution"
+			],
+			[
+				"at",
+				"attempts"
+			],
+			[
+				"atte",
+				"attempt"
+			],
+			[
+				"tes",
+				"testSizeDistribution"
+			],
+			[
+				"TOT",
+				"TOTAL_ATTEMPTS"
+			],
+			[
+				"bes",
+				"bestY"
+			],
+			[
+				"te",
+				"testSizeDistribution"
+			],
+			[
+				"ra",
+				"rawPercetages"
+			],
+			[
+				"tot",
+				"totalPercetages"
+			],
+			[
+				"size",
+				"sizeIndex"
+			],
+			[
+				"righ",
+				"rightBound"
+			],
+			[
+				"col",
+				"columnSections"
+			],
+			[
+				"upp",
+				"upperBound"
+			],
+			[
+				"right",
+				"rightLimit"
+			],
+			[
+				"en",
+				"endl"
+			],
+			[
+				"ri",
+				"rightBound"
+			],
+			[
+				"tr",
+				"tryCount"
+			],
+			[
+				"lo",
+				"lowerLimit"
+			],
+			[
+				"lef",
+				"leftLimit"
+			],
+			[
+				"pM",
+				"pMask"
+			],
+			[
+				"r",
+				"readfile\tRead File Into Vector"
+			],
+			[
+				"pX",
+				"pXOrigin"
+			],
+			[
+				"per",
+				"percentagePerColumn"
+			],
+			[
+				"me",
+				"meanSimilarity"
+			],
+			[
+				"l",
+				"lowerBound"
+			],
+			[
+				"x",
+				"xBounds"
+			],
+			[
+				"colu",
+				"columnMask"
+			],
+			[
+				"mas",
+				"pMaskSize"
+			],
+			[
+				"W_D",
+				"W_DISTRIBUTION"
+			],
+			[
+				"mask",
+				"maskSize"
+			],
+			[
+				"getRan",
+				"getRandomIntInRage"
+			],
+			[
+				"row",
+				"rowIndex"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/main.cpp",
+			"settings":
+			{
+				"buffer_size": 170,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/gcc.sublime-build",
+					""
+				],
+				[
+					"Packages/User/gcc.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/User/gcc.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/gcc.sublime-build",
+					""
+				],
+				[
+					"Packages/User/gcc.sublime-build",
+					"openmp"
+				]
+			],
+			[
+				"Packages/User/gcc.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 358.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"ope",
+				"Terminus: Open Default Shell in Tab (View)"
+			],
+			[
+				"opc",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"op",
+				"Terminus: Open Default Shell in Tab (View)"
+			],
+			[
+				"open",
+				"Terminus: Open Default Shell in Tab (View)"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"ter",
+				"Terminus: Open Default Shell in Panel"
+			],
+			[
+				"Pa",
+				"Package Control: Remove Package"
+			],
+			[
+				"floobits",
+				"Floobits - Help"
+			],
+			[
+				"o",
+				"Terminus: Open Default Shell in Tab (View)"
+			],
+			[
+				"lin",
+				"Anaconda: Disable linting on this file"
+			],
+			[
+				"termin",
+				"Terminus: Open Default Shell in Panel"
+			],
+			[
+				"Term",
+				"Terminus: Open Default Shell in Panel"
+			],
+			[
+				"Package In",
+				"Package Control: Install Package"
+			],
+			[
+				"lint",
+				"Anaconda: Disable linting on this file"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"floo",
+				"Floobits - Join Recent Workspace"
+			],
+			[
+				"package control: I",
+				"Package Control: Install Package"
+			],
+			[
+				"foo",
+				"Floobits - Join Workspace"
+			],
+			[
+				"flo",
+				"Floobits - Join Workspace"
+			],
+			[
+				"Floobits - Complete Sign Up",
+				"Floobits - Complete Sign Up"
+			],
+			[
+				"reom",
+				"Remote: Connect to Session"
+			],
+			[
+				"",
+				"About"
+			],
+			[
+				"Remote",
+				"Remote: Host Session"
+			],
+			[
+				"Pac",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 444.0
+	},
+	"console":
+	{
+		"height": 151.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos"
+	],
+	"file_history":
+	[
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/sync-queue.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/sync-queue.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/simulation.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/terrain-generator.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/terrain-generator.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/reader.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/reader.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/main.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/simulation.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/input/config.json",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/genetic-algorithm.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/genetic-algorithm.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/specification.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/terrain.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/terrain-generator.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/simulation.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/terrain-prototype.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/terrain.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/terrain-prototype.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/main",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/src/random.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/terrain-prototype.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/terrainPrototype.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/terrain-generator.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/terrainPrototype.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/Random.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/terrain.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/terrain.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/main.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/simulation.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/genetic-algorithm.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/genetic-algorithm.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/sync-queue.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/sync-queue.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/vehicle.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/.gitignore",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/reader.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/reader.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/terrain_generator.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/genetic_algorithm.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/vehicle.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/specification.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/specification.h",
+		"/Users/austinedwardhakansonhidalgo/Downloads/eigen-3.3.9/README.md",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/Proyecto-II-Analisis-de-Algoritmos/bits.cpp",
+		"/Users/austinedwardhakansonhidalgo/Desktop/bits.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Proyecto II/prueba.cpp",
+		"/Users/austinedwardhakansonhidalgo/Desktop/MENDEZ_HIDALGO___MARCOS_VINICIO_.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso5/W_Finder.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso5/Rectangle.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso5/Rectangle.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso5/W_Finder.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso5/Matrix.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso5/Matrix.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso5/caso5.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso6/RankingGenerator/main.cpp",
+		"/Users/austinedwardhakansonhidalgo/Desktop/main.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso6/RankingGenerator/mainCritical.cpp",
+		"/Users/austinedwardhakansonhidalgo/Desktop/mainCritical.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso6/RankingGenerator/Instrucciones de uso.txt",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso6/RankingGenerator/structs.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso6/RankingGenerator/functions.cpp",
+		"/Users/austinedwardhakansonhidalgo/Desktop/main_original.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso6/RankingGenerator/rank.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso6/RankingGenerator/bird.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso6/RankingGenerator/bird.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Quices/Quiz #19#20",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso6/RankingGenerator/RankingGenerator.h",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso6/RankingGenerator/RankingGenerator.cpp",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso6/Flocking/js/bird.js",
+		"/Users/austinedwardhakansonhidalgo/Desktop/quiz_p2",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/database/tables/insert-permission-x-usertype.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/database/tables/permission-x-usertype.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/database/tables/user-type.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/database/tables/permission-x-userdata.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/database/tables/insert-user-types.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/database/tables/insert-permission-types.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/database/tables/insert-permissions.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/database/tables/insert-permissino-types.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/database/tables/User.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/database/stored-procedures/F_GetIdAndPassword.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/database/stored-procedures/SP_CreateUser.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/database/stored-procedures/F_GetPassword.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/database/stored-procedures/SP_GetPassword.sql",
+		"/Users/austinedwardhakansonhidalgo/Library/Application Support/discord/0.0.260/modules/discord_spellcheck/node_modules/any-promise/register/lie.js",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/StoredProcedures/SP_GetPassword.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/StoredProcedures/SP_CreateUser.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/Tables/InsertUserTypes.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/Tables/User.sql",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Diseño de software/Proyecto/Proyecto-HNP/Tables/UserType.sql",
+		"/Users/austinedwardhakansonhidalgo/Desktop/test.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/Entregable/numeros_felices.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/Entregable/anagrama.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/SEGURA_LAURENCIO___GILBERTH_FRANCISCO_/Quiz03.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/PIZARRO_MORALES___MINOR_ENRIQUE_/Quiz3 - Minor Pizarro.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/RAMIREZ_BARRANTES___GERSON_/Ejercicios Prolog Quiz 3.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/MORALES_BONILLA___LINDSAY_FERNANDA_/ejercicios.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/MENDEZ_HIDALGO___MARCOS_VINICIO_/Méndez_Marcos_Quiz_III.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/HERRERA_BRENES___DANIEL_ARMANDO_/Quiz22.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/PIEDRA_CAMACHO___GABRIEL_OMAR_/Quiz3Ej2.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/PIEDRA_CAMACHO___GABRIEL_OMAR_/Quiz3Ej1.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/Quiz#3/Feliz.pl",
+		"/Users/austinedwardhakansonhidalgo/.floorc.json",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/FERNANDEZ_FUENTES___KENNETH_ESTEBAN_/Quiz 3 - Numero Feliz.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/FERNANDEZ_FUENTES___KENNETH_ESTEBAN_/Quiz 3 - Anagrama.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/CASTRO_ROLDAN___MARVIN_ARMANDO_/númerosFelices.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/CASTRO_ROLDAN___MARVIN_ARMANDO_/anagramas.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/quiz prolog 3/quiz.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Quiz 3/AGUERO_HERNANDEZ___JAVITH_/numero_Feliz.pl",
+		"/Users/austinedwardhakansonhidalgo/Downloads/Tarea_05_python/slides-el-problema-de-las-8-reinas-en-python.html",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/VEGA_RODRIGUEZ___LUIS_ANGEL_.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/TENORIO_CHEVEZ___KENDALL_.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/SHUM_ESTRADA___RICARDO_ALBERTO_.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/SEGURA_LAURENCIO___GILBERTH_FRANCISCO_.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/RAMIREZ_BARRANTES___GERSON_.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/PULIDO_CASTAGNO___DANIEL_.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/PIZARRO_MORALES___MINOR_ENRIQUE_/TareaSistemaDeMedidas.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/PIZARRO_MORALES___MINOR_ENRIQUE_.zip",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/PIEDRA_CAMACHO___GABRIEL_OMAR_.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/MORALES_BONILLA___LINDSAY_FERNANDA_.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/MENDEZ_HIDALGO___MARCOS_VINICIO_.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/AGUERO_HERNANDEZ___JAVITH_.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/MASIS_MARIN___BRYAN_ENRIQUE_.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/FERNANDEZ_FUENTES___KENNETH_ESTEBAN_/Tarea4.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/CASTRO_ROLDAN___MARVIN_ARMANDO_.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Asistencias/Programación lógica/Tarea 4/BARAHONA_MARTINEZ___JOSE_FABIAN_.pl",
+		"/Users/austinedwardhakansonhidalgo/Desktop/conversor.pl",
+		"/Users/austinedwardhakansonhidalgo/Documents/Ing. Computación/VI Semestre/Análisis de algoritmos/Tareas/Caso5/Paragraph.cpp"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/main.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 170,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 37.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.Terminus":
+	{
+		"height": 427.0
+	},
+	"output.Terminus 10":
+	{
+		"height": 121.0
+	},
+	"output.Terminus 11":
+	{
+		"height": 121.0
+	},
+	"output.Terminus 12":
+	{
+		"height": 121.0
+	},
+	"output.Terminus 13":
+	{
+		"height": 121.0
+	},
+	"output.Terminus 14":
+	{
+		"height": 121.0
+	},
+	"output.Terminus 15":
+	{
+		"height": 121.0
+	},
+	"output.Terminus 16":
+	{
+		"height": 121.0
+	},
+	"output.Terminus 2":
+	{
+		"height": 292.0
+	},
+	"output.Terminus 3":
+	{
+		"height": 237.0
+	},
+	"output.Terminus 4":
+	{
+		"height": 121.0
+	},
+	"output.Terminus 5":
+	{
+		"height": 121.0
+	},
+	"output.Terminus 6":
+	{
+		"height": 121.0
+	},
+	"output.Terminus 7":
+	{
+		"height": 121.0
+	},
+	"output.Terminus 8":
+	{
+		"height": 121.0
+	},
+	"output.Terminus 9":
+	{
+		"height": 121.0
+	},
+	"output.exec":
+	{
+		"height": 200.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/User/gcc.sublime-build",
+	"project": "proyecto_ii_analisis.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"tarea1.",
+				"tarea1.sublime-project"
+			],
+			[
+				"",
+				"~/Documents/SistemaDePuntoDeVenta/SPV_Application/src/view/user/UserAccessStyle.css"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 210.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 592.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 256.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

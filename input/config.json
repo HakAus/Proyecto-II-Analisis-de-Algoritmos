@@ -1,5 +1,11 @@
 {
-	"configuration":{
+	"simulationConfig":
+	{
+		"maxQueueItems":100,
+		"stretchGenerationWaitSeconds":4
+	},
+	"geneticAlgoConfig":
+	{
 		"travelDistance":10,
 		"populationAmount":15,
 		"convergencePercentage":15,

@@ -17,14 +17,14 @@ class Simulation
 
 private:
 	Reader * reader;
+	SyncQueue * queue;
 	TerrainGenerator * terrainGenerator;
 	GeneticAlgorithm * geneticAlgorithm;
 	std::map<Terrain*, Vehicle*> solution;
-	SyncQueue * queue;
-
+	
 public:
 	Simulation();
-	void start(int pDistance);
+	void start();
 	void join();
 	void showSolution();
 };

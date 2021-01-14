@@ -9,8 +9,7 @@ GeneticAlgorithm::GeneticAlgorithm(const rapidjson::Document& pConfig, SyncQueue
 	this->distanceProcessed = 0;
 	this->totalDistance = 0;
 	this->totalEnergy = 0;
-	this->queue = pSharedQueue;
-	
+	this->queue = pSharedQueue;	
 	this->setSpecifications(pConfig);
 }
 
@@ -121,9 +120,8 @@ void GeneticAlgorithm::evolve()
 	}
 }
 
-void GeneticAlgorithm::start(int pDistance)
+void GeneticAlgorithm::start()
 {
-	this->totalDistance = pDistance;
 	// this->consumer = std::thread(&GeneticAlgorithm::startEvolution, this);
 }
 

@@ -2,17 +2,18 @@
 
 Simulation::Simulation()
 {
-	this->queue = new SyncQueue(100);
 	this->reader = new Reader();
 	reader->read("../input/config.json");
+	this->queue = new SyncQueue(reader->getDocument());	
 	this->terrainGenerator = new TerrainGenerator(reader->getDocument(), this->queue);
 	this->geneticAlgorithm = new GeneticAlgorithm(reader->getDocument(), this->queue);
 }
 
-void Simulation::start(int pDistance)
+void Simulation::start()
 {
-	terrainGenerator->start(pDistance);
-	geneticAlgorithm->start(pDistance);
+	std::cout << "start" << std::endl;
+	terrainGenerator->start();
+	geneticAlgorithm->start();
 }
 
 void Simulation::join()
