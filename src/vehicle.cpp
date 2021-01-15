@@ -1,5 +1,5 @@
 #include "vehicle.h"
-
+#include <iostream>
 Vehicle::Vehicle(unsigned short pChromosome)
 {
 	this->chromosome = pChromosome;

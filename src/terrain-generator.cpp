@@ -44,6 +44,7 @@ void TerrainGenerator::generateStretch()//Puede encender un flag para no produci
 	int stretchLength = Random::RandomRange(minStretchLength, maxStretchLength);
 	int currentDistance = 0;
 	rapidjson::Document stretch;
+	stretch.SetArray();
 	rapidjson::StringBuffer sb;
 	rapidjson::StringBuffer* strbuf = &sb;
 	rapidjson::Writer<rapidjson::StringBuffer> writer(*strbuf);
@@ -99,7 +100,7 @@ void TerrainGenerator::showQueue()
 	for(int i = 0;i <queue->size();i++)
 	{
 		rapidjson::Value* val = queue->front();
-		// val->GetArray();
+		//const rapidjson::Value::ConstArray& array = val->GetArray();
 	}
 }
 
