@@ -5,35 +5,63 @@ SyncQueue::SyncQueue(const rapidjson::Document& pConfig)
 
 	this->maxSize = pConfig["simulationConfig"].GetObject()["maxQueueItems"].GetInt();
 }
-
-void SyncQueue::push(rapidjson::Value* pValue)
+void SyncQueue::print()
 {
-	std::cout << "Try to push";
-;	std::unique_lock<std::mutex> locker(this->mutex);
+	std::queue<rapidjson::Document*> copy;
+	while(!this->queue.empty())
+	{
+		rapidjson::Document* doc = this->queue.front();
+		copy.push(doc);
+		for (auto const& tramo : doc->GetArray())
+		{
+			std::cout << "--------------------" << std::endl;
+			int kmStart = tramo.GetObject()["KmStart"].GetInt();
+			std::cout << "KmStart: " << kmStart << std::endl;
+			int kmEnd = tramo.GetObject()["KmEnd"].GetInt();
+			std::cout << "KmEnd: " << kmEnd << std::endl;
+			int firmeza = tramo.GetObject()["Firmeza"].GetInt();
+			std::cout << "Firmeza: " << firmeza << std::endl;
+			int humedad = tramo.GetObject()["Humedad"].GetInt();
+			std::cout << "Humedad: " << humedad << std::endl;
+			int agarre = tramo.GetObject()["Agarre"].GetInt();
+			std::cout << "Agarre: " << agarre << std::endl;
+			std::cout << "--------------------" << std::endl;
+		}
+		this->queue.pop();
+	}
+	while (!copy.empty())
+	{
+		this->queue.push(copy.front());
+		copy.pop();
+	}	
+	
+}
+
+void SyncQueue::push(rapidjson::Document* pValue)
+{
+	std::unique_lock<std::mutex> locker(this->mutex);
 	this->condition.wait(locker, [this](){return this->queue.size() < this->maxSize;});
 	this->queue.push(pValue);
-	std::cout << "Se produjo " << pValue << std::endl;
 	locker.unlock();
 	this->condition.notify_one();
 }
 
-rapidjson::Value* SyncQueue::pop()
+rapidjson::Document* SyncQueue::pop()
 {
 	std::unique_lock<std::mutex> locker(this->mutex);
 	this->condition.wait(locker, [this](){return !this->queue.empty();});
-	rapidjson::Value* result = this->queue.front();
+	rapidjson::Document* result = this->queue.front();
 	this->queue.pop();
-	std::cout << "Se consumio " << result << std::endl;
 	locker.unlock();
 	this->condition.notify_one();
 	return result;
 }
 
-rapidjson::Value* SyncQueue::front()
+rapidjson::Document* SyncQueue::front()
 {
 	std::unique_lock<std::mutex> locker(this->mutex);
 	this->condition.wait(locker, [this](){return !this->queue.empty();});
-	rapidjson::Value* result = this->queue.front();
+	rapidjson::Document* result = this->queue.front();
 	locker.unlock();
 	this->condition.notify_one();
 	return result;

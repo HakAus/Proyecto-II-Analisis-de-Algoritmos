@@ -25,41 +25,39 @@ GeneticAlgorithm::GeneticAlgorithm()
 	generateMask(8);
 }
 
+void GeneticAlgorithm::loadSpecificationTable(const rapidjson::Document& pConfig, std::unordered_map<int,Specification*> pHashTable, 
+							const char* pTableName)
+{
+	for (auto const& torqueItr : pConfig[pTableName].GetArray())
+	{
+		int id =  torqueItr.GetObject()["id"].GetInt();
+		int energy = torqueItr.GetObject()["energy"].GetInt();
+		int ranges[6];
+		int counter = 0;
+
+		for (auto & attribute : torqueItr.GetObject()["ranges"].GetObject())
+		{
+			ranges[counter] = attribute.value.GetArray()[0].GetInt();
+			ranges[counter+1] = attribute.value.GetArray()[1].GetInt();
+			counter += 2;
+		}
+		pHashTable[id] = new Specification(id,ranges,energy);
+	}
+}
 void GeneticAlgorithm::setSpecifications(const rapidjson::Document& pConfig)
 {
-// 	for (auto const& te : pConfig["terrains"].GetArray())
-// 	{
-// 		int energy;
-// 		int ranges[6];
-// 		int counter = 0;
-// 		for (auto & itr : te.GetObject())
-// 		{
-// 			if (itr.value.IsInt())
-// 				energy = itr.value.GetInt();
-// 			else if (itr.value.IsArray())
-// 			{
-				
-// 				ranges[counter] = itr.value.GetArray()[0].GetInt();
-// 				ranges[counter+1] = itr.value.GetArray()[1].GetInt();
-// 				counter += 2;
-// 			}
-// 		}
-// 		terrains.push_back(new TerrainPrototype(name,ranges));
-// 	}
-// 	for (auto const& terru : terrains) 
-// 	{
-// 		std::cout << terru->toString();
-// 	}	
-// }
+	loadSpecificationTable(pConfig, this->torqueTable, "torqueTable");
+	loadSpecificationTable(pConfig, this->treadTable, "treadTable");
+}
 
-// void GeneticAlgorithm::getData()
-// {
+void GeneticAlgorithm::getData()
+{
 
-// 	while (this->distanceProcessed < this->totalDistance)
-// 	{
-// 		int result = this->queue->pop();
-// 		this->distanceProcessed++;
-// 	}
+	while (this->distanceProcessed < this->totalDistance)
+	{
+		rapidjson::Value* result = this->queue->pop();
+		this->distanceProcessed++;
+	}
 }
 
 void GeneticAlgorithm::startPopulation()
@@ -151,15 +149,15 @@ void GeneticAlgorithm::generateMask(int pBytePos)
 
 void GeneticAlgorithm::mutate(Vehicle * pChild)
 {
-		unsigned short pos = Random::RandomRange(0, 16);
-	 	unsigned short mask = 1 << pos; 
-		unsigned short childChromosome = pChild->getChromosome();
-	 	bool has_bit = childChromosome & mask;
-		unsigned short newChromosome = (childChromosome & ~mask) | ((!has_bit << pos) & mask);
-		printTest("Pos:", pos);
-		showbits("OldChromosome", childChromosome);
-		showbits("NewChromosome", newChromosome);
-		pChild->setChromosome(newChromosome);
+	unsigned short pos = Random::RandomRange(0, 16);
+ 	unsigned short mask = 1 << pos; 
+	unsigned short childChromosome = pChild->getChromosome();
+ 	bool has_bit = childChromosome & mask;
+	unsigned short newChromosome = (childChromosome & ~mask) | ((!has_bit << pos) & mask);
+	printTest("Pos:", pos);
+	showbits("OldChromosome", childChromosome);
+	showbits("NewChromosome", newChromosome);
+	pChild->setChromosome(newChromosome);
 }
 
 void GeneticAlgorithm::tryMutation(Vehicle * pChild)

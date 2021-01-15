@@ -15,8 +15,8 @@
 class TerrainGenerator 
 {
 private:
-	int totalDistance;
-	int distance; //Valor de prueba
+	int currentDistance;
+	int distanceGoal; //Valor de prueba
 	int totalTerrains;
 	int minimunTerrainLength;
 	int maximunTerrainLength;
@@ -38,7 +38,7 @@ public:
 	void start();
 	void join();
 
-	void pushToQueue(rapidjson::Value* value);
+	// void pushToQueue(rapidjson::Value* value);
 
 	void generateStretch();
 	void showTerrains();

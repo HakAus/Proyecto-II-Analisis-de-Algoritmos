@@ -54,4 +54,6 @@ public:
 	void join();
 	void getData();
 	void setSpecifications(const rapidjson::Document& pConfig);
+	void loadSpecificationTable(const rapidjson::Document& pConfig, std::unordered_map<int,Specification*> pHashTable, 
+								const char* pTableName);
 };

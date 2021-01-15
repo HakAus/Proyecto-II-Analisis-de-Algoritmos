@@ -1,12 +1,13 @@
 #include "specification.h"
 
-Specification::Specification(int pFirmness[2], int pHumidity[2], int pGrip[2], int pEnergy)
+Specification::Specification(int pId, int pAttributes[6], int pEnergy)
 {
+	this->id = pId;
 	for (int index = 0; index < 2; index++)
 	{
-		this->firmness[index] = pFirmness[index];
-		this->humidity[index] = pHumidity[index];
-		this->grip[index] = pGrip[index];
+		this->firmness[index] = pAttributes[index];
+		this->humidity[index] = pAttributes[index+2]; 
+		this->grip[index] = pAttributes[index+4];
 	}
 	this->energy = pEnergy;
 }
