@@ -1,13 +1,14 @@
 #include <queue>
 #include <vector>
-#include <iostream>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <thread>
 #include <mutex>
 #include <condition_variable>
 #include "../libs/rapidjson/pointer.h"
 #include "../libs/rapidjson/document.h"
+#include "../libs/rapidjson/prettywriter.h"
 #include "terrain.h"
 #include "terrain-prototype.h"
 #include "sync-queue.h"
@@ -38,7 +39,7 @@ public:
 	void start();
 	void join();
 
-	// void pushToQueue(rapidjson::Value* value);
+	void pushToQueue(rapidjson::Document* value);
 
 	void generateStretch();
 	void showTerrains();

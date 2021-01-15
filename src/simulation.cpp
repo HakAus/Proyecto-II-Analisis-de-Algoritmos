@@ -13,13 +13,13 @@ void Simulation::start()
 {
 	std::cout << "start" << std::endl;
 	terrainGenerator->start();
-	// geneticAlgorithm->start();
+	geneticAlgorithm->start();
 }
 
 void Simulation::join()
 {
 	terrainGenerator->join();
-	// geneticAlgorithm->join();
+	geneticAlgorithm->join();
 }
 
 void Simulation::showSolution()

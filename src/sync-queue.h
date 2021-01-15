@@ -15,15 +15,18 @@ private:
 	std::mutex mutex;
 	std::condition_variable condition;
 	int maxSize;
+	std::string message;
 
 public:
 	SyncQueue(const rapidjson::Document& pConfig);
+	~SyncQueue();
 	void push(rapidjson::Document* pValue);
 	rapidjson::Document* pop();
 	bool empty();
 	rapidjson::Document* front();
 	int size();
-	void print();
+	void toString();
+	std::string getInfo();
 
 };
 

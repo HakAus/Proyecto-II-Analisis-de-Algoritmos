@@ -1,19 +1,28 @@
 #include "genetic-algorithm.h"
 #include "random.cpp"
 
+// PARA IMPRIMIR
+
+// rapidjson::StringBuffer sb;
+//    rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
+//    stretch->Accept(writer);
+//    auto str = sb.GetString();
+//    printf("%s\n", str);
+
 GeneticAlgorithm::GeneticAlgorithm(const rapidjson::Document& pConfig, SyncQueue* pSharedQueue)
 {
 	this->convergencePercentage = 0;
 	this->mutationPercentage = 0;
-	this->populationAmount = 0;
+	this->populationAmount = 200;
 	this->distanceProcessed = 0;
-	this->totalDistance = 0;
+	this->totalDistance = 200;
 	this->totalEnergy = 0;
 	this->queue = pSharedQueue;	
 	//generateMask(11);
 	this->setSpecifications(pConfig);
 }
 
+// DEBUG
 GeneticAlgorithm::GeneticAlgorithm()
 {
 	this->convergencePercentage = 0;
@@ -25,8 +34,16 @@ GeneticAlgorithm::GeneticAlgorithm()
 	generateMask(8);
 }
 
+GeneticAlgorithm::~GeneticAlgorithm()
+{
+	while (!this->population.empty())
+	{
+		this->population.pop_back();
+	}
+}
+
 void GeneticAlgorithm::loadSpecificationTable(const rapidjson::Document& pConfig, std::unordered_map<int,Specification*> pHashTable, 
-							const char* pTableName)
+											  const char* pTableName)
 {
 	for (auto const& torqueItr : pConfig[pTableName].GetArray())
 	{
@@ -50,20 +67,35 @@ void GeneticAlgorithm::setSpecifications(const rapidjson::Document& pConfig)
 	loadSpecificationTable(pConfig, this->treadTable, "treadTable");
 }
 
-void GeneticAlgorithm::getData()
+void GeneticAlgorithm::getStretch()
 {
-
 	while (this->distanceProcessed < this->totalDistance)
 	{
-		rapidjson::Value* result = this->queue->pop();
-		this->distanceProcessed++;
+		rapidjson::Document* stretch = this->queue->pop();
+
+		int distance = 0;
+
+		for (const auto& terrainJSONObject : stretch->GetArray())
+		{
+			Terrain* terrain = new Terrain(terrainJSONObject);
+			this->currentStretch.push_back(terrain);
+			distance += (terrain->getEndKm() - terrain->getStartKm());
+			std::cout << terrain->getEndKm() << std::endl;
+			std::cout << terrain->getStartKm() << std::endl;
+			for (int i = 0; i < 3; i++)
+				std::cout << terrain->getAttributes()[i] << std::endl;
+		}
+		this->distanceProcessed += distance;
+		std::cout << "Distance processed (Genetic) : " << this->distanceProcessed << std::endl;
 	}
 }
 
 void GeneticAlgorithm::startPopulation()
 {
-	// for ()
-	// 	new Vehicle(random);
+	for (int amount = 0; amount < this->populationAmount; amount++)
+	{
+		this->population.push_back(new Vehicle(Random::RandomChromosome()));
+	}
 }
 
 
@@ -74,16 +106,17 @@ bool GeneticAlgorithm::checkConvergence()
 
 void GeneticAlgorithm::startEvolution()
 {
-	/* 
+	this->getStretch();
  	this->startPopulation();
+ 	
  	while (!this->checkConvergence())
  		this->evolve();
-	*/
+	
 }
 
 void GeneticAlgorithm::calculateFitness()
 {
-
+	//Pop a poblacion cuando fitness hacia priority
 }
 
 std::queue<Vehicle*> GeneticAlgorithm::selectFittestParents()
@@ -168,6 +201,12 @@ void GeneticAlgorithm::tryMutation(Vehicle * pChild)
 	else printTest("No mutation", 0);
 }
 
+void GeneticAlgorithm::setNewGeneration()
+{
+	//Priority para crossover pop padres a poblacions e hijos a poblacion
+	//Resto de poblacion pop de priority
+}
+
 void GeneticAlgorithm::evolve()
 {
 	this->calculateFitness();
@@ -184,6 +223,7 @@ void GeneticAlgorithm::evolve()
 		for (int twinIndex = 0; twinIndex < 2; twinIndex++)
 		{
 			tryMutation(twins[twinIndex]);
+
 			// put into population
 		}
 	}
@@ -191,7 +231,7 @@ void GeneticAlgorithm::evolve()
 
 void GeneticAlgorithm::start()
 {
-	// this->consumer = std::thread(&GeneticAlgorithm::startEvolution, this);
+	this->consumer = std::thread(&GeneticAlgorithm::startEvolution, this);
 }
 
 void GeneticAlgorithm::join()

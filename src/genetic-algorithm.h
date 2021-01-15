@@ -7,6 +7,7 @@
 #include <unordered_map>
 
 #include "../libs/rapidjson/document.h"
+#include "../libs/rapidjson/prettywriter.h"
 #include "vehicle.h"
 #include "terrain.h"
 #include "specification.h"
@@ -39,6 +40,7 @@ private:
 public:
 	GeneticAlgorithm(const rapidjson::Document& pConfig, SyncQueue* pSharedQueue);
 	GeneticAlgorithm();
+	~GeneticAlgorithm();
 	void startPopulation();
 	void calculateFitness();
 	std::queue<Vehicle*> selectFittestParents();
@@ -52,7 +54,7 @@ public:
 	Vehicle * getResult();
 	void start();
 	void join();
-	void getData();
+	void getStretch();
 	void setSpecifications(const rapidjson::Document& pConfig);
 	void loadSpecificationTable(const rapidjson::Document& pConfig, std::unordered_map<int,Specification*> pHashTable, 
 								const char* pTableName);

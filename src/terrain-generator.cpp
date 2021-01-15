@@ -3,7 +3,7 @@
 TerrainGenerator::TerrainGenerator(const rapidjson::Document& pConfig, SyncQueue* pSharedQueue)
 {
 	this->currentDistance = 0;
-	this->distanceGoal = 200;
+	this->distanceGoal = 400;
 	this->totalTerrains = 0;
 	this->minimunTerrainLength = 5;
 	this->maximunTerrainLength = 20;
@@ -45,10 +45,12 @@ void TerrainGenerator::generateStretch()//Puede encender un flag para no produci
 	int stretchCurrentDistance = 0;
 	rapidjson::Document* stretch = new rapidjson::Document();
 	stretch->SetArray();
-	rapidjson::StringBuffer sb;
-	rapidjson::StringBuffer* strbuf = &sb;
-	rapidjson::Writer<rapidjson::StringBuffer> writer(*strbuf);
-	writer.StartArray();
+	// rapidjson::StringBuffer* sb = new rapidjson::StringBuffer();
+	// rapidjson::StringBuffer* strbuf = &sb;
+	// rapidjson::Writer<rapidjson::StringBuffer>* writer = new rapidjson::Writer<rapidjson::StringBuffer>(*sb);
+	// writer->StartArray();
+	// rapidjson::Value terrainArray(rapidjson::kArrayType);
+	// stretch->AddMember(stretch->GetAllocator())
 	while (stretchCurrentDistance < stretchLength)
 	{
 		int terrainDistance = Random::RandomRange(this->minimunTerrainLength, this->maximunTerrainLength);
@@ -63,18 +65,47 @@ void TerrainGenerator::generateStretch()//Puede encender un flag para no produci
 				terrainDistance = distanceLeft;
 		int pos = Random::RandomRange(0, terrains.size());
 		Terrain* terrain = terrains.at(pos)->getTerrain(this->currentDistance, terrainDistance, this->minimunTerrainLength, this->maximunTerrainLength);
-		terrain->toJsonObject(strbuf);
+		rapidjson::Value* terrainJSONObject = terrain->toJsonObject(stretch->GetAllocator());
+		stretch->PushBack(*terrainJSONObject,stretch->GetAllocator());
+		// terrainArray.PushBack(*terrainJSONObject,stretch->GetAllocator());
 		stretchCurrentDistance += terrainDistance;
 		this->currentDistance += terrainDistance;
 	}
-	writer.EndArray();
-	rapidjson::Writer<rapidjson::StringBuffer> newWriter(*strbuf);
-	stretch->Accept(newWriter);
-	/*rapidjson::Pointer("Value").Set(stretch, stretch.GetArray());
-	rapidjson::Value* object = rapidjson::Pointer("Value").Get(stretch);*/
-	// rapidjson::Value* object = &stretch;
+	
+	
+
+
+
+	// std::ofstream out("output.json");
+ //    rapidjson::Value value = &stretch;
+
+ //    rapidjson::StringBuffer buffer;
+
+ //    buffer.Clear();
+
+ //    rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
+ //    value.Accept(writer);
+ //    out << buffer.GetString();
+
+ //    out.close();
+	// writer->EndArray();
+	// rapidjson::Writer<rapidjson::StringBuffer> newWriter(*sb);
+	// stretch->Accept(newWriter);
+	// std::cout << sb->GetString() << std::endl;
 	queue->push(stretch);
 }
+
+// const char *GetJsonText()
+// {
+//   rapidjson::StringBuffer buffer;
+
+//   buffer.Clear();
+
+//   rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+//   doc.Accept(writer);
+
+//   return strdup( buffer.GetString() );
+// }
 
 void TerrainGenerator::showTerrains()
 {
@@ -88,34 +119,32 @@ void TerrainGenerator::generate()
 {
 	while (this->currentDistance < this->distanceGoal)
 	{
-		std::cout << "Current distance= " << this->currentDistance << " vs Distance Goal= " << this->distanceGoal << std::endl;
 		this->generateStretch();
-		this->queue->print();
 		std::this_thread::sleep_for (std::chrono::seconds(this->generationWaitTime));	// para frenar la genearacion de terrenos
 	}
 }
 
 void TerrainGenerator::showQueue()
 {
-	// for(int i = 0;i <queue->size();i++)
-	// {
-	// 	rapidjson::Value* val = queue->front();
-	// 	for (auto const& tramo : val->GetArray())
-	// 	{
-	// 		std::cout << "--------------------" << std::endl;
-	// 		int kmStart = tramo.GetObject()["KmStart"].GetInt();
-	// 		std::cout << "KmStart: " << kmStart << std::endl;
-	// 		int kmEnd = tramo.GetObject()["KmEnd"].GetInt();
-	// 		std::cout << "KmEnd: " << kmEnd << std::endl;
-	// 		int firmeza = tramo.GetObject()["Firmeza"].GetInt();
-	// 		std::cout << "Firmeza: " << firmeza << std::endl;
-	// 		int humedad = tramo.GetObject()["Humedad"].GetInt();
-	// 		std::cout << "Humedad: " << humedad << std::endl;
-	// 		int agarre = tramo.GetObject()["Agarre"].GetInt();
-	// 		std::cout << "Agarre: " << agarre << std::endl;
-	// 		std::cout << "--------------------" << std::endl;
-	// 	}
-	// }
+	for(int i = 0;i <queue->size();i++)
+	{
+		rapidjson::Document* val = queue->front();
+		for (auto const& tramo : val->GetArray())
+		{
+			std::cout << "--------------------" << std::endl;
+			int kmStart = tramo.GetObject()["KmStart"].GetInt();
+			std::cout << "KmStart: " << kmStart << std::endl;
+			int kmEnd = tramo.GetObject()["KmEnd"].GetInt();
+			std::cout << "KmEnd: " << kmEnd << std::endl;
+			int firmeza = tramo.GetObject()["Firmeza"].GetInt();
+			std::cout << "Firmeza: " << firmeza << std::endl;
+			int humedad = tramo.GetObject()["Humedad"].GetInt();
+			std::cout << "Humedad: " << humedad << std::endl;
+			int agarre = tramo.GetObject()["Agarre"].GetInt();
+			std::cout << "Agarre: " << agarre << std::endl;
+			std::cout << "--------------------" << std::endl;
+		}
+	}
 }
 
 std::vector<Terrain*> TerrainGenerator::getStretch()
@@ -134,7 +163,7 @@ void TerrainGenerator::join()
 	this->producer.join();
 }
 
-void TerrainGenerator::pushToQueue(rapidjson::Value* value)
+void TerrainGenerator::pushToQueue(rapidjson::Document* value)
 {
 	if (producing)
 	{

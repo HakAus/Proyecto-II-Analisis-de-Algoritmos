@@ -2,11 +2,25 @@
 
 SyncQueue::SyncQueue(const rapidjson::Document& pConfig)
 {
-
 	this->maxSize = pConfig["simulationConfig"].GetObject()["maxQueueItems"].GetInt();
 }
-void SyncQueue::print()
+SyncQueue::~SyncQueue()
 {
+	while(!this->queue.empty())
+	{
+		delete this->queue.front();
+		this->queue.pop();
+	}
+}
+
+std::string SyncQueue::getInfo()
+{
+	return this->message;
+}
+
+void SyncQueue::toString()
+{
+	std::unique_lock<std::mutex> locker(this->mutex);
 	std::queue<rapidjson::Document*> copy;
 	while(!this->queue.empty())
 	{
@@ -14,18 +28,18 @@ void SyncQueue::print()
 		copy.push(doc);
 		for (auto const& tramo : doc->GetArray())
 		{
-			std::cout << "--------------------" << std::endl;
+			this->message += "--------------------\n";
 			int kmStart = tramo.GetObject()["KmStart"].GetInt();
-			std::cout << "KmStart: " << kmStart << std::endl;
+			this->message += "KmStart: " + std::to_string(kmStart) + "\n";
 			int kmEnd = tramo.GetObject()["KmEnd"].GetInt();
-			std::cout << "KmEnd: " << kmEnd << std::endl;
+			this->message += "KmEnd: " + std::to_string(kmEnd) + "\n";
 			int firmeza = tramo.GetObject()["Firmeza"].GetInt();
-			std::cout << "Firmeza: " << firmeza << std::endl;
+			this->message += "Firmeza: " + std::to_string(firmeza) + "\n";
 			int humedad = tramo.GetObject()["Humedad"].GetInt();
-			std::cout << "Humedad: " << humedad << std::endl;
+			this->message += "Humedad: " + std::to_string(humedad) + "\n";
 			int agarre = tramo.GetObject()["Agarre"].GetInt();
-			std::cout << "Agarre: " << agarre << std::endl;
-			std::cout << "--------------------" << std::endl;
+			this->message += "Agarre: " + std::to_string(agarre) + "\n";
+			this->message += "--------------------\n";
 		}
 		this->queue.pop();
 	}
@@ -34,7 +48,7 @@ void SyncQueue::print()
 		this->queue.push(copy.front());
 		copy.pop();
 	}	
-	
+	locker.unlock();
 }
 
 void SyncQueue::push(rapidjson::Document* pValue)

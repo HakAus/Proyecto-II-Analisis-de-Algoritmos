@@ -15,12 +15,13 @@ private:
 
 public:
 	Terrain(const char * pName, float pAttributes[3],
-	int pStartKm, int pEndKm);
+			int pStartKm, int pEndKm);
+	Terrain(const rapidjson::Value& pValue);
 	const char * getName();
 	const float* getAttributes();
 	const int getStartKm();
 	const int getEndKm();
-	void toJsonObject(rapidjson::StringBuffer* pStrBuffer);
+	rapidjson::Value* toJsonObject(rapidjson::Document::AllocatorType& allocator);
 };
 
 #endif /* _TERRAIN_H_ */
