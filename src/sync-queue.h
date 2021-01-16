@@ -7,6 +7,7 @@
 #include <queue>
 #include <iostream>
 #include "../libs/rapidjson/document.h"
+#include <string>
 
 class SyncQueue
 {

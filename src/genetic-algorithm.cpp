@@ -165,6 +165,8 @@ void GeneticAlgorithm::crossover(Vehicle * pParent1, Vehicle * pParent2, Vehicle
 		parentIndexControll = -parentIndexControll;
 		showbits("Child:", childGenotype);
 		childGenotype = 0;
+		population.push_back(parents[i]);
+		population.push_back(pTwins[i]);
 	}
 
 }
@@ -203,8 +205,13 @@ void GeneticAlgorithm::tryMutation(Vehicle * pChild)
 
 void GeneticAlgorithm::setNewGeneration()
 {
-	//Priority para crossover pop padres a poblacions e hijos a poblacion
-	//Resto de poblacion pop de priority
+	int currentPopulation = population.size();
+	int requieredPopulation = populationAmount - currentPopulation;
+	for (int i = 0; i < requieredPopulation; i++)
+	{
+		population.push_back(rankedPopulation.top());
+		rankedPopulation.pop();
+	}
 }
 
 void GeneticAlgorithm::evolve()
@@ -223,10 +230,9 @@ void GeneticAlgorithm::evolve()
 		for (int twinIndex = 0; twinIndex < 2; twinIndex++)
 		{
 			tryMutation(twins[twinIndex]);
-
-			// put into population
 		}
 	}
+	setNewGeneration();
 }
 
 void GeneticAlgorithm::start()

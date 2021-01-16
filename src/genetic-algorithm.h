@@ -48,6 +48,7 @@ public:
 	void generateMask(int pBytePos);
 	void mutate(Vehicle* pChild);
 	void tryMutation(Vehicle* pChild);
+	void setNewGeneration();
 	void evolve();
 	void startEvolution();
 	bool checkConvergence();
