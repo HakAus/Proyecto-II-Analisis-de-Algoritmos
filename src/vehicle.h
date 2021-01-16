@@ -9,14 +9,14 @@ class Vehicle
 private:
 	const double CHROMOSOME_RANGE_SIZE = 36.45;
 	unsigned short chromosome;
-	float fitnessScore;
+	double fitnessScore;
 
 public:
 	Vehicle(unsigned short pChromosome);
 	short getTreadId();
 	short getTorqueId();
-	void setFitnessScore(float pScore);
-	float getFitnessScore();
+	void setFitnessScore(double pScore);
+	double getFitnessScore();
 	void setChromosome(unsigned short pChromosome);
 	unsigned short getChromosome();
 };

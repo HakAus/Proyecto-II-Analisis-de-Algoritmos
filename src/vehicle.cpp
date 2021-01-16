@@ -23,12 +23,12 @@ short Vehicle::getTorqueId()
 	return ceil(num/CHROMOSOME_RANGE_SIZE);
 }
 
-void Vehicle::setFitnessScore(float pScore)
+void Vehicle::setFitnessScore(double pScore)
 {
 	this->fitnessScore = pScore;
 }
 
-float Vehicle::getFitnessScore()
+double Vehicle::getFitnessScore()
 {
 	return this->fitnessScore;
 }

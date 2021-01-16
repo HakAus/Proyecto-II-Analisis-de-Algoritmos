@@ -5,6 +5,7 @@
 #include <mutex>
 #include <condition_variable>
 #include <unordered_map>
+#include <cmath>
 
 #include "../libs/rapidjson/document.h"
 #include "../libs/rapidjson/prettywriter.h"
@@ -42,6 +43,7 @@ public:
 	GeneticAlgorithm();
 	~GeneticAlgorithm();
 	void startPopulation();
+	void setCurrentTerrain();
 	void calculateFitness();
 	std::queue<Vehicle*> selectFittestParents();
 	void crossover(Vehicle * pParent1, Vehicle *pParent2, Vehicle** pTwins);
@@ -51,6 +53,7 @@ public:
 	void evolve();
 	void startEvolution();
 	bool checkConvergence();
+	void setNewGeneration();
 	Vehicle * getResult();
 	void start();
 	void join();

@@ -71,41 +71,9 @@ void TerrainGenerator::generateStretch()//Puede encender un flag para no produci
 		stretchCurrentDistance += terrainDistance;
 		this->currentDistance += terrainDistance;
 	}
-	
-	
 
-
-
-	// std::ofstream out("output.json");
- //    rapidjson::Value value = &stretch;
-
- //    rapidjson::StringBuffer buffer;
-
- //    buffer.Clear();
-
- //    rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
- //    value.Accept(writer);
- //    out << buffer.GetString();
-
- //    out.close();
-	// writer->EndArray();
-	// rapidjson::Writer<rapidjson::StringBuffer> newWriter(*sb);
-	// stretch->Accept(newWriter);
-	// std::cout << sb->GetString() << std::endl;
 	queue->push(stretch);
 }
-
-// const char *GetJsonText()
-// {
-//   rapidjson::StringBuffer buffer;
-
-//   buffer.Clear();
-
-//   rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-//   doc.Accept(writer);
-
-//   return strdup( buffer.GetString() );
-// }
 
 void TerrainGenerator::showTerrains()
 {

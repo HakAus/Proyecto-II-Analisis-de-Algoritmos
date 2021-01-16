@@ -1,17 +1,25 @@
+#include <iostream>
+#include <vector>
 
 class Specification
 {
 private:
 	int id;
-	int firmness[2];
-	int humidity[2];
-	int grip[2];
+	std::vector<int> firmness;
+	std::vector<int> humidity;
+	std::vector<int> grip;
 	int energy;
 
 public:
-	Specification(int pId, int pAttributes[2], int pEnergy);
-	int* getFirmness();
-	int* getHumidity();
-	int* getGrip();
+	Specification(int pId, std::vector<int> &pAttributes, int pEnergy);
+	std::vector<int> getFirmness();
+	std::vector<int> getHumidity();
+	std::vector<int> getGrip();
+	int getEnergy();
+	void getClosestAttributesTo(std::vector<float> &pTerrainAttributes, std::vector<int> &attributes);
+
+	int getClosestFirmness(int pValue);
+	int getClosestHumidity(int pValue);
+	int getClosestGrip(int pValue);
 
 };
