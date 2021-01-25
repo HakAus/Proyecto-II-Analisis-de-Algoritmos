@@ -1,6 +1,6 @@
 #include "terrain.h"
 #include <stdlib.h>
-#include "Random.cpp"
+#include "random.cpp"
 #include <stdio.h>
 #include <string>
 

@@ -33,7 +33,7 @@ int Specification::getClosestFirmness(int pValue)
 	/*+ 
 			    (pValue * (this->firmness[0] <= pValue && pValue <= this->firmness[1])) + 
 			    (this->firmness[1] * (this->firmness[1] < pValue));*/
-	return this->firmness.at(0) /** (int)(pValue < this->firmness.at(0))*/;
+	return this->firmness.at(0);
 }
 
 int Specification::getClosestHumidity(int pValue) 
@@ -41,7 +41,7 @@ int Specification::getClosestHumidity(int pValue)
 	/*+ 
 			    (pValue * (this->humidity[0] <= pValue && pValue <= humidity[1])) + 
 			    (this->humidity[1] * (this->humidity[1] < pValue));*/
-	return this->humidity[0] /** (int)(pValue < this->humidity[0])*/;
+	return this->humidity[0];
 }
 
 int Specification::getClosestGrip(int pValue) 
@@ -49,7 +49,7 @@ int Specification::getClosestGrip(int pValue)
 	/*+ 
 			    (pValue * (this->grip[0] <= pValue && pValue <= this->grip[1])) + 
 			    (this->grip[1] * (this->grip[1] < pValue));*/
-	return this->grip[0] /** (int)(pValue < this->grip[0])*/;
+	return this->grip[0];
 }
 
 void Specification::print()

@@ -57,6 +57,7 @@ void GeneticAlgorithm::loadSpecificationTable(const rapidjson::Document &pConfig
 			ranges.push_back(magnitude.value.GetArray()[1].GetInt());
 		}
 		pHashTable[id] = new Specification(id,ranges,energy);
+		demo[id] = new Specification(rand() % 10, ranges, rand() % 10);
 	}
 }
 
@@ -108,22 +109,20 @@ void GeneticAlgorithm::calculateFitness()
 		std::cout << "Torque Id: " << vehicle->getTorqueId() << std::endl;
 		std::cout << "Tread Id: " << vehicle->getTreadId() << std::endl;
 
-		int id = vehicle->getTorqueId();
-		Specification* torqueSpecs = this->demo[id];
-		std::vector<int> test = torqueSpecs->getFirmness();
-		// Specification* tread = this->treadTable[vehicle->getTreadId()];
+		Specification* torque = this->torqueTable[vehicle->getTorqueId()];
+		Specification* tread = this->treadTable[vehicle->getTreadId()];
+
 		// std::vector<float> terrainAttributes = this->currentTerrain->getAttributes();
 		// int torqueAttributes[3] = {0,0,0};
-		// std::vector<int> torqueAttributes;
 		// torque->getClosestAttributesTo(terrainAttributes, torqueAttributes);
-		// int treadAttributes[3];
+		// int treadAttributes[3] = {0,0,0};
 		// tread->getClosestAttributesTo(terrainAttributes, treadAttributes);
 
 		// std::string names[3] = {"firmness","humidity","grip"};
 
 		// for (int i = 0; i < 3; i++)
 		// {
-			// std::cout << "Terrain " << i << ": " << terrainAttributes[i] << std::endl;
+		// 	std::cout << "Terrain " << i << ": " << terrainAttributes[i] << std::endl;
 		// 	std::cout << "Torque " << names[i] << ": " << torqueAttributes[i] << std::endl;
 		// 	std::cout << "Tread " << names[i] << ": " << treadAttributes[i] << std::endl;
 		// }

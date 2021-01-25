@@ -16,7 +16,7 @@ public:
 	std::vector<int> getHumidity();
 	std::vector<int> getGrip();
 	int getEnergy();
-	void getClosestAttributesTo(std::vector<float>& pTerrainAttributes, int pResult[3]/*std::vector<int> &attributes*/);
+	void getClosestAttributesTo(std::vector<float>& pTerrainAttributes, int pResult[3]);
 
 	int getClosestFirmness(int pValue);
 	int getClosestHumidity(int pValue);
