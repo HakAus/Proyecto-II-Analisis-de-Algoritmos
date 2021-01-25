@@ -11,15 +11,17 @@ private:
 	int energy;
 
 public:
-	Specification(int pId, std::vector<int> &pAttributes, int pEnergy);
+	Specification(int pId, std::vector<int>& pAttributes, int pEnergy);
 	std::vector<int> getFirmness();
 	std::vector<int> getHumidity();
 	std::vector<int> getGrip();
 	int getEnergy();
-	void getClosestAttributesTo(std::vector<float> &pTerrainAttributes, std::vector<int> &attributes);
+	void getClosestAttributesTo(std::vector<float>& pTerrainAttributes, int pResult[3]/*std::vector<int> &attributes*/);
 
 	int getClosestFirmness(int pValue);
 	int getClosestHumidity(int pValue);
 	int getClosestGrip(int pValue);
+
+	void print();
 
 };

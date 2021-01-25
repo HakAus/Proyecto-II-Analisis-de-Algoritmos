@@ -11,7 +11,7 @@ Simulation::Simulation()
 
 void Simulation::start()
 {
-	std::cout << "start" << std::endl;
+	std::cout << "Simulation started" << std::endl;
 	terrainGenerator->start();
 	geneticAlgorithm->start();
 }
@@ -20,6 +20,7 @@ void Simulation::join()
 {
 	terrainGenerator->join();
 	geneticAlgorithm->join();
+	std::cout << "Simulation finished" << std::endl;
 }
 
 void Simulation::showSolution()

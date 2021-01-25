@@ -1,5 +1,6 @@
 #include "genetic-algorithm.h"
 #include "random.cpp"
+#include <typeinfo>
 
 // PARA IMPRIMIR
 
@@ -18,7 +19,6 @@ GeneticAlgorithm::GeneticAlgorithm(const rapidjson::Document& pConfig, SyncQueue
 	this->totalDistance = 200;
 	this->totalEnergy = 0;
 	this->queue = pSharedQueue;	
-	// generateMask(11);
 	this->setSpecifications(pConfig);
 }
 
@@ -42,28 +42,24 @@ GeneticAlgorithm::~GeneticAlgorithm()
 	}
 }
 
-void GeneticAlgorithm::loadSpecificationTable(const rapidjson::Document& pConfig, std::unordered_map<int,Specification*> pHashTable, 
+void GeneticAlgorithm::loadSpecificationTable(const rapidjson::Document &pConfig, 
+											  std::unordered_map<int,Specification*> &pHashTable, 
 											  const char* pTableName)
 {
-	for (auto const& torqueItr : pConfig[pTableName].GetArray())
+	for (auto& atribute : pConfig[pTableName].GetArray())
 	{
-		int id =  torqueItr.GetObject()["id"].GetInt();
-		int energy = torqueItr.GetObject()["energy"].GetInt();
+		int id = atribute.GetObject()["id"].GetInt();
+		int energy = atribute.GetObject()["energy"].GetInt();
 		std::vector<int> ranges;
-
-		for (auto & attribute : torqueItr.GetObject()["ranges"].GetObject())
+		for (auto& magnitude : atribute.GetObject()["ranges"].GetObject())
 		{
-			ranges.push_back(attribute.value.GetArray()[0].GetInt());
-			ranges.push_back(attribute.value.GetArray()[1].GetInt());
+			ranges.push_back(magnitude.value.GetArray()[0].GetInt());
+			ranges.push_back(magnitude.value.GetArray()[1].GetInt());
 		}
 		pHashTable[id] = new Specification(id,ranges,energy);
 	}
-
-	for (const auto& specs : pHashTable)
-	{
-		std::cout << "id: " << specs.first << " firmness: (" << specs.second->getFirmness()[0] << ", " << specs.second->getFirmness()[1] << ")" << std::endl;
-	}
 }
+
 void GeneticAlgorithm::setSpecifications(const rapidjson::Document& pConfig)
 {
 	loadSpecificationTable(pConfig, this->torqueTable, "torqueTable");
@@ -72,7 +68,7 @@ void GeneticAlgorithm::setSpecifications(const rapidjson::Document& pConfig)
 
 void GeneticAlgorithm::getStretch()
 {
-	while (this->distanceProcessed < this->totalDistance)
+	if (this->distanceProcessed < this->totalDistance)
 	{
 		rapidjson::Document* stretch = this->queue->pop();
 		int distance = 0;
@@ -102,47 +98,35 @@ void GeneticAlgorithm::startPopulation()
 	{
 		this->population.push_back(new Vehicle(Random::RandomChromosome()));
 	}
-	
-}
-
-bool GeneticAlgorithm::checkConvergence()
-{
-	return false; // dummy
-}
-
-void GeneticAlgorithm::startEvolution()
-{
-	this->getStretch();
- 	this->startPopulation();
- 	this->setCurrentTerrain();
- 	this->calculateFitness();
- 	// while (!this->checkConvergence())
- 	// 	this->evolve();
-	
 }
 
 void GeneticAlgorithm::calculateFitness()
 {
 	for (Vehicle* vehicle : this->population)
 	{
-		std::cout << vehicle->getChromosome() << std::endl;
-		Specification* torque = this->torqueTable[vehicle->getTorqueId()];
-		Specification* tread = this->treadTable[vehicle->getTreadId()];
+		std::cout << "Vehicle chromosome: " << vehicle->getChromosome() << std::endl;
+		std::cout << "Torque Id: " << vehicle->getTorqueId() << std::endl;
+		std::cout << "Tread Id: " << vehicle->getTreadId() << std::endl;
 
-		std::vector<float> terrainAttributes = this->currentTerrain->getAttributes();
-		std::vector<int> torqueAttributes;
-		torque->getClosestAttributesTo(terrainAttributes, torqueAttributes);
-		std::vector<int> treadAttributes;
-		tread->getClosestAttributesTo(terrainAttributes, treadAttributes);
+		int id = vehicle->getTorqueId();
+		Specification* torqueSpecs = this->demo[id];
+		std::vector<int> test = torqueSpecs->getFirmness();
+		// Specification* tread = this->treadTable[vehicle->getTreadId()];
+		// std::vector<float> terrainAttributes = this->currentTerrain->getAttributes();
+		// int torqueAttributes[3] = {0,0,0};
+		// std::vector<int> torqueAttributes;
+		// torque->getClosestAttributesTo(terrainAttributes, torqueAttributes);
+		// int treadAttributes[3];
+		// tread->getClosestAttributesTo(terrainAttributes, treadAttributes);
 
-		std::string names[3] = {"firmness","humidity","grip"};
+		// std::string names[3] = {"firmness","humidity","grip"};
 
-		for (int i = 0; i < 3; i++)
-		{
+		// for (int i = 0; i < 3; i++)
+		// {
 			// std::cout << "Terrain " << i << ": " << terrainAttributes[i] << std::endl;
-			std::cout << "Torque " << names[i] << ": " << torqueAttributes[i] << std::endl;
-			std::cout << "Tread " << names[i] << ": " << treadAttributes[i] << std::endl;
-		}
+		// 	std::cout << "Torque " << names[i] << ": " << torqueAttributes[i] << std::endl;
+		// 	std::cout << "Tread " << names[i] << ": " << treadAttributes[i] << std::endl;
+		// }
 
 		// double terrainNorm = sqrt(
 		// 					 pow(terrainAttributes[0], 2) + 
@@ -176,7 +160,22 @@ void GeneticAlgorithm::calculateFitness()
 	}
 	//Pop a poblacion cuando fitness hacia priority
 
+}
 
+bool GeneticAlgorithm::checkConvergence()
+{
+	return false; // dummy
+}
+
+void GeneticAlgorithm::startEvolution()
+{
+	// this->getStretch();
+	// this->setCurrentTerrain();
+ 	this->startPopulation();
+ 	this->calculateFitness();
+ 	// while (!this->checkConvergence())
+ 	// 	this->evolve();
+	
 }
 
 std::queue<Vehicle*> GeneticAlgorithm::selectFittestParents()

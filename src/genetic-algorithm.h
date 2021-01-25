@@ -21,6 +21,7 @@ private:
 	std::vector<Vehicle*> population;
 	std::unordered_map<int, Specification*> treadTable;
 	std::unordered_map<int, Specification*> torqueTable;
+	std::unordered_map<int, Specification*> demo;
 	std::priority_queue<Vehicle*> rankedPopulation;
 	std::vector<Terrain*> currentStretch;
 	Terrain * currentTerrain;
@@ -31,8 +32,8 @@ private:
 	int totalDistance;
 	int totalEnergy;
 
-	unsigned short leftMask = 0b1111111100000000;
-	unsigned short rightMask = 0b0000000011111111;
+	unsigned short leftMask = 0b1111111100000000;	// Torque
+	unsigned short rightMask = 0b0000000011111111;	// Tread
 
 	// Concurrency
 	std::thread consumer;
@@ -40,8 +41,13 @@ private:
 
 public:
 	GeneticAlgorithm(const rapidjson::Document& pConfig, SyncQueue* pSharedQueue);
-	GeneticAlgorithm();
+	GeneticAlgorithm();	// DEBUG
 	~GeneticAlgorithm();
+	void setSpecifications(const rapidjson::Document& pConfig);
+	void loadSpecificationTable(const rapidjson::Document& pConfig, 
+								std::unordered_map<int,Specification*>& pHashTable, 
+								const char* pTableName
+								);
 	void startPopulation();
 	void setCurrentTerrain();
 	void calculateFitness();
@@ -58,7 +64,4 @@ public:
 	void start();
 	void join();
 	void getStretch();
-	void setSpecifications(const rapidjson::Document& pConfig);
-	void loadSpecificationTable(const rapidjson::Document& pConfig, std::unordered_map<int,Specification*> pHashTable, 
-								const char* pTableName);
 };

@@ -10,7 +10,7 @@ class Terrain
 {
 private:
 	const char * name;
-	std::vector<float> attributes;
+	std::vector<float> attributes;	// firmness, humidity, grip
 	int startKm;
 	int endKm;
 

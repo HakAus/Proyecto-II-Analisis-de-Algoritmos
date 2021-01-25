@@ -1,6 +1,6 @@
 #include "specification.h"
 
-Specification::Specification(int pId, std::vector<int> &pAttributes, int pEnergy)
+Specification::Specification(int pId, std::vector<int>& pAttributes, int pEnergy)
 {
 	this->id = pId;
 	for (int index = 0; index < 2; index++)
@@ -17,11 +17,15 @@ std::vector<int> Specification::getHumidity() { return this->humidity; }
 std::vector<int> Specification::getGrip() { return this->grip; }
 int Specification::getEnergy() { return this->energy; }
 
-void Specification::getClosestAttributesTo(std::vector<float> &pTerrainAttributes, std::vector<int> &pAttributes)
+void Specification::getClosestAttributesTo(std::vector<float>& pTerrainAttributes, int pResult[3]/*std::vector<int> &pAttributes*/)
 {
-	pAttributes.push_back(getClosestFirmness(pTerrainAttributes[0]));
-	pAttributes.push_back(getClosestHumidity(pTerrainAttributes[1]));
-	pAttributes.push_back(getClosestGrip(pTerrainAttributes[2]));
+	pResult[0] = 1;
+	pResult[1] = 2;
+	pResult[2] = 3;
+	std::cout << "Data accesed" << std::endl;
+	// pAttributes.push_back(getClosestFirmness(pTerrainAttributes[0]));
+	// pAttributes.push_back(getClosestHumidity(pTerrainAttributes[1]));
+	// pAttributes.push_back(getClosestGrip(pTerrainAttributes[2]));
 }
 
 int Specification::getClosestFirmness(int pValue) 
@@ -46,4 +50,14 @@ int Specification::getClosestGrip(int pValue)
 			    (pValue * (this->grip[0] <= pValue && pValue <= this->grip[1])) + 
 			    (this->grip[1] * (this->grip[1] < pValue));*/
 	return this->grip[0] /** (int)(pValue < this->grip[0])*/;
+}
+
+void Specification::print()
+{
+	for (int i = 0; i < 2; i++)
+	{
+		std::cout << "Firmness: " << this->firmness[i] << std::endl;
+		std::cout << "Humidity: " << this->humidity[i] << std::endl;
+		std::cout << "Grip: " << this->grip[i] << std::endl;
+	}
 }

@@ -13,8 +13,8 @@ private:
 
 public:
 	Vehicle(unsigned short pChromosome);
-	short getTreadId();
-	short getTorqueId();
+	int getTreadId();
+	int getTorqueId();
 	void setFitnessScore(double pScore);
 	double getFitnessScore();
 	void setChromosome(unsigned short pChromosome);

@@ -4,11 +4,11 @@ SyncQueue::SyncQueue(const rapidjson::Document& pConfig)
 {
 	this->maxSize = pConfig["simulationConfig"].GetObject()["maxQueueItems"].GetInt();
 }
+
 SyncQueue::~SyncQueue()
 {
 	while(!this->queue.empty())
 	{
-		delete this->queue.front();
 		this->queue.pop();
 	}
 }
