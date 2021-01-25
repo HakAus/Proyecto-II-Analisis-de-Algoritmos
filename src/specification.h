@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 class Specification
 {
@@ -16,11 +17,11 @@ public:
 	std::vector<int> getHumidity();
 	std::vector<int> getGrip();
 	int getEnergy();
-	void getClosestAttributesTo(std::vector<float>& pTerrainAttributes, int pResult[3]);
+	void getClosestAttributesTo(std::vector<float>& pTerrainAttributes, std::vector<int>& pAttributes);
 
-	int getClosestFirmness(int pValue);
-	int getClosestHumidity(int pValue);
-	int getClosestGrip(int pValue);
+	int getClosestFirmness(float pValue);
+	int getClosestHumidity(float pValue);
+	int getClosestGrip(float pValue);
 
 	void print();
 

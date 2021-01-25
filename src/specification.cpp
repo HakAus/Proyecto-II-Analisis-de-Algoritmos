@@ -17,39 +17,32 @@ std::vector<int> Specification::getHumidity() { return this->humidity; }
 std::vector<int> Specification::getGrip() { return this->grip; }
 int Specification::getEnergy() { return this->energy; }
 
-void Specification::getClosestAttributesTo(std::vector<float>& pTerrainAttributes, int pResult[3]/*std::vector<int> &pAttributes*/)
+void Specification::getClosestAttributesTo(std::vector<float>& pTerrainAttributes, std::vector<int>& pAttributes)
 {
-	pResult[0] = 1;
-	pResult[1] = 2;
-	pResult[2] = 3;
-	std::cout << "Data accesed" << std::endl;
-	// pAttributes.push_back(getClosestFirmness(pTerrainAttributes[0]));
-	// pAttributes.push_back(getClosestHumidity(pTerrainAttributes[1]));
-	// pAttributes.push_back(getClosestGrip(pTerrainAttributes[2]));
+	pAttributes.push_back(getClosestFirmness(pTerrainAttributes[0]));
+	pAttributes.push_back(getClosestHumidity(pTerrainAttributes[1]));
+	pAttributes.push_back(getClosestGrip(pTerrainAttributes[2]));
 }
 
-int Specification::getClosestFirmness(int pValue) 
+int Specification::getClosestFirmness(float pValue) 
 {
-	/*+ 
-			    (pValue * (this->firmness[0] <= pValue && pValue <= this->firmness[1])) + 
-			    (this->firmness[1] * (this->firmness[1] < pValue));*/
-	return this->firmness.at(0);
+	int value = ceil(pValue);
+	return (value * (this->firmness[0] <= value && value <= this->firmness[1])) + 
+		   (this->firmness[1] * (this->firmness[1] < value));
 }
 
-int Specification::getClosestHumidity(int pValue) 
+int Specification::getClosestHumidity(float pValue) 
 {
-	/*+ 
-			    (pValue * (this->humidity[0] <= pValue && pValue <= humidity[1])) + 
-			    (this->humidity[1] * (this->humidity[1] < pValue));*/
-	return this->humidity[0];
+	int value = ceil(pValue);
+	return (value * (this->humidity[0] <= value && value <= humidity[1])) + 
+		   (this->humidity[1] * (this->humidity[1] < value));
 }
 
-int Specification::getClosestGrip(int pValue) 
+int Specification::getClosestGrip(float pValue) 
 {
-	/*+ 
-			    (pValue * (this->grip[0] <= pValue && pValue <= this->grip[1])) + 
-			    (this->grip[1] * (this->grip[1] < pValue));*/
-	return this->grip[0];
+	int value = ceil(pValue);
+	return (value * (this->grip[0] <= value && value <= this->grip[1])) + 
+		   (this->grip[1] * (this->grip[1] < value));
 }
 
 void Specification::print()
