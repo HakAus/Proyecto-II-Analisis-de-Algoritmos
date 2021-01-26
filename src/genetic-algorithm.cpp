@@ -12,6 +12,7 @@
 
 GeneticAlgorithm::GeneticAlgorithm(const rapidjson::Document& pConfig, SyncQueue* pSharedQueue)
 {
+	this->fittestPopulationPercentage = 0.40;
 	this->convergencePercentage = 0;
 	this->mutationPercentage = 0;
 	this->populationAmount = 200;
@@ -19,6 +20,7 @@ GeneticAlgorithm::GeneticAlgorithm(const rapidjson::Document& pConfig, SyncQueue
 	this->totalDistance = 200;
 	this->totalEnergy = 0;
 	this->queue = pSharedQueue;	
+	this->numberOfExtractions = populationAmount * fittestPopulationPercentage;
 	this->setSpecifications(pConfig);
 }
 
@@ -173,14 +175,19 @@ void GeneticAlgorithm::startEvolution()
  	this->startPopulation();
  	this->calculateFitness();
  	// while (!this->checkConvergence())
- 	// 	this->evolve();
+ 	 	//this->evolve();
 	
 }
 
 std::queue<Vehicle*> GeneticAlgorithm::selectFittestParents()
 {
-	std::queue<Vehicle*> dummy;
-	return dummy;
+	std::queue<Vehicle*> fittest;
+	for (int i = 0; i < numberOfExtractions; i++)
+	{
+		fittest.push(rankedPopulation.top());
+		rankedPopulation.pop();
+	}
+	return fittest;
 }
 
  void showbits(std::string text, unsigned short x )
@@ -261,8 +268,20 @@ void GeneticAlgorithm::tryMutation(Vehicle * pChild)
 
 void GeneticAlgorithm::setNewGeneration()
 {
-	//Priority para crossover pop padres a poblacions e hijos a poblacion
-	//Resto de poblacion pop de priority
+	int populationFill = populationAmount - population.size(); //Verificar que queden 200 de poblacion
+	for (int i = 0; i < populationAmount/*populationFill*/;i++)
+	{
+		if(i < populationFill)//Se puede quitar el if y el while haria psize - pfill
+			population.push_back(rankedPopulation.top());
+		rankedPopulation.pop();
+	}
+
+	/*while (!rankedPopulation.empty())
+	{
+		rankedPopulation.pop();
+	}*/
+
+	//rankedPopulation = priority_queue <Vehicle*>(); //Evitar el while, pero no se si afecta la memoria.
 }
 
 void GeneticAlgorithm::evolve()
@@ -281,10 +300,12 @@ void GeneticAlgorithm::evolve()
 		for (int twinIndex = 0; twinIndex < 2; twinIndex++)
 		{
 			tryMutation(twins[twinIndex]);
-
-			// put into population
+			population.push_back(twins[twinIndex]);
 		}
+		population.push_back(mom);
+		population.push_back(dad);
 	}
+	setNewGeneration();
 }
 
 void GeneticAlgorithm::start()

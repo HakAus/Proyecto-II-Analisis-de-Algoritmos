@@ -6,6 +6,7 @@
 #include <condition_variable>
 #include <queue>
 #include <iostream>
+#include <string>
 #include "../libs/rapidjson/document.h"
 
 class SyncQueue

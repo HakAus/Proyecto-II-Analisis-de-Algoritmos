@@ -26,11 +26,13 @@ private:
 	std::vector<Terrain*> currentStretch;
 	Terrain * currentTerrain;
 	int convergencePercentage;
+	int fittestPopulationPercentage; //Funciona para el numero de extracciones
 	int mutationPercentage;
 	int populationAmount;
 	int distanceProcessed;
 	int totalDistance;
 	int totalEnergy;
+	int numberOfExtractions;
 
 	unsigned short leftMask = 0b1111111100000000;	// Torque
 	unsigned short rightMask = 0b0000000011111111;	// Tread
