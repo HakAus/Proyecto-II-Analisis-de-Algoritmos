@@ -13,7 +13,7 @@
 GeneticAlgorithm::GeneticAlgorithm(const rapidjson::Document& pConfig, SyncQueue* pSharedQueue)
 {
 	this->fittestPopulationPercentage = 0.40;
-	this->convergencePercentage = 0;
+	this->convergencePercentage = 0.40;
 	this->mutationPercentage = 0;
 	this->populationAmount = 200;
 	this->distanceProcessed = 0;
@@ -102,58 +102,75 @@ void GeneticAlgorithm::startPopulation()
 	}
 }
 
-void GeneticAlgorithm::calculateFitness()
+void GeneticAlgorithm::setVehicleFitness(Vehicle* pVehicle)
 {
-	for (Vehicle* vehicle : this->population)
+	Specification* torque = this->torqueTable[pVehicle->getTorqueId()];
+	Specification* tread = this->treadTable[pVehicle->getTreadId()];
+
+	std::vector<float> terrainAttributes = this->currentTerrain->getAttributes();
+	std::vector<int> torqueAttributes;
+	torque->getClosestAttributesTo(terrainAttributes, torqueAttributes);
+	std::vector<int> treadAttributes;
+	tread->getClosestAttributesTo(terrainAttributes, treadAttributes);
+
+	double terrainNorm = sqrt(
+						 pow(terrainAttributes[0], 2) + 
+						 pow(terrainAttributes[1], 2) + 
+					 	 pow(terrainAttributes[2], 2)
+						 );
+	double torqueNorm = sqrt(
+						pow(torqueAttributes[0], 2) + 
+						pow(torqueAttributes[1], 2) + 
+						pow(torqueAttributes[2], 2)
+						);
+	double treadNorm = sqrt(
+					   pow(treadAttributes[0], 2) + 
+					   pow(treadAttributes[1], 2) + 
+					   pow(treadAttributes[2], 2)
+					   );
+
+	double fitnessScore = 0.0;
+	double torqueSimilarity = 0.0;
+	double treadSimilarity = 0.0;
+
+	for (int fitnessIndex = 0; fitnessIndex < 3; fitnessIndex++)
 	{
-
-		Specification* torque = this->torqueTable[vehicle->getTorqueId()];
-		Specification* tread = this->treadTable[vehicle->getTreadId()];
-
-		std::vector<int> torqueAttributes;
-		torque->getClosestAttributesTo(terrainAttributes, torqueAttributes);
-		std::vector<int> treadAttributes;
-		tread->getClosestAttributesTo(terrainAttributes, treadAttributes);
-
-		double terrainNorm = sqrt(
-							 pow(terrainAttributes[0], 2) + 
-							 pow(terrainAttributes[1], 2) + 
-						 	 pow(terrainAttributes[2], 2)
-							 );
-		double torqueNorm = sqrt(
-							pow(torqueAttributes[0], 2) + 
-							pow(torqueAttributes[1], 2) + 
-							pow(torqueAttributes[2], 2)
-							);
-		double treadNorm = sqrt(
-						   pow(treadAttributes[0], 2) + 
-						   pow(treadAttributes[1], 2) + 
-						   pow(treadAttributes[2], 2)
-						   );
-
-		double fitnessScore = 0.0;
-		double torqueSimilarity = 0.0;
-		double treadSimilarity = 0.0;
-
-		for (int fitnessIndex = 0; fitnessIndex < 3; fitnessIndex++)
-		{
-			torqueSimilarity += (torqueAttributes[fitnessIndex] * terrainAttributes[fitnessIndex]);
-			treadSimilarity +=  (treadAttributes[fitnessIndex] * terrainAttributes[fitnessIndex]);
-		}
-
-		torqueSimilarity = torqueSimilarity / (terrainNorm * torqueNorm);
-		treadSimilarity = treadSimilarity / (terrainNorm * treadNorm);
-
-		fitnessScore = (1/torqueSimilarity)*torque->getEnergy() + (1/treadSimilarity)*tread->getEnergy();
-		vehicle->setFitnessScore(fitnessScore);
+		torqueSimilarity += (torqueAttributes[fitnessIndex] * terrainAttributes[fitnessIndex]);
+		treadSimilarity +=  (treadAttributes[fitnessIndex] * terrainAttributes[fitnessIndex]);
 	}
-	//Pop a poblacion cuando fitness hacia priority
 
+	torqueSimilarity = torqueSimilarity / (terrainNorm * torqueNorm);
+	treadSimilarity = treadSimilarity / (terrainNorm * treadNorm);
+
+	fitnessScore = (1/torqueSimilarity)*torque->getEnergy() + (1/treadSimilarity)*tread->getEnergy();
+	pVehicle->setFitnessScore(fitnessScore);
+}
+
+void GeneticAlgorithm::setPopulationFitness()
+{
+	std::vector<Vehicle*>::iterator vehicleItr;
+	for (vehicleItr = this->population.begin(); vehicleItr < this->population.end(); vehicleItr++)
+	{
+		setVehicleFitness(*vehicleItr);
+		this->rankedPopulation.push(*vehicleItr);
+		this->population.erase(vehicleItr);
+	}
 }
 
 bool GeneticAlgorithm::checkConvergence()
 {
-	return false; // dummy
+	int highestConvergence = 0;
+	int convergencePoint = this->populationAmount * this->convergencePercentage;
+	for (auto & frequency : this->frequencyTable)
+	{
+		if (frequency.second > highestConvergence)
+			highestConvergence = frequency.second;
+		if (frequency.second >= convergencePoint)
+			return true;
+		frequency.second = 0;
+	}
+	std::cout << "highestConvergence = " << highestConvergence << std::endl;
+	return false;
 }
 
 void GeneticAlgorithm::startEvolution()
@@ -161,10 +178,26 @@ void GeneticAlgorithm::startEvolution()
 	this->getStretch();
 	this->setCurrentTerrain();
  	this->startPopulation();
- 	this->calculateFitness();
- 	// while (!this->checkConvergence())
- 	 	//this->evolve();
-	
+ 	int generation = 0;
+ 	do 
+ 	{
+ 		std::cout << "Generation: " << generation << std::endl;
+ 		this->evolve();
+ 		generation++;
+ 	}
+ 	while (!this->checkConvergence());
+ 	for (Vehicle * vehicle : this->population)
+ 	{
+ 		this->rankedPopulation.push(vehicle);
+ 	}
+ 	while(!rankedPopulation.empty())
+ 	{
+ 		std::cout << "[Torque: " << rankedPopulation.top()->getTorqueId() << 
+ 					 ", Tread: " << rankedPopulation.top()->getTreadId() << 
+ 					 ", Fitness Score: " << rankedPopulation.top()->getFitnessScore() 
+ 					 << "]" << std::endl; 
+ 		rankedPopulation.pop();
+ 	}
 }
 
 std::queue<Vehicle*> GeneticAlgorithm::selectFittestParents()
@@ -200,23 +233,23 @@ void GeneticAlgorithm::crossover(Vehicle * pParent1, Vehicle * pParent2, Vehicle
 	int parentIndexControll = 1;
 	unsigned short childGenotype = 0;
 	unsigned short temp = 0;
-	showbits("P1 Genotype:",pParent1->getChromosome());
-	showbits("P2 Genotype:",pParent2->getChromosome());
+	// showbits("P1 Genotype:",pParent1->getChromosome());
+	// showbits("P2 Genotype:",pParent2->getChromosome());
 	for (int i = 0; i < 2; i++)
 	{
 		temp = parents[i]->getChromosome() & leftMask;
-		showbits("Temp", temp);
+		// showbits("Temp", temp);
 		childGenotype = childGenotype | temp;
 		temp = 0;
 
 		temp = parents[i+parentIndexControll]->getChromosome() & rightMask;
-		showbits("Temp", temp);
+		// showbits("Temp", temp);
 		childGenotype = childGenotype | temp;
 		temp = 0;
 
 		pTwins[i] = new Vehicle(childGenotype);
 		parentIndexControll = -parentIndexControll;
-		showbits("Child:", childGenotype);
+		// showbits("Child:", childGenotype);
 		childGenotype = 0;
 	}
 
@@ -229,8 +262,8 @@ void GeneticAlgorithm::generateMask(int pBytePos)
 	leftMask = base << pBytePos;
 	base = 0b1111111111111111;
 	rightMask = base >> rightMaskShift;
-	showbits("LM", leftMask);
-	showbits("RM", rightMask);
+	// showbits("LM", leftMask);
+	// showbits("RM", rightMask);
 }
 
 void GeneticAlgorithm::mutate(Vehicle * pChild)
@@ -240,41 +273,49 @@ void GeneticAlgorithm::mutate(Vehicle * pChild)
 	unsigned short childChromosome = pChild->getChromosome();
  	bool has_bit = childChromosome & mask;
 	unsigned short newChromosome = (childChromosome & ~mask) | ((!has_bit << pos) & mask);
-	printTest("Pos:", pos);
-	showbits("OldChromosome", childChromosome);
-	showbits("NewChromosome", newChromosome);
+	// printTest("Pos:", pos);
+	// showbits("OldChromosome", childChromosome);
+	// showbits("NewChromosome", newChromosome);
 	pChild->setChromosome(newChromosome);
 }
 
 void GeneticAlgorithm::tryMutation(Vehicle * pChild)
 {
 	int mutationSucces = Random::RandomRange(0, 100);
-	std::cout << mutationSucces << std::endl;
-	if (mutationSucces < mutationPercentage) mutate(pChild);
-	else printTest("No mutation", 0);
+	// std::cout << mutationSucces << std::endl;
+	if (mutationSucces < mutationPercentage) 
+		mutate(pChild);
+	// else printTest("No mutation", 0);
 }
 
 void GeneticAlgorithm::setNewGeneration()
 {
-	int populationFill = populationAmount - population.size(); //Verificar que queden 200 de poblacion
-	for (int i = 0; i < populationAmount/*populationFill*/;i++)
+	int remainingPopulation = populationAmount - population.size(); //Verificar que queden 200 de poblacion
+	for (int vehicleCount = 0; vehicleCount < remainingPopulation; vehicleCount++)
 	{
-		if(i < populationFill)//Se puede quitar el if y el while haria psize - pfill
-			population.push_back(rankedPopulation.top());
+		population.push_back(rankedPopulation.top());
 		rankedPopulation.pop();
 	}
 
-	/*while (!rankedPopulation.empty())
+	while (!rankedPopulation.empty())
 	{
 		rankedPopulation.pop();
-	}*/
+	}
 
 	//rankedPopulation = priority_queue <Vehicle*>(); //Evitar el while, pero no se si afecta la memoria.
 }
 
+void GeneticAlgorithm::pushToPopulation(Vehicle * pVehicle)
+{
+	int configurationId = pVehicle->getTreadId()*10 + pVehicle->getTorqueId();
+	this->frequencyTable[configurationId] += 1; 
+	setVehicleFitness(pVehicle);
+	this->population.push_back(pVehicle);
+}
+
 void GeneticAlgorithm::evolve()
 {
-	this->calculateFitness();
+	this->setPopulationFitness();
 	std::queue<Vehicle*> fittest = this->selectFittestParents();
 	std::vector<Vehicle*> children;
 	while (!fittest.empty())
@@ -288,10 +329,10 @@ void GeneticAlgorithm::evolve()
 		for (int twinIndex = 0; twinIndex < 2; twinIndex++)
 		{
 			tryMutation(twins[twinIndex]);
-			population.push_back(twins[twinIndex]);
+			pushToPopulation(twins[twinIndex]);
 		}
-		population.push_back(mom);
-		population.push_back(dad);
+		pushToPopulation(mom);
+		pushToPopulation(dad);
 	}
 	setNewGeneration();
 }

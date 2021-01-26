@@ -21,12 +21,12 @@ private:
 	std::vector<Vehicle*> population;
 	std::unordered_map<int, Specification*> treadTable;
 	std::unordered_map<int, Specification*> torqueTable;
-	std::unordered_map<int, Specification*> demo;
-	std::priority_queue<Vehicle*> rankedPopulation;
+	std::unordered_map<int, int> frequencyTable;
+	std::priority_queue<Vehicle*, std::vector<Vehicle*>, VehicleComparator>  rankedPopulation;
 	std::vector<Terrain*> currentStretch;
 	Terrain * currentTerrain;
-	int convergencePercentage;
-	int fittestPopulationPercentage; //Funciona para el numero de extracciones
+	float convergencePercentage;
+	float fittestPopulationPercentage; //Funciona para el numero de extracciones
 	int mutationPercentage;
 	int populationAmount;
 	int distanceProcessed;
@@ -52,13 +52,15 @@ public:
 								);
 	void startPopulation();
 	void setCurrentTerrain();
-	void calculateFitness();
+	void setVehicleFitness(Vehicle* pVehicle);
+	void setPopulationFitness();
 	std::queue<Vehicle*> selectFittestParents();
 	void crossover(Vehicle * pParent1, Vehicle *pParent2, Vehicle** pTwins);
 	void generateMask(int pBytePos);
 	void mutate(Vehicle* pChild);
 	void tryMutation(Vehicle* pChild);
 	void evolve();
+	void pushToPopulation(Vehicle * pVehicle);
 	void startEvolution();
 	bool checkConvergence();
 	void setNewGeneration();

@@ -18,10 +18,6 @@ public:
 	std::vector<int> getGrip();
 	int getEnergy();
 	void getClosestAttributesTo(std::vector<float>& pTerrainAttributes, std::vector<int>& pAttributes);
-
-	// int getClosestFirmness(float pValue);
-	// int getClosestHumidity(float pValue);
-	// int getClosestGrip(float pValue);
 	int getClosestAttribute(float pTarget, std::vector<int>& pAttributeContainer);
 	void print();
 

@@ -12,10 +12,21 @@ Specification::Specification(int pId, std::vector<int>& pAttributes, int pEnergy
 	this->energy = pEnergy;
 }
 
-std::vector<int> Specification::getFirmness() { return this->firmness; }
-std::vector<int> Specification::getHumidity() { return this->humidity; }
-std::vector<int> Specification::getGrip() { return this->grip; }
-int Specification::getEnergy() { return this->energy; }
+std::vector<int> Specification::getFirmness() { 
+	return this->firmness; 
+}
+
+std::vector<int> Specification::getHumidity() {
+	return this->humidity; 
+}
+
+std::vector<int> Specification::getGrip() { 
+	return this->grip; 
+}
+
+int Specification::getEnergy() { 
+	return this->energy; 
+}
 
 void Specification::getClosestAttributesTo(std::vector<float>& pTerrainAttributes, std::vector<int>& pAttributes)
 {

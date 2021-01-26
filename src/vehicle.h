@@ -13,12 +13,20 @@ private:
 
 public:
 	Vehicle(unsigned short pChromosome);
-	int getTreadId();
-	int getTorqueId();
+	int getTreadId() const;
+	int getTorqueId() const;
 	void setFitnessScore(double pScore);
-	double getFitnessScore();
+	double getFitnessScore() const;
 	void setChromosome(unsigned short pChromosome);
-	unsigned short getChromosome();
+	unsigned short getChromosome() const;
+
+};
+
+class VehicleComparator {
+public:
+  bool operator()(Vehicle *a, Vehicle *b) {
+    return a->getFitnessScore() > b->getFitnessScore();
+  }
 };
 
 #endif /* _VEHICLE_H_ */
