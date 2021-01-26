@@ -59,7 +59,6 @@ void GeneticAlgorithm::loadSpecificationTable(const rapidjson::Document &pConfig
 			ranges.push_back(magnitude.value.GetArray()[1].GetInt());
 		}
 		pHashTable[id] = new Specification(id,ranges,energy);
-		demo[id] = new Specification(rand() % 10, ranges, rand() % 10);
 	}
 }
 
@@ -105,14 +104,29 @@ void GeneticAlgorithm::startPopulation()
 
 void GeneticAlgorithm::calculateFitness()
 {
+	int bestTorque = 0;
+	int bestTread = 0;
+	float mostFit = 99999.9999;
+	int iteration = 0;
+	int bestIteration = 0;
 	for (Vehicle* vehicle : this->population)
 	{
+		std::cout << "-------------------------------------" << std::endl;
 		std::cout << "Vehicle chromosome: " << vehicle->getChromosome() << std::endl;
 
 		Specification* torque = this->torqueTable[vehicle->getTorqueId()];
 		Specification* tread = this->treadTable[vehicle->getTreadId()];
 
+		std::cout << "Torque Id: " << vehicle->getTorqueId() << std::endl;
+		std::cout << "Tread Id: " << vehicle->getTreadId() << std::endl;
+
 		std::vector<float> terrainAttributes = this->currentTerrain->getAttributes();
+		std::cout << "terrainAttributes: " << std::endl;
+		std::cout << "(";
+		for (const auto& at : terrainAttributes)
+			std::cout << std::to_string(at) << ",";
+		std::cout << ")" << std::endl;
+
 		std::vector<int> torqueAttributes;
 		torque->getClosestAttributesTo(terrainAttributes, torqueAttributes);
 		std::vector<int> treadAttributes;
@@ -140,14 +154,31 @@ void GeneticAlgorithm::calculateFitness()
 
 		for (int fitnessIndex = 0; fitnessIndex < 3; fitnessIndex++)
 		{
-			torqueSimilarity += (torqueAttributes[fitnessIndex] * terrainAttributes[fitnessIndex]) / (terrainNorm * torqueNorm);
-			treadSimilarity +=  (treadAttributes[fitnessIndex] * terrainAttributes[fitnessIndex]) / (terrainNorm * treadNorm);
+			torqueSimilarity += (torqueAttributes[fitnessIndex] * terrainAttributes[fitnessIndex]);
+			treadSimilarity +=  (treadAttributes[fitnessIndex] * terrainAttributes[fitnessIndex]);
 		}
+		torqueSimilarity = torqueSimilarity / (terrainNorm * torqueNorm);
+		treadSimilarity = treadSimilarity / (terrainNorm * treadNorm);
 
+		std::cout << "Torque Similarity: " << torqueSimilarity << std::endl;
+		std::cout << "Tread Similarity: " << treadSimilarity << std::endl;
 		fitnessScore = (1/torqueSimilarity)*torque->getEnergy() + (1/treadSimilarity)*tread->getEnergy();
 		vehicle->setFitnessScore(fitnessScore);
 		std::cout << "Fitness: " << fitnessScore << std::endl;
+
+		std::cout << "iteration: " << iteration << std::endl;
+		if (fitnessScore < mostFit){
+			mostFit = fitnessScore;
+			bestTorque = vehicle->getTorqueId();
+			bestTread = vehicle->getTreadId();
+			bestIteration = iteration;
+		}
+		iteration++;
 	}
+	std::cout << "Best fitness = " << mostFit << std::endl;
+	std::cout << "Best torque = " << bestTorque << std::endl;
+	std::cout << "Best tread = " << bestTread << std::endl;
+	std::cout << "Iteration for best" << bestIteration << std::endl;
 	//Pop a poblacion cuando fitness hacia priority
 
 }

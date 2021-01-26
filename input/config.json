@@ -78,7 +78,7 @@
 	],
 	"treadTable":[
 		{
-			"id":10,
+			"id":4,
 			"ranges":{
 				"firmness":[75,9999],
 				"humidity":[0,20],
@@ -87,7 +87,7 @@
 			"energy":6
 		},
 		{
-			"id":9,
+			"id":5,
 			"ranges":{
 				"firmness":[50,75],
 				"humidity":[20,45],
@@ -96,7 +96,7 @@
 			"energy":7
 		},
 		{
-			"id":8,
+			"id":6,
 			"ranges":{
 				"firmness":[25,50],
 				"humidity":[45,60],
@@ -114,7 +114,7 @@
 			"energy":10
 		},
 		{
-			"id":6,
+			"id":8,
 			"ranges":{
 				"firmness":[10,20],
 				"humidity":[70,80],
@@ -123,7 +123,7 @@
 			"energy":11
 		},
 		{
-			"id":5,
+			"id":9,
 			"ranges":{
 				"firmness":[10,15],
 				"humidity":[80,9999],
@@ -132,11 +132,11 @@
 			"energy":13
 		},
 		{
-			"id":4,
+			"id":10,
 			"ranges":{
 				"firmness":[1,10],
 				"humidity":[90,9999],
-				"grip":[1,15]
+				"grip":[1,5]
 			},
 			"energy":15
 		}

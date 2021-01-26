@@ -19,30 +19,16 @@ int Specification::getEnergy() { return this->energy; }
 
 void Specification::getClosestAttributesTo(std::vector<float>& pTerrainAttributes, std::vector<int>& pAttributes)
 {
-	pAttributes.push_back(getClosestFirmness(pTerrainAttributes[0]));
-	pAttributes.push_back(getClosestHumidity(pTerrainAttributes[1]));
-	pAttributes.push_back(getClosestGrip(pTerrainAttributes[2]));
+	pAttributes.push_back(getClosestAttribute(pTerrainAttributes[0], this->firmness));
+	pAttributes.push_back(getClosestAttribute(pTerrainAttributes[1], this->humidity));
+	pAttributes.push_back(getClosestAttribute(pTerrainAttributes[2], this->grip));
 }
 
-int Specification::getClosestFirmness(float pValue) 
+int Specification::getClosestAttribute(float pTarget, std::vector<int>& pAttributeContainer)
 {
-	int value = ceil(pValue);
-	return (value * (this->firmness[0] <= value && value <= this->firmness[1])) + 
-		   (this->firmness[1] * (this->firmness[1] < value));
-}
-
-int Specification::getClosestHumidity(float pValue) 
-{
-	int value = ceil(pValue);
-	return (value * (this->humidity[0] <= value && value <= humidity[1])) + 
-		   (this->humidity[1] * (this->humidity[1] < value));
-}
-
-int Specification::getClosestGrip(float pValue) 
-{
-	int value = ceil(pValue);
-	return (value * (this->grip[0] <= value && value <= this->grip[1])) + 
-		   (this->grip[1] * (this->grip[1] < value));
+	return (int) (pAttributeContainer[0] * (pTarget < pAttributeContainer[0])) +	// Caso en que target es inferior al minimo del rango
+				 (pTarget * (pAttributeContainer[0] <= pTarget && pTarget <= pAttributeContainer[1])) + // Caso en que target esta dentro del rango
+				 (pAttributeContainer[1] * (pTarget > pAttributeContainer[1]));
 }
 
 void Specification::print()
