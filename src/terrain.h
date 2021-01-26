@@ -23,6 +23,7 @@ public:
 	const int getStartKm();
 	const int getEndKm();
 	rapidjson::Value* toJsonObject(rapidjson::Document::AllocatorType& allocator);
+	void print();
 };
 
 #endif /* _TERRAIN_H_ */

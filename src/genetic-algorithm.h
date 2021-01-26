@@ -18,7 +18,7 @@ class GeneticAlgorithm
 {
 private:
 	// Algorithm
-	std::vector<Vehicle*> population;
+	std::queue<Vehicle*> population;
 	std::unordered_map<int, Specification*> treadTable;
 	std::unordered_map<int, Specification*> torqueTable;
 	std::unordered_map<int, int> frequencyTable;

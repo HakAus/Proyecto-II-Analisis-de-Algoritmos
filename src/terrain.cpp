@@ -36,3 +36,19 @@ rapidjson::Value* Terrain::toJsonObject(rapidjson::Document::AllocatorType& pAll
 	terrain->AddMember("Agarre", rapidjson::Value(this->attributes[2]), pAllocator);
 	return terrain;
 }
+
+void Terrain::print()
+{
+	std::cout << "**** Datos del terreno ****" << std::endl;
+	std::cout << "Nombre: " << this->name << std::endl;
+	std::cout << "Atributos: (";
+	int pos = 0;
+	for (; pos < 2; pos++)
+	{
+		std::cout << this->attributes[pos] << ",";
+	} 
+	std::cout << this->attributes[pos] << ")" << std::endl;
+	std::cout << "KmStart: " << this->startKm << std::endl;
+	std::cout << "KmEnd: " << this->endKm << std::endl;
+	std::cout << "***************************" << std::endl;
+}

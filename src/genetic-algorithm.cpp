@@ -13,7 +13,7 @@
 GeneticAlgorithm::GeneticAlgorithm(const rapidjson::Document& pConfig, SyncQueue* pSharedQueue)
 {
 	this->fittestPopulationPercentage = 0.40;
-	this->convergencePercentage = 0.40;
+	this->convergencePercentage = 0.80;
 	this->mutationPercentage = 0;
 	this->populationAmount = 200;
 	this->distanceProcessed = 0;
@@ -40,7 +40,7 @@ GeneticAlgorithm::~GeneticAlgorithm()
 {
 	while (!this->population.empty())
 	{
-		this->population.pop_back();
+		this->population.pop();
 	}
 }
 
@@ -91,6 +91,7 @@ void GeneticAlgorithm::setCurrentTerrain()
 	{
 		this->currentTerrain = this->currentStretch[0];
 		this->currentStretch.erase(this->currentStretch.begin());
+		this->currentTerrain->print();
 	}
 }
 
@@ -98,7 +99,7 @@ void GeneticAlgorithm::startPopulation()
 {
 	for (int amount = 0; amount < this->populationAmount; amount++)
 	{
-		this->population.push_back(new Vehicle(Random::RandomChromosome()));
+		this->population.push(new Vehicle(Random::RandomChromosome()));
 	}
 }
 
@@ -148,19 +149,27 @@ void GeneticAlgorithm::setVehicleFitness(Vehicle* pVehicle)
 
 void GeneticAlgorithm::setPopulationFitness()
 {
-	std::vector<Vehicle*>::iterator vehicleItr;
-	for (vehicleItr = this->population.begin(); vehicleItr < this->population.end(); vehicleItr++)
+	int vehiclesInserted = 0;
+	while (vehiclesInserted < this->populationAmount)
 	{
-		setVehicleFitness(*vehicleItr);
-		this->rankedPopulation.push(*vehicleItr);
-		this->population.erase(vehicleItr);
+		Vehicle * vehicle = this->population.front();
+		setVehicleFitness(vehicle);
+		this->rankedPopulation.push(vehicle);
+		this->population.pop();
+		vehiclesInserted++;
 	}
+	// for (vehicleItr = this->population.begin(); vehicleItr < this->population.end(); vehicleItr++)
+	// {
+		
+		
+	// }
 }
 
 bool GeneticAlgorithm::checkConvergence()
 {
 	int highestConvergence = 0;
 	int convergencePoint = this->populationAmount * this->convergencePercentage;
+	std::cout << "Convergence Point: " << convergencePoint << std::endl;
 	for (auto & frequency : this->frequencyTable)
 	{
 		if (frequency.second > highestConvergence)
@@ -186,10 +195,14 @@ void GeneticAlgorithm::startEvolution()
  		generation++;
  	}
  	while (!this->checkConvergence());
- 	for (Vehicle * vehicle : this->population)
+
+ 	while (!this->population.empty())
  	{
+ 		Vehicle * vehicle = this->population.front();
  		this->rankedPopulation.push(vehicle);
+ 		this->population.pop();
  	}
+
  	while(!rankedPopulation.empty())
  	{
  		std::cout << "[Torque: " << rankedPopulation.top()->getTorqueId() << 
@@ -293,7 +306,7 @@ void GeneticAlgorithm::setNewGeneration()
 	int remainingPopulation = populationAmount - population.size(); //Verificar que queden 200 de poblacion
 	for (int vehicleCount = 0; vehicleCount < remainingPopulation; vehicleCount++)
 	{
-		population.push_back(rankedPopulation.top());
+		population.push(rankedPopulation.top());
 		rankedPopulation.pop();
 	}
 
@@ -310,7 +323,7 @@ void GeneticAlgorithm::pushToPopulation(Vehicle * pVehicle)
 	int configurationId = pVehicle->getTreadId()*10 + pVehicle->getTorqueId();
 	this->frequencyTable[configurationId] += 1; 
 	setVehicleFitness(pVehicle);
-	this->population.push_back(pVehicle);
+	this->population.push(pVehicle);
 }
 
 void GeneticAlgorithm::evolve()
