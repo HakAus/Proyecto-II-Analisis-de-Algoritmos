@@ -108,56 +108,45 @@ void GeneticAlgorithm::calculateFitness()
 	for (Vehicle* vehicle : this->population)
 	{
 		std::cout << "Vehicle chromosome: " << vehicle->getChromosome() << std::endl;
-		std::cout << "Torque Id: " << vehicle->getTorqueId() << std::endl;
-		std::cout << "Tread Id: " << vehicle->getTreadId() << std::endl;
 
 		Specification* torque = this->torqueTable[vehicle->getTorqueId()];
 		Specification* tread = this->treadTable[vehicle->getTreadId()];
 
-		// std::vector<float> terrainAttributes = this->currentTerrain->getAttributes();
-		// int torqueAttributes[3] = {0,0,0};
-		// torque->getClosestAttributesTo(terrainAttributes, torqueAttributes);
-		// int treadAttributes[3] = {0,0,0};
-		// tread->getClosestAttributesTo(terrainAttributes, treadAttributes);
+		std::vector<float> terrainAttributes = this->currentTerrain->getAttributes();
+		std::vector<int> torqueAttributes;
+		torque->getClosestAttributesTo(terrainAttributes, torqueAttributes);
+		std::vector<int> treadAttributes;
+		tread->getClosestAttributesTo(terrainAttributes, treadAttributes);
 
-		// std::string names[3] = {"firmness","humidity","grip"};
+		double terrainNorm = sqrt(
+							 pow(terrainAttributes[0], 2) + 
+							 pow(terrainAttributes[1], 2) + 
+						 	 pow(terrainAttributes[2], 2)
+							 );
+		double torqueNorm = sqrt(
+							pow(torqueAttributes[0], 2) + 
+							pow(torqueAttributes[1], 2) + 
+							pow(torqueAttributes[2], 2)
+							);
+		double treadNorm = sqrt(
+						   pow(treadAttributes[0], 2) + 
+						   pow(treadAttributes[1], 2) + 
+						   pow(treadAttributes[2], 2)
+						   );
 
-		// for (int i = 0; i < 3; i++)
-		// {
-		// 	std::cout << "Terrain " << i << ": " << terrainAttributes[i] << std::endl;
-		// 	std::cout << "Torque " << names[i] << ": " << torqueAttributes[i] << std::endl;
-		// 	std::cout << "Tread " << names[i] << ": " << treadAttributes[i] << std::endl;
-		// }
+		double fitnessScore = 0.0;
+		double torqueSimilarity = 0.0;
+		double treadSimilarity = 0.0;
 
-		// double terrainNorm = sqrt(
-		// 					 pow(terrainAttributes[0], 2) + 
-		// 					 pow(terrainAttributes[1], 2) + 
-		// 				 	 pow(terrainAttributes[2], 2)
-		// 					 );
-		// double torqueNorm = sqrt(
-		// 					pow(torqueAttributes[0], 2) + 
-		// 					pow(torqueAttributes[1], 2) + 
-		// 					pow(torqueAttributes[2], 2)
-		// 					);
-		// double treadNorm = sqrt(
-		// 				   pow(treadAttributes[0], 2) + 
-		// 				   pow(treadAttributes[1],2) + 
-		// 				   pow(treadAttributes[2],2)
-		// 				   );
+		for (int fitnessIndex = 0; fitnessIndex < 3; fitnessIndex++)
+		{
+			torqueSimilarity += (torqueAttributes[fitnessIndex] * terrainAttributes[fitnessIndex]) / (terrainNorm * torqueNorm);
+			treadSimilarity +=  (treadAttributes[fitnessIndex] * terrainAttributes[fitnessIndex]) / (terrainNorm * treadNorm);
+		}
 
-		// double fitnessScore = 0.0;
-		// double torqueSimilarity = 0.0;
-		// double treadSimilarity = 0.0;
-
-		// for (int fitnessIndex = 0; fitnessIndex < 3; fitnessIndex++)
-		// {
-		// 	torqueSimilarity += (torqueAttributes[fitnessIndex] * terrainAttributes[fitnessIndex]) / (terrainNorm * torqueNorm);
-		// 	treadSimilarity +=  (treadAttributes[fitnessIndex] * terrainAttributes[fitnessIndex]) / (terrainNorm * treadNorm);
-		// }
-
-		// fitnessScore = (1/torqueSimilarity)*torque->getEnergy() + (1/treadSimilarity)*tread->getEnergy();
-		// vehicle->setFitnessScore(fitnessScore);
-		// std::cout << "Fitness: " << fitnessScore << std::endl;
+		fitnessScore = (1/torqueSimilarity)*torque->getEnergy() + (1/treadSimilarity)*tread->getEnergy();
+		vehicle->setFitnessScore(fitnessScore);
+		std::cout << "Fitness: " << fitnessScore << std::endl;
 	}
 	//Pop a poblacion cuando fitness hacia priority
 
@@ -170,8 +159,8 @@ bool GeneticAlgorithm::checkConvergence()
 
 void GeneticAlgorithm::startEvolution()
 {
-	// this->getStretch();
-	// this->setCurrentTerrain();
+	this->getStretch();
+	this->setCurrentTerrain();
  	this->startPopulation();
  	this->calculateFitness();
  	// while (!this->checkConvergence())
