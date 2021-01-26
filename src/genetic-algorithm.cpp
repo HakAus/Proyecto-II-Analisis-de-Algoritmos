@@ -184,6 +184,7 @@ bool GeneticAlgorithm::checkConvergence()
 
 void GeneticAlgorithm::startEvolution()
 {
+	srand(time(0));
 	this->getStretch();
 	this->setCurrentTerrain();
  	this->startPopulation();

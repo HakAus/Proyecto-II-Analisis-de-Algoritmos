@@ -1,10 +1,11 @@
 #include "simulation.h"
 #include <chrono>
+#include <cstdlib>
+#include <random>
 
 int main()
 {
-	srand((unsigned int)time(NULL));
-
+	srand(time(0));
 	Simulation * simulation = new Simulation();
 	simulation->start();
 	simulation->join();

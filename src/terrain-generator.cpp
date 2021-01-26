@@ -72,6 +72,7 @@ void TerrainGenerator::generateStretch() //Puede encender un flag para no produc
 
 void TerrainGenerator::generate()
 {
+	srand(time(0));
 	while (this->currentDistance < this->distanceGoal)
 	{
 		this->generateStretch();
