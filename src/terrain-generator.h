@@ -12,6 +12,7 @@
 #include "terrain.h"
 #include "terrain-prototype.h"
 #include "sync-queue.h"
+#include "reader.h"
 
 class TerrainGenerator 
 {
@@ -25,6 +26,12 @@ private:
  	int maxStretchLength;
  	int generationWaitTime;	// Time lapse ins seconds between each generation iteration
 	std::vector<TerrainPrototype*> terrains;
+	bool randomGeneration;
+
+	// For manual terrain generation
+	Reader * reader;
+	rapidjson::Document manualRoute;
+	std::queue<std::queue<Terrain*>> stretches;
 
 	// Concurrency
 	bool producing;
@@ -32,9 +39,12 @@ private:
 	SyncQueue * queue;
 
 public:
-	TerrainGenerator(const rapidjson::Document& pConfig, SyncQueue* pSharedQueue);
+	TerrainGenerator(Reader* pReader, const rapidjson::Document& pConfig, SyncQueue* pSharedQueue);
 	void readTerrainData(const rapidjson::Document& pConfig);
+	void readRouteData(std::string pFilepath);
 	void generateStretch();
+	void generateRandomStretch();
+	void generatePredefinedStretch();
 	void generate();
 	
 	void start();

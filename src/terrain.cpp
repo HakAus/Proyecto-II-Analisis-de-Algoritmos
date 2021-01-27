@@ -12,12 +12,12 @@ Terrain::Terrain(const char * pName, float pAttributes[3],
 
 Terrain::Terrain(const rapidjson::Value& pValue)
 {
-	this->name = pValue.GetObject()["Name"].GetString();
-	this->attributes.push_back(pValue.GetObject()["Firmeza"].GetDouble());
-	this->attributes.push_back(pValue.GetObject()["Humedad"].GetDouble());
-	this->attributes.push_back(pValue.GetObject()["Agarre"].GetDouble());
-	this->startKm = pValue.GetObject()["KmStart"].GetInt();
-	this->endKm = pValue.GetObject()["KmEnd"].GetInt();
+	this->name = pValue.GetObject()["name"].GetString();
+	this->attributes.push_back(pValue.GetObject()["firmness"].GetDouble());
+	this->attributes.push_back(pValue.GetObject()["humidity"].GetDouble());
+	this->attributes.push_back(pValue.GetObject()["grip"].GetDouble());
+	this->startKm = pValue.GetObject()["kmStart"].GetInt();
+	this->endKm = pValue.GetObject()["kmEnd"].GetInt();
 }
 
 const char * Terrain::getName() { return this->name; }
@@ -28,12 +28,12 @@ const int Terrain::getEndKm() { return this->endKm; }
 rapidjson::Value* Terrain::toJsonObject(rapidjson::Document::AllocatorType& pAllocator)
 {
 	rapidjson::Value* terrain = new rapidjson::Value(rapidjson::kObjectType);
-	terrain->AddMember("Name", rapidjson::Value(this->name,pAllocator), pAllocator);
-	terrain->AddMember("KmStart", rapidjson::Value(this->startKm), pAllocator);
-	terrain->AddMember("KmEnd", rapidjson::Value(this->endKm), pAllocator);
-	terrain->AddMember("Firmeza", rapidjson::Value(this->attributes[0]), pAllocator);
-	terrain->AddMember("Humedad", rapidjson::Value(this->attributes[1]), pAllocator);
-	terrain->AddMember("Agarre", rapidjson::Value(this->attributes[2]), pAllocator);
+	terrain->AddMember("name", rapidjson::Value(this->name,pAllocator), pAllocator);
+	terrain->AddMember("firmness", rapidjson::Value(this->attributes[0]), pAllocator);
+	terrain->AddMember("humidity", rapidjson::Value(this->attributes[1]), pAllocator);
+	terrain->AddMember("grip", rapidjson::Value(this->attributes[2]), pAllocator);
+	terrain->AddMember("kmStart", rapidjson::Value(this->startKm), pAllocator);
+	terrain->AddMember("kmEnd", rapidjson::Value(this->endKm), pAllocator);
 	return terrain;
 }
 

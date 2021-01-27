@@ -2,7 +2,9 @@
 	"simulationConfig":
 	{
 		"maxQueueItems":100,
-		"stretchGenerationWaitSeconds":4
+		"stretchGenerationWaitSeconds":4,
+		"randomTerrainGeneration":false,
+		"manualRouteFilePath":"../input/route1.json"
 	},
 	"geneticAlgoConfig":
 	{

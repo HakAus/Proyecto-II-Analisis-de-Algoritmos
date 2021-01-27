@@ -8,7 +8,7 @@ class TerrainPrototype
 {
 public:
 	std::string name;
-	int firmessRange[2];
+	int firmnessRange[2];
 	int humidityRange[2];
 	int gripRange[2];
 
