@@ -142,11 +142,13 @@ void GeneticAlgorithm::setVehicleFitness(Vehicle* pVehicle)
 
 	torqueSimilarity = torqueSimilarity / (terrainNorm * torqueNorm);
 	treadSimilarity = treadSimilarity / (terrainNorm * treadNorm);
-						// 0..1
-	fitnessScore = (1/torqueSimilarity)*(torque->getEnergy()-torque->getEnergy()*torqueSimilarity) + 
-				   (1/treadSimilarity)*(tread->getEnergy()-tread->getEnergy()*treadSimilarity);
+
+	// fitnessScore = (1/torqueSimilarity)*(torque->getEnergy()-torque->getEnergy()*torqueSimilarity) + 
+	// 			   (1/treadSimilarity)*(tread->getEnergy()-tread->getEnergy()*treadSimilarity);
+   	fitnessScore = (1/torqueSimilarity)*torque->getEnergy() + (1/treadSimilarity)*tread->getEnergy();
 	pVehicle->setFitnessScore(fitnessScore);
 }
+
 
 void GeneticAlgorithm::setPopulationFitness()
 {
@@ -279,7 +281,6 @@ void GeneticAlgorithm::crossover(Vehicle * pParent1, Vehicle * pParent2, Vehicle
 		// showbits("Child:", childGenotype);
 		childGenotype = 0;
 	}
-
 }
 
 void GeneticAlgorithm::generateMasks(int pBytePos)
@@ -289,8 +290,8 @@ void GeneticAlgorithm::generateMasks(int pBytePos)
 	leftMask = base << pBytePos;
 	base = 0b1111111111111111;
 	rightMask = base >> rightMaskShift;
-	// showbits("LM", leftMask);
-	// showbits("RM", rightMask);
+	showbits("LM", leftMask);
+	showbits("RM", rightMask);
 }
 
 void GeneticAlgorithm::mutate(Vehicle * pChild)
@@ -352,7 +353,6 @@ void GeneticAlgorithm::pushToPopulation(Vehicle * pVehicle)
 void GeneticAlgorithm::evolve()
 {
 	// this->setPopulationFitness();
-
 	std::queue<Vehicle*> fittest = this->selectFittestParents();
 	std::vector<Vehicle*> children;
 	while (!fittest.empty())
