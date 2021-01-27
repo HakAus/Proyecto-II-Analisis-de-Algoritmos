@@ -186,7 +186,7 @@ bool GeneticAlgorithm::checkConvergence()
 void GeneticAlgorithm::startEvolution()
 {
 	srand(time(0));
-	while (!queue->empty())//Manejar los tiempos para ismular los sensores simular con una espera o usar las distancias?
+	do //Manejar los tiempos para ismular los sensores simular con una espera o usar las distancias?
 		//Cuidado con los threads, arreglar distancia final
 	{
 		this->getStretch();
@@ -218,7 +218,9 @@ void GeneticAlgorithm::startEvolution()
 			}
 			std::this_thread::sleep_for(std::chrono::seconds(this->sensorWaitTime));
 		}
-	}
+	} 
+	while (!queue->empty());
+	std::cout << "No entra";
 }
 
 std::queue<Vehicle*> GeneticAlgorithm::selectFittestParents()
