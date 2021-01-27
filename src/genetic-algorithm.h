@@ -57,7 +57,7 @@ public:
 	void setPopulationFitness();
 	std::queue<Vehicle*> selectFittestParents();
 	void crossover(Vehicle * pParent1, Vehicle *pParent2, Vehicle** pTwins);
-	void generateMask(int pBytePos);
+	void generateMasks(int pBytePos);
 	void mutate(Vehicle* pChild);
 	void tryMutation(Vehicle* pChild);
 	void evolve();

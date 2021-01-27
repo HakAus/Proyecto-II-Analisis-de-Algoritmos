@@ -7,9 +7,9 @@
 				"name" : "Pantano",
 				"kmStart" : 0,
 				"kmEnd" : 18,
-				"firmness" : 30,
-				"humidity" : 40,
-				"grip" : 40
+				"firmness" : 10,
+				"humidity" : 95,
+				"grip" : 5
 			},
 			{
 				"name" : "Arcilloso",

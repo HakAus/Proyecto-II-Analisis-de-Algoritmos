@@ -3,7 +3,7 @@
 	{
 		"maxQueueItems":100,
 		"stretchGenerationWaitSeconds":4,
-		"randomTerrainGeneration":true,
+		"randomTerrainGeneration":false,
 		"manualRouteFilePath":"../input/route1.json",
 		"distanceGoal":120
 	},
