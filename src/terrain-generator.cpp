@@ -1,7 +1,8 @@
 #include "terrain-generator.h"
 
-TerrainGenerator::TerrainGenerator(const rapidjson::Document& pConfig, SyncQueue* pSharedQueue)
+TerrainGenerator::TerrainGenerator(Reader* pReader, const rapidjson::Document& pConfig, SyncQueue* pSharedQueue)
 {
+	this->reader = pReader;
 	this->currentDistance = 0;
 	this->distanceGoal = 400;
 	this->totalTerrains = 0;
@@ -9,27 +10,53 @@ TerrainGenerator::TerrainGenerator(const rapidjson::Document& pConfig, SyncQueue
 	this->maximunTerrainLength = 20;
 	this->minStretchLength = 40;
 	this->maxStretchLength = 80;
-	this->generationWaitTime = 4;
+	this->generationWaitTime = pConfig["simulationConfig"].GetObject()["stretchGenerationWaitSeconds"].GetInt();
 	this->queue = pSharedQueue;
 	this->producing = true;
+	this->randomGeneration = pConfig["simulationConfig"].GetObject()["randomTerrainGeneration"].GetBool();
 	this->readTerrainData(pConfig);
+
+	if (!randomGeneration)
+	{
+		std::string filepath = pConfig["simulationConfig"].GetObject()["manualRouteFilePath"].GetString();
+		readRouteData(filepath.c_str());
+	}
+
+}
+
+void TerrainGenerator::readRouteData(std::string pFilepath)
+{
+
+	this->reader->readInto(pFilepath.c_str(), this->manualRoute);
+	auto stretchObject = this->manualRoute["stretches"].GetObject();
+
+	for (const auto& stretchItr : stretchObject)
+	{
+		std::queue<Terrain*> stretch;	
+		for (const auto& terrainItr : stretchItr.value.GetArray())
+		{
+			Terrain * terrain = new Terrain(terrainItr);
+			stretch.push(terrain);
+		}
+		this->stretches.push(stretch);
+	}
 }
 
 void TerrainGenerator::readTerrainData(const rapidjson::Document& pConfig)
 {
-	for (auto const& te : pConfig["terrains"].GetArray())
+	for (auto const& terrain : pConfig["terrains"].GetArray())
 	{
 		std::string name;
 		int ranges[6];
 		int counter = 0;
-		for (auto & itr : te.GetObject())
+		for (auto & attribute : terrain.GetObject())
 		{
-			if (itr.value.IsString())
-				name = itr.value.GetString();
+			if (attribute.value.IsString())
+				name = attribute.value.GetString();
 			else
 			{
-					ranges[counter] = itr.value.GetArray()[0].GetInt();
-					ranges[counter+1] = itr.value.GetArray()[1].GetInt();	
+					ranges[counter] = attribute.value.GetArray()[0].GetInt();
+					ranges[counter+1] = attribute.value.GetArray()[1].GetInt();	
 					counter+=2;
 			}
 		}
@@ -38,7 +65,7 @@ void TerrainGenerator::readTerrainData(const rapidjson::Document& pConfig)
 	std::cout << "Terrain Data Read" << std::endl;
 }
 
-void TerrainGenerator::generateStretch() //Puede encender un flag para no producir mas genera un tramo revisar que llegue al numero de distancia necesario o que se pase un poco
+void TerrainGenerator::generateRandomStretch()
 {
 	int stretchLength = Random::RandomRange(minStretchLength, maxStretchLength);
 	int stretchCurrentDistance = 0;
@@ -68,6 +95,36 @@ void TerrainGenerator::generateStretch() //Puede encender un flag para no produc
 	}
 
 	queue->push(stretch);
+}
+
+void TerrainGenerator::generatePredefinedStretch()
+{
+	if (!this->stretches.empty())
+	{
+		std::queue<Terrain*> currentStretch = this->stretches.front();
+		this->stretches.pop();
+		rapidjson::Document* stretch = new rapidjson::Document();
+		stretch->SetArray();
+
+		while (!currentStretch.empty())
+		{
+			Terrain* terrain = currentStretch.front();
+			int terrainDistance = terrain->getEndKm() - terrain->getStartKm();
+			currentStretch.pop();
+			rapidjson::Value* terrainJSONObject = terrain->toJsonObject(stretch->GetAllocator());
+			stretch->PushBack(*terrainJSONObject,stretch->GetAllocator());
+			this->currentDistance += terrainDistance;
+		}
+		queue->push(stretch);
+	}
+}
+
+void TerrainGenerator::generateStretch() 
+{
+	if (this->randomGeneration)
+		generateRandomStretch();
+	else
+		generatePredefinedStretch();
 }
 
 void TerrainGenerator::generate()

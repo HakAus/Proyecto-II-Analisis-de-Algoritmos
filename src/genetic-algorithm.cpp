@@ -71,11 +71,12 @@ void GeneticAlgorithm::setSpecifications(const rapidjson::Document& pConfig)
 
 void GeneticAlgorithm::getStretch()
 {
+	std::cout << "Getting stretch ... " << std::endl;
 	if (this->distanceProcessed < this->totalDistance)
 	{
 		rapidjson::Document* stretch = this->queue->pop();
 		int distance = 0;
-
+		
 		for (const auto& terrainJSONObject : stretch->GetArray())
 		{
 			Terrain* terrain = new Terrain(terrainJSONObject);
@@ -84,6 +85,7 @@ void GeneticAlgorithm::getStretch()
 		}
 		this->distanceProcessed += distance;
 	}
+	std::cout << "Finished getting stretch ..." << std::endl;
 }
 
 void GeneticAlgorithm::setCurrentTerrain()

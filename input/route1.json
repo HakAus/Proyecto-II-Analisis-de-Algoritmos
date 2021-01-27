@@ -1,0 +1,118 @@
+{
+	"stretches" :
+	{
+		"stretch1" :
+		[
+			{
+				"name" : "Pantano",
+				"kmStart" : 0,
+				"kmEnd" : 18,
+				"firmness" : 30,
+				"humidity" : 40,
+				"grip" : 40
+			},
+			{
+				"name" : "Arcilloso",
+				"kmStart" : 18,
+				"kmEnd" : 23,
+				"firmness" : 10,
+				"humidity" : 70,
+				"grip" : 60
+			},
+			{
+				"name" : "Volcánico",
+				"kmStart" : 23,
+				"kmEnd" : 35,
+				"firmness" : 30,
+				"humidity" : 40,
+				"grip" : 70
+			},
+			{
+				"name" : "Arenoso",
+				"kmStart" : 35,
+				"kmEnd" : 40,
+				"firmness" : 10,
+				"humidity" : 10,
+				"grip" : 30
+			}
+		],
+		"stretch2" : 
+		[
+			{
+				"name" : "Arenoso",
+				"kmStart" : 40,
+				"kmEnd" : 46,
+				"firmness" : 20,
+				"humidity" : 31,
+				"grip" : 43
+			},
+			{
+				"name" : "Arcilloso",
+				"kmStart" : 46,
+				"kmEnd" : 57,
+				"firmness" : 54,
+				"humidity" : 45,
+				"grip" : 67
+			},
+			{
+				"name" : "Volcánico",
+				"kmStart" : 57,
+				"kmEnd" : 68,
+				"firmness" : 69,
+				"humidity" : 12,
+				"grip" : 30
+			},
+			{
+				"name" : "Arenoso",
+				"kmStart" : 68,
+				"kmEnd" : 71,
+				"firmness" : 14,
+				"humidity" : 18,
+				"grip" : 39
+			},
+			{
+				"name" : "Rocoso",
+				"kmStart" : 71,
+				"kmEnd" : 80,
+				"firmness" : 78,
+				"humidity" : 2,
+				"grip" : 89
+			}
+		],
+		"stretch3" : 
+		[
+			{
+				"name" : "Rocoso",
+				"kmStart" : 80,
+				"kmEnd" : 98,
+				"firmness" : 78,
+				"humidity" : 20,
+				"grip" : 79
+			},
+			{
+				"name" : "Arenoso",
+				"kmStart" : 98,
+				"kmEnd" : 108,
+				"firmness" : 23,
+				"humidity" : 10,
+				"grip" : 15
+			},
+			{
+				"name" : "Tierra roja",
+				"kmStart" : 108,
+				"kmEnd" : 115,
+				"firmness" : 20,
+				"humidity" : 5,
+				"grip" : 50
+			},
+			{
+				"name" : "Volcánico",
+				"kmStart" : 115,
+				"kmEnd" : 120,
+				"firmness" : 79,
+				"humidity" : 18,
+				"grip" : 68
+			}
+		]
+	}
+}
