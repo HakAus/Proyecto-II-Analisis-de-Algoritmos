@@ -13,6 +13,7 @@
 GeneticAlgorithm::GeneticAlgorithm(const rapidjson::Document& pConfig, SyncQueue* pSharedQueue)
 {
 	this->fittestPopulationPercentage = 0.40;
+	this->sensorWaitTime = 4;
 	this->convergencePercentage = 0.80;
 	this->mutationPercentage = 0;
 	this->populationAmount = 200;
@@ -185,33 +186,39 @@ bool GeneticAlgorithm::checkConvergence()
 void GeneticAlgorithm::startEvolution()
 {
 	srand(time(0));
-	this->getStretch();
-	this->setCurrentTerrain();
- 	this->startPopulation();
- 	int generation = 0;
- 	do 
- 	{
- 		std::cout << "Generation: " << generation << std::endl;
- 		this->evolve();
- 		generation++;
- 	}
- 	while (!this->checkConvergence());
+	while (!queue->empty())//Manejar los tiempos para ismular los sensores simular con una espera o usar las distancias?
+		//Cuidado con los threads, arreglar distancia final
+	{
+		this->getStretch();
+		while (!currentStretch.empty()) {
+			this->setCurrentTerrain();
+			this->startPopulation();
+			int generation = 0;
+			do
+			{
+				std::cout << "Generation: " << generation << std::endl;
+				this->evolve();
+				generation++;
+			} while (!this->checkConvergence());
 
- 	while (!this->population.empty())
- 	{
- 		Vehicle * vehicle = this->population.front();
- 		this->rankedPopulation.push(vehicle);
- 		this->population.pop();
- 	}
+			while (!this->population.empty())
+			{
+				Vehicle* vehicle = this->population.front();
+				this->rankedPopulation.push(vehicle);
+				this->population.pop();
+			}
 
- 	while(!rankedPopulation.empty())
- 	{
- 		std::cout << "[Torque: " << rankedPopulation.top()->getTorqueId() << 
- 					 ", Tread: " << rankedPopulation.top()->getTreadId() << 
- 					 ", Fitness Score: " << rankedPopulation.top()->getFitnessScore() 
- 					 << "]" << std::endl; 
- 		rankedPopulation.pop();
- 	}
+			while (!rankedPopulation.empty())
+			{
+				std::cout << "[Torque: " << rankedPopulation.top()->getTorqueId() <<
+					", Tread: " << rankedPopulation.top()->getTreadId() <<
+					", Fitness Score: " << rankedPopulation.top()->getFitnessScore()
+					<< "]" << std::endl;
+				rankedPopulation.pop();
+			}
+			std::this_thread::sleep_for(std::chrono::seconds(this->sensorWaitTime));
+		}
+	}
 }
 
 std::queue<Vehicle*> GeneticAlgorithm::selectFittestParents()

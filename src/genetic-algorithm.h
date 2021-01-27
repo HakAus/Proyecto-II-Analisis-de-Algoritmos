@@ -33,6 +33,7 @@ private:
 	int totalDistance;
 	int totalEnergy;
 	int numberOfExtractions;
+	int sensorWaitTime;
 
 	unsigned short leftMask = 0b1111111100000000;	// Torque
 	unsigned short rightMask = 0b0000000011111111;	// Tread
