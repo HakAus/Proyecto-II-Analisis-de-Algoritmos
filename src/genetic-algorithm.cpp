@@ -71,7 +71,6 @@ void GeneticAlgorithm::setSpecifications(const rapidjson::Document& pConfig)
 
 void GeneticAlgorithm::getStretch()
 {
-	std::cout << "Getting stretch ... " << std::endl;
 	if (this->distanceProcessed < this->totalDistance)
 	{
 		rapidjson::Document* stretch = this->queue->pop();
@@ -85,7 +84,6 @@ void GeneticAlgorithm::getStretch()
 		}
 		this->distanceProcessed += distance;
 	}
-	std::cout << "Finished getting stretch ..." << std::endl;
 }
 
 void GeneticAlgorithm::setCurrentTerrain()
@@ -161,11 +159,6 @@ void GeneticAlgorithm::setPopulationFitness()
 		this->population.pop();
 		vehiclesInserted++;
 	}
-	// for (vehicleItr = this->population.begin(); vehicleItr < this->population.end(); vehicleItr++)
-	// {
-		
-		
-	// }
 }
 
 bool GeneticAlgorithm::checkConvergence()
@@ -192,7 +185,9 @@ void GeneticAlgorithm::startEvolution()
 		//Cuidado con los threads, arreglar distancia final
 	{
 		this->getStretch();
-		while (!currentStretch.empty()) {
+		std::cout << "New stretch fetched!" << std::endl;
+		while (!this->currentStretch.empty()) 
+		{
 			this->setCurrentTerrain();
 			this->startPopulation();
 			int generation = 0;
@@ -201,28 +196,28 @@ void GeneticAlgorithm::startEvolution()
 				std::cout << "Generation: " << generation << std::endl;
 				this->evolve();
 				generation++;
-			} while (!this->checkConvergence());
+			} 
+			while (!this->checkConvergence());
 
-			while (!this->population.empty())
-			{
-				Vehicle* vehicle = this->population.front();
-				this->rankedPopulation.push(vehicle);
-				this->population.pop();
-			}
+			// while (!this->population.empty())
+			// {
+			// 	Vehicle* vehicle = this->population.front();
+			// 	this->rankedPopulation.push(vehicle);
+			// 	this->population.pop();
+			// }
 
-			while (!rankedPopulation.empty())
-			{
-				std::cout << "[Torque: " << rankedPopulation.top()->getTorqueId() <<
-					", Tread: " << rankedPopulation.top()->getTreadId() <<
-					", Fitness Score: " << rankedPopulation.top()->getFitnessScore()
-					<< "]" << std::endl;
-				rankedPopulation.pop();
-			}
+			// while (!rankedPopulation.empty())
+			// {
+			// 	std::cout << "[Torque: " << rankedPopulation.top()->getTorqueId() <<
+			// 		", Tread: " << rankedPopulation.top()->getTreadId() <<
+			// 		", Fitness Score: " << rankedPopulation.top()->getFitnessScore()
+			// 		<< "]" << std::endl;
+			// 	rankedPopulation.pop();
+			// }
 			std::this_thread::sleep_for(std::chrono::seconds(this->sensorWaitTime));
 		}
 	} 
-	while (!queue->empty());
-	std::cout << "No entra";
+	while (!this->queue->empty());
 }
 
 std::queue<Vehicle*> GeneticAlgorithm::selectFittestParents()

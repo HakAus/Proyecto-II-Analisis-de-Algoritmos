@@ -4,7 +4,7 @@ TerrainGenerator::TerrainGenerator(Reader* pReader, const rapidjson::Document& p
 {
 	this->reader = pReader;
 	this->currentDistance = 0;
-	this->distanceGoal = 400;
+	this->distanceGoal = pConfig["simulationConfig"].GetObject()["distanceGoal"].GetInt();
 	this->totalTerrains = 0;
 	this->minimunTerrainLength = 5;
 	this->maximunTerrainLength = 20;
@@ -93,8 +93,8 @@ void TerrainGenerator::generateRandomStretch()
 		stretchCurrentDistance += terrainDistance;
 		this->currentDistance += terrainDistance;
 	}
-
-	queue->push(stretch);
+	std::cout << "currentDistance= " << this->currentDistance << " - distanceGoal= " << this->distanceGoal << std::endl;
+	this->queue->push(stretch);
 }
 
 void TerrainGenerator::generatePredefinedStretch()
@@ -115,7 +115,8 @@ void TerrainGenerator::generatePredefinedStretch()
 			stretch->PushBack(*terrainJSONObject,stretch->GetAllocator());
 			this->currentDistance += terrainDistance;
 		}
-		queue->push(stretch);
+		std::cout << "currentDistance= " << this->currentDistance << " - distanceGoal= " << this->distanceGoal << std::endl;
+		this->queue->push(stretch);
 	}
 }
 
@@ -190,7 +191,6 @@ void TerrainGenerator::pushToQueue(rapidjson::Document* value)
 	if (producing)
 	{
 		queue->push(value);
-		std::cout << "Generatorpushed" << std::endl;
 	}
 	else
 		std::cout << "DidntPush" << std::endl;

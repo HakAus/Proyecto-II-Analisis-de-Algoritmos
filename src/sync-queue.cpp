@@ -84,7 +84,7 @@ rapidjson::Document* SyncQueue::front()
 bool SyncQueue::empty()
 {
 	std::unique_lock<std::mutex> locker(this->mutex);
-	bool result =  this->queue.empty();
+	bool result = this->queue.empty();
 	locker.unlock();
 	return result;
 }

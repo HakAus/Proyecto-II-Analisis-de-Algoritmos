@@ -3,8 +3,9 @@
 	{
 		"maxQueueItems":100,
 		"stretchGenerationWaitSeconds":4,
-		"randomTerrainGeneration":false,
-		"manualRouteFilePath":"../input/route1.json"
+		"randomTerrainGeneration":true,
+		"manualRouteFilePath":"../input/route1.json",
+		"distanceGoal":120
 	},
 	"geneticAlgoConfig":
 	{
