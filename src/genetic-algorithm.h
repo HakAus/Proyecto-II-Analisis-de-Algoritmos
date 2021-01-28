@@ -9,6 +9,7 @@
 
 #include "../libs/rapidjson/document.h"
 #include "../libs/rapidjson/prettywriter.h"
+#include "wheel.h"
 #include "vehicle.h"
 #include "terrain.h"
 #include "specification.h"
@@ -18,13 +19,14 @@ class GeneticAlgorithm
 {
 private:
 	// Algorithm
-	std::queue<Vehicle*> population;
+	std::queue<Wheel*> population;
 	std::unordered_map<int, Specification*> treadTable;
 	std::unordered_map<int, Specification*> torqueTable;
 	std::unordered_map<int, int> frequencyTable;
-	std::priority_queue<Vehicle*, std::vector<Vehicle*>, VehicleComparator>  rankedPopulation;
+	std::priority_queue<Wheel*, std::vector<Wheel*>, WheelComparator>  rankedPopulation;
 	std::vector<Terrain*> currentStretch;
 	Terrain * currentTerrain;
+	Vehicle * vehicle;
 	float convergencePercentage;
 	float fittestPopulationPercentage; //Funciona para el numero de extracciones
 	int mutationPercentage;
@@ -34,6 +36,8 @@ private:
 	int totalEnergy;
 	int numberOfExtractions;
 	int sensorWaitTime;
+	int generation;
+	int answer;
 
 	unsigned short leftMask = 0b1111111100000000;	// Torque
 	unsigned short rightMask = 0b0000000011111111;	// Tread
@@ -43,7 +47,7 @@ private:
 	SyncQueue * queue;
 
 public:
-	GeneticAlgorithm(const rapidjson::Document& pConfig, SyncQueue* pSharedQueue);
+	GeneticAlgorithm(Vehicle * pVehicle, const rapidjson::Document& pConfig, SyncQueue* pSharedQueue);
 	GeneticAlgorithm();	// DEBUG
 	~GeneticAlgorithm();
 	void setSpecifications(const rapidjson::Document& pConfig);
@@ -53,19 +57,20 @@ public:
 								);
 	void startPopulation();
 	void setCurrentTerrain();
-	void setVehicleFitness(Vehicle* pVehicle);
+	void setIndividualFitness(Wheel* pWheel);
 	void setPopulationFitness();
-	std::queue<Vehicle*> selectFittestParents();
-	void crossover(Vehicle * pParent1, Vehicle *pParent2, Vehicle** pTwins);
+	std::queue<Wheel*> selectFittestParents();
+	void crossover(Wheel* pParent1, Wheel* pParent2, Wheel** pTwins);
 	void generateMasks(int pBytePos);
-	void mutate(Vehicle* pChild);
-	void tryMutation(Vehicle* pChild);
+	void mutate(Wheel* pChild);
+	void tryMutation(Wheel* pChild);
 	void evolve();
-	void pushToPopulation(Vehicle * pVehicle);
+	void pushToPopulation(Wheel* pWheel);
 	void startEvolution();
 	bool checkConvergence();
+	void addConfigurationToVehicle();
 	void setNewGeneration();
-	Vehicle * getResult();
+	Wheel * getResult();
 	void start();
 	void join();
 	void getStretch();

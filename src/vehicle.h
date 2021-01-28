@@ -1,32 +1,26 @@
 #pragma once
-#ifndef _VEHICLE_H_
-#define _VEHICLE_H_
+#ifndef __VEHICLE_H__
+#define __VEHICLE_H__
 
-#include <cmath>
+#include <unordered_map>
+#include "terrain.h"
+#include "wheel.h"
 
-class Vehicle
+class Vehicle 
 {
 private:
-	const double CHROMOSOME_RANGE_SIZE = 36.45;
-	unsigned short chromosome;
-	double fitnessScore;
+	int batteryLevel;
+	float kilometersTravelled;
+	std::unordered_map<Terrain*, Wheel*> configurations;
 
 public:
-	Vehicle(unsigned short pChromosome);
-	int getTreadId() const;
-	int getTorqueId() const;
-	void setFitnessScore(double pScore);
-	double getFitnessScore() const;
-	void setChromosome(unsigned short pChromosome);
-	unsigned short getChromosome() const;
+	Vehicle();
+	void updateBatteryLevel(int pEnergyUnits);
+	void updateKilometersTravelled(float pKilometers);
+	int getBatteryLevel();
+	void addConfiguration(Terrain* pTerrain, Wheel* pWheel);
+	void printRouteConfiguration();
 
 };
 
-class VehicleComparator {
-public:
-  bool operator()(Vehicle *a, Vehicle *b) {
-    return a->getFitnessScore() > b->getFitnessScore();
-  }
-};
-
-#endif /* _VEHICLE_H_ */
+#endif /*__VEHICLE_H_*/

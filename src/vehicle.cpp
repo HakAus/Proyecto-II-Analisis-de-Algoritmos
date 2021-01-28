@@ -1,47 +1,38 @@
 #include "vehicle.h"
-#include <iostream>
 
-Vehicle::Vehicle(unsigned short pChromosome)
+Vehicle::Vehicle()
 {
-	this->chromosome = pChromosome;
-	this->fitnessScore = 0.0;
+	this->batteryLevel = 7000;
+	this->kilometersTravelled = 0.0;
 }
 
-int Vehicle::getTreadId() const
+void Vehicle::updateBatteryLevel(int pEnergyUnits)
 {
-	unsigned char c = 0;
-	c = c | this->chromosome;
-	double num = c;
-	num += 0.000000001;
-	return (int) (11 - ceil(num/CHROMOSOME_RANGE_SIZE));
+	this->batteryLevel -= pEnergyUnits;
 }
 
-int Vehicle::getTorqueId() const
+void Vehicle::updateKilometersTravelled(float pKilometers)
 {
-	unsigned short tmpChromosome = this->chromosome >> 8;
-	unsigned char c = 0;
-	c = c | tmpChromosome;
-	double num = c;
-	num += 0.000000001;
-	return (int) ceil(num/CHROMOSOME_RANGE_SIZE);
+	this->kilometersTravelled += pKilometers;
 }
 
-void Vehicle::setFitnessScore(double pScore)
+int Vehicle::getBatteryLevel()
 {
-	this->fitnessScore = pScore;
+	return this->batteryLevel;
 }
 
-double Vehicle::getFitnessScore() const
+void Vehicle::addConfiguration(Terrain* pTerrain, Wheel* pWheel)
 {
-	return this->fitnessScore;
+	this->configurations[pTerrain] = pWheel;
 }
 
-void Vehicle::setChromosome(unsigned short pChromosome)
+void Vehicle::printRouteConfiguration()
 {
-	this->chromosome = pChromosome;
-}
-
-unsigned short Vehicle::getChromosome() const
-{
-	return this->chromosome;
+	std::cout << "*** Configuration for terrains in detected route ***" << std::endl;
+	for (const auto& configuration : this->configurations)
+	{
+		configuration.first->print();
+		configuration.second->print();
+	}
+	std::cout << "****************************************************" << std::endl;
 }

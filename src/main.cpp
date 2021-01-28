@@ -1,6 +1,5 @@
 #include "simulation.h"
 #include <chrono>
-#include <cstdlib>
 #include <random>
 
 int main()
