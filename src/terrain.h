@@ -24,6 +24,7 @@ public:
 	const int getEndKm();
 	rapidjson::Value* toJsonObject(rapidjson::Document::AllocatorType& allocator);
 	void print();
+	std::string toString();
 };
 
 #endif /* _TERRAIN_H_ */

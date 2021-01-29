@@ -3,6 +3,7 @@
 #define _WHEEL_H_
 
 #include <cmath>
+#include <iostream>
 
 class Wheel
 {
@@ -21,6 +22,7 @@ public:
 	void setChromosome(unsigned short pChromosome);
 	unsigned short getChromosome() const;
 	void print();
+	std::string toString();
 
 };
 

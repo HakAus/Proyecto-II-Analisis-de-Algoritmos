@@ -20,5 +20,5 @@ public:
 	void getClosestAttributesTo(std::vector<float>& pTerrainAttributes, std::vector<int>& pAttributes);
 	int getClosestAttribute(float pTarget, std::vector<int>& pAttributeContainer);
 	void print();
-
+	std::string toString();
 };

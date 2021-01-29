@@ -3,7 +3,7 @@
 Simulation::Simulation()
 {
 	this->reader = new Reader();
-	reader->read("../input/config.json");
+	reader->read("config.json");
 	this->queue = new SyncQueue(reader->getDocument());	
 	this->vehicle = new Vehicle();
 	this->terrainGenerator = new TerrainGenerator(this->reader, reader->getDocument(), this->queue);

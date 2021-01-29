@@ -1,5 +1,6 @@
 #include "wheel.h"
 #include <iostream>
+#include <string>
 
 Wheel::Wheel(unsigned short pChromosome)
 {
@@ -85,4 +86,16 @@ void Wheel::print()
 	std::cout << "**** Datos de la llanta ****" << std::endl;
 	showbits2("Cromosoma: ", this->chromosome);
 	std::cout << "fitnessScore: " << this->fitnessScore << std::endl;
+}
+
+std::string Wheel::toString()
+{
+	std::string toString;
+	toString += "**** Datos de la llanta ****"; 
+	toString+="\n";
+	toString += std::to_string(this->chromosome);
+	toString += "fitnessScore: ";
+	toString += std::to_string(this->fitnessScore);
+	toString += "\n";
+	return toString;
 }

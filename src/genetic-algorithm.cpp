@@ -2,6 +2,7 @@
 #include "random.cpp"
 #include <typeinfo>
 
+
 // PARA IMPRIMIR
 
 // rapidjson::StringBuffer sb;
@@ -12,6 +13,7 @@
 
 GeneticAlgorithm::GeneticAlgorithm(Vehicle* pVehicle, const rapidjson::Document& pConfig, SyncQueue* pSharedQueue)
 {
+	logManager = new LogManager();
 	this->vehicle = pVehicle;
 	this->fittestPopulationPercentage = 0.40;
 	this->sensorWaitTime = 4;
@@ -101,17 +103,23 @@ void GeneticAlgorithm::setCurrentTerrain()
 
 void GeneticAlgorithm::startPopulation()
 {
+	logManager->addLine("INITIAL POPULATION GENOTYPES");
 	for (int amount = 0; amount < this->populationAmount; amount++)
 	{
-		this->population.push(new Wheel(Random::RandomChromosome()));
+		Wheel* wheel = new Wheel(Random::RandomChromosome());
+		this->population.push(wheel);
+		logManager->addLine("VEHICLE#", amount);
+		logManager->addLine(wheel->getChromosome());
 	}
 }
 
 void GeneticAlgorithm::setIndividualFitness(Wheel* pWheel)
 {
+	logManager->addLine("WHEEL ATRIBUTES");
 	Specification* torque = this->torqueTable[pWheel->getTorqueId()];
 	Specification* tread = this->treadTable[pWheel->getTreadId()];
-
+	logManager->addLine(torque->toString());
+	logManager->addLine(tread->toString());
 	std::vector<float> terrainAttributes = this->currentTerrain->getAttributes();
 	std::vector<int> torqueAttributes;
 	torque->getClosestAttributesTo(terrainAttributes, torqueAttributes);
@@ -151,6 +159,8 @@ void GeneticAlgorithm::setIndividualFitness(Wheel* pWheel)
 	// 			   (1/treadSimilarity)*(tread->getEnergy()-tread->getEnergy()*treadSimilarity);
    	fitnessScore = (1/torqueSimilarity)*torque->getEnergy() + (1/treadSimilarity)*tread->getEnergy();
 	pWheel->setFitnessScore(fitnessScore);
+	logManager->addLine("WHEEL FITNESSSCORE");
+	logManager->addLine(fitnessScore);
 }
 
 void GeneticAlgorithm::setPopulationFitness()
@@ -170,7 +180,7 @@ bool GeneticAlgorithm::checkConvergence()
 {
 	// int highestConvergence = 0;
 	int convergencePoint = this->populationAmount * this->convergencePercentage;
-	std::cout << "Convergence Point: " << convergencePoint << std::endl;
+	//std::cout << "Convergence Point: " << convergencePoint << std::endl;
 	for (auto & frequency : this->frequencyTable)
 	{
 		// if (frequency.second > highestConvergence)
@@ -190,6 +200,7 @@ bool GeneticAlgorithm::checkConvergence()
 void GeneticAlgorithm::addConfigurationToVehicle()
 {
 	std::cout << "Winning configuration: " << this->answer << std::endl;
+	logManager->addLine("Winning configuration:", answer);
 	int torqueId = this->answer%10;
 	int treadId = this->answer/10;
 	Wheel * wheel = new Wheel(torqueId, treadId);
@@ -199,18 +210,19 @@ void GeneticAlgorithm::addConfigurationToVehicle()
 void GeneticAlgorithm::startEvolution()
 {
 	srand(time(0));
-	do //Manejar los tiempos para ismular los sensores simular con una espera o usar las distancias?
-		//Cuidado con los threads, arreglar distancia final
+	do 
 	{
 		this->getStretch();
 		while (!this->currentStretch.empty()) 
 		{
+			logManager->createLog("Stretch");
 			this->setCurrentTerrain();
+			logManager->addLine(currentTerrain->toString());
 			this->startPopulation();
 			this->setPopulationFitness();
 			this->generation = 0;
 			do
-			{				
+			{		
 				this->evolve();
 			} 
 			while (!this->checkConvergence());
@@ -223,26 +235,27 @@ void GeneticAlgorithm::startEvolution()
 			addConfigurationToVehicle();
 			
 
-			// while (!this->population.empty())
-			// {
-			// 	Wheel* wheel = this->population.front();
-			// 	this->rankedPopulation.push(wheel);
-			// 	this->population.pop();
-			// }
+			 while (!this->population.empty())
+			 {
+			 	Wheel* wheel = this->population.front();
+			 	this->rankedPopulation.push(wheel);
+			 	this->population.pop();
+			 }
 
-			// while (!rankedPopulation.empty())
-			// {
-			// 	std::cout << "[Torque: " << rankedPopulation.top()->getTorqueId() <<
-			// 		", Tread: " << rankedPopulation.top()->getTreadId() <<
-			// 		", Fitness Score: " << rankedPopulation.top()->getFitnessScore()
-			// 		<< "]" << std::endl;
-			// 	rankedPopulation.pop();
-			// }
+			 while (!rankedPopulation.empty())
+			 {
+			 	//std::cout << "[Torque: " << rankedPopulation.top()->getTorqueId() <<
+			 	//	", Tread: " << rankedPopulation.top()->getTreadId() <<
+			 	//	", Fitness Score: " << rankedPopulation.top()->getFitnessScore()
+			 	//	<< "]" << std::endl;
+			 	rankedPopulation.pop();
+			 }
+			 logManager->saveLog();
 			std::this_thread::sleep_for(std::chrono::seconds(this->sensorWaitTime));
 		}
 	} 
 	while (!this->queue->empty());
-	vehicle->printRouteConfiguration();
+	//vehicle->printRouteConfiguration(); DESCOMENTAR
 }
 
 std::queue<Wheel*> GeneticAlgorithm::selectFittestParents()
@@ -351,6 +364,7 @@ void GeneticAlgorithm::setNewGeneration()
 	{
 		Wheel * wheel = this->population.front();
 		this->rankedPopulation.push(wheel);
+		logManager->addLine(wheel->toString());
 		this->population.pop();
 	}
 	//rankedPopulation = priority_queue <Vehicle*>(); //Evitar el while, pero no se si afecta la memoria.
@@ -365,6 +379,7 @@ void GeneticAlgorithm::pushToPopulation(Wheel * pWheel)
 
 void GeneticAlgorithm::evolve()
 {
+	logManager->addLine("NEW GENERATION");
 	std::cout << "Generation: " << this->generation << std::endl;
 	std::queue<Wheel*> fittest = this->selectFittestParents();
 	std::vector<Wheel*> children;

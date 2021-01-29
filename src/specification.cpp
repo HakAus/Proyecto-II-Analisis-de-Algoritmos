@@ -1,4 +1,5 @@
 #include "specification.h"
+#include <string>
 
 Specification::Specification(int pId, std::vector<int>& pAttributes, int pEnergy)
 {
@@ -50,4 +51,22 @@ void Specification::print()
 		std::cout << "Humidity: " << this->humidity[i] << std::endl;
 		std::cout << "Grip: " << this->grip[i] << std::endl;
 	}
+}
+
+std::string Specification::toString()
+{
+	std::string toString = "";
+	for (int i = 0; i < 2; i++)
+	{
+		toString += "Firmness: ";
+		toString += std::to_string(this->firmness[i]);
+		toString += "\n";
+		toString += "Humidity: ";
+		toString += std::to_string(this->humidity[i]);
+		toString += "\n";
+		toString += "Grip: ";
+		toString += std::to_string(this->grip[i]);
+		toString += "\n";
+	}
+	return toString;
 }

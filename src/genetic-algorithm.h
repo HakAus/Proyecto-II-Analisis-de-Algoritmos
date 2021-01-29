@@ -14,11 +14,13 @@
 #include "terrain.h"
 #include "specification.h"
 #include "sync-queue.h"
+#include "LogManager.cpp"
 
 class GeneticAlgorithm
 {
 private:
 	// Algorithm
+	LogManager * logManager;
 	std::queue<Wheel*> population;
 	std::unordered_map<int, Specification*> treadTable;
 	std::unordered_map<int, Specification*> torqueTable;

@@ -1,4 +1,5 @@
 #include "terrain.h"
+#include <string>
 
 Terrain::Terrain(const char * pName, float pAttributes[3],
 				 int pStartKm, int pEndKm)
@@ -51,4 +52,32 @@ void Terrain::print()
 	std::cout << "KmStart: " << this->startKm << std::endl;
 	std::cout << "KmEnd: " << this->endKm << std::endl;
 	std::cout << "***************************" << std::endl;
+}
+
+std::string Terrain::toString()
+{
+	std::string toString = "";
+	toString += "**** Datos del terreno ****\n";
+	toString += "Nombre: ";
+	toString += this->name;
+	toString += "\n";
+	toString += "Atributos: (";
+	int pos = 0;
+	for (; pos < 2; pos++)
+	{
+		toString += std::to_string(this->attributes[pos]);
+		toString += ",";
+	}
+	toString += std::to_string(this->attributes[pos]);
+	toString += ")";
+	toString += "\n";
+	toString += "KmStart: ";
+	toString += std::to_string(this->startKm);
+	toString += "\n";
+	toString += "KmEnd: ";
+	toString += std::to_string(this->endKm);
+	toString += "\n";
+	toString += "***************************";
+	toString += "\n";
+	return toString;
 }
