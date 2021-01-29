@@ -1,6 +1,7 @@
 #include "genetic-algorithm.h"
 #include "random.cpp"
 #include <typeinfo>
+#include <cstdlib> 
 
 
 // PARA IMPRIMIR
@@ -143,7 +144,7 @@ void GeneticAlgorithm::setIndividualFitness(Wheel* pWheel)
 					   );
 
 	double fitnessScore = 0.0;
-	double torqueSimilarity = 0.0;
+	/*double torqueSimilarity = 0.0;
 	double treadSimilarity = 0.0;
 
 	for (int fitnessIndex = 0; fitnessIndex < 3; fitnessIndex++)
@@ -157,7 +158,10 @@ void GeneticAlgorithm::setIndividualFitness(Wheel* pWheel)
 
 	// fitnessScore = (1/torqueSimilarity)*(torque->getEnergy()-torque->getEnergy()*torqueSimilarity) + 
 	// 			   (1/treadSimilarity)*(tread->getEnergy()-tread->getEnergy()*treadSimilarity);
-   	fitnessScore = (1/torqueSimilarity)*torque->getEnergy() + (1/treadSimilarity)*tread->getEnergy();
+   	fitnessScore = (1/torqueSimilarity)*torque->getEnergy() + (1/treadSimilarity)*tread->getEnergy();*/
+
+	fitnessScore = abs((torqueAttributes[0] - treadAttributes[0]) + (torqueAttributes[1] - treadAttributes[1]) + (torqueAttributes[2] - treadAttributes[2]));
+	fitnessScore *= tread->getEnergy() + torque->getEnergy();
 	pWheel->setFitnessScore(fitnessScore);
 	logManager->addLine("WHEEL FITNESSSCORE");
 	logManager->addLine(fitnessScore);
