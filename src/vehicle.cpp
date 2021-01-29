@@ -28,6 +28,7 @@ void Vehicle::addConfiguration(Terrain* pTerrain, Wheel* pWheel)
 
 void Vehicle::printRouteConfiguration()
 {
+	std::cout << std::endl;
 	std::cout << "*** Configuration for terrains in detected route ***" << std::endl;
 	for (const auto& configuration : this->configurations)
 	{

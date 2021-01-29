@@ -93,7 +93,6 @@ void TerrainGenerator::generateRandomStretch()
 		stretchCurrentDistance += terrainDistance;
 		this->currentDistance += terrainDistance;
 	}
-	std::cout << "currentDistance= " << this->currentDistance << " - distanceGoal= " << this->distanceGoal << std::endl;
 	this->queue->push(stretch);
 }
 
@@ -115,7 +114,6 @@ void TerrainGenerator::generatePredefinedStretch()
 			stretch->PushBack(*terrainJSONObject,stretch->GetAllocator());
 			this->currentDistance += terrainDistance;
 		}
-		std::cout << "currentDistance= " << this->currentDistance << " - distanceGoal= " << this->distanceGoal << std::endl;
 		this->queue->push(stretch);
 	}
 }

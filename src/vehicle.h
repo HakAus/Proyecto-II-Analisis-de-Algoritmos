@@ -2,7 +2,7 @@
 #ifndef __VEHICLE_H__
 #define __VEHICLE_H__
 
-#include <unordered_map>
+#include <map>
 #include "terrain.h"
 #include "wheel.h"
 
@@ -11,7 +11,7 @@ class Vehicle
 private:
 	int batteryLevel;
 	float kilometersTravelled;
-	std::unordered_map<Terrain*, Wheel*> configurations;
+	std::map<Terrain*, Wheel*> configurations;
 
 public:
 	Vehicle();

@@ -10,12 +10,28 @@
 // auto str = sb.GetString();
 // printf("%s\n", str);
 
+// while (!this->population.empty())
+// {
+// 	Wheel* wheel = this->population.front();
+// 	this->rankedPopulation.push(wheel);
+// 	this->population.pop();
+// }
+
+// while (!rankedPopulation.empty())
+// {
+// 	std::cout << "[Torque: " << rankedPopulation.top()->getTorqueId() <<
+// 		", Tread: " << rankedPopulation.top()->getTreadId() <<
+// 		", Fitness Score: " << rankedPopulation.top()->getFitnessScore()
+// 		<< "]" << std::endl;
+// 	rankedPopulation.pop();
+// }
+
 GeneticAlgorithm::GeneticAlgorithm(Vehicle* pVehicle, const rapidjson::Document& pConfig, SyncQueue* pSharedQueue)
 {
 	this->vehicle = pVehicle;
-	this->fittestPopulationPercentage = 0.40;
+	this->fittestPopulationPercentage = 0.20;
 	this->sensorWaitTime = 4;
-	this->convergencePercentage = 0.85;
+	this->convergencePercentage = 0.95;
 	this->mutationPercentage = 0;
 	this->populationAmount = 400;
 	this->distanceProcessed = 0;
@@ -85,8 +101,8 @@ void GeneticAlgorithm::getStretch()
 			distance += (terrain->getEndKm() - terrain->getStartKm());
 		}
 		this->distanceProcessed += distance;
+		std::cout << "A new stretch was popped from the queue!" << std::endl;
 	}
-	std::cout << "New stretch fetched!" << std::endl;
 }
 
 void GeneticAlgorithm::setCurrentTerrain()
@@ -168,32 +184,42 @@ void GeneticAlgorithm::setPopulationFitness()
 
 bool GeneticAlgorithm::checkConvergence()
 {
-	// int highestConvergence = 0;
 	int convergencePoint = this->populationAmount * this->convergencePercentage;
-	std::cout << "Convergence Point: " << convergencePoint << std::endl;
 	for (auto & frequency : this->frequencyTable)
 	{
-		// if (frequency.second > highestConvergence)
-		// 	highestConvergence = frequency.second;
 		if (frequency.second >= convergencePoint)
 		{
-			this->answer = frequency.first;
-			this->generation = 0;
+			addConfigurationToVehicle(frequency.first);
+			resetContainers();
 			return true;
 		}
 		frequency.second = 0;
 	}
-	// std::cout << "highestConvergence = " << highestConvergence << std::endl;
 	return false;
 }
 
-void GeneticAlgorithm::addConfigurationToVehicle()
+void GeneticAlgorithm::addConfigurationToVehicle(int pConfiguration)
 {
-	std::cout << "Winning configuration: " << this->answer << std::endl;
-	int torqueId = this->answer%10;
-	int treadId = this->answer/10;
+	int torqueId = pConfiguration % 10;
+	int treadId = pConfiguration / 10;
 	Wheel * wheel = new Wheel(torqueId, treadId);
+	setIndividualFitness(wheel);
 	this->vehicle->addConfiguration(this->currentTerrain, wheel);
+}
+
+void GeneticAlgorithm::resetContainers()
+{
+	// frequency table and ranked population must be cleared for next genetic cycle
+
+	for (auto& frequency : this->frequencyTable)
+	{
+		frequency.second = 0;
+	}
+
+	while (!this->rankedPopulation.empty())
+	{
+		rankedPopulation.pop();
+	}
 }
 
 void GeneticAlgorithm::startEvolution()
@@ -211,33 +237,10 @@ void GeneticAlgorithm::startEvolution()
 			this->generation = 0;
 			do
 			{				
-				this->evolve();
+				this->evolve();	// creates one generation
 			} 
 			while (!this->checkConvergence());
 
-			for (auto& frequency : this->frequencyTable)
-			{
-				frequency.second = 0;
-			}
-
-			addConfigurationToVehicle();
-			
-
-			// while (!this->population.empty())
-			// {
-			// 	Wheel* wheel = this->population.front();
-			// 	this->rankedPopulation.push(wheel);
-			// 	this->population.pop();
-			// }
-
-			// while (!rankedPopulation.empty())
-			// {
-			// 	std::cout << "[Torque: " << rankedPopulation.top()->getTorqueId() <<
-			// 		", Tread: " << rankedPopulation.top()->getTreadId() <<
-			// 		", Fitness Score: " << rankedPopulation.top()->getFitnessScore()
-			// 		<< "]" << std::endl;
-			// 	rankedPopulation.pop();
-			// }
 			std::this_thread::sleep_for(std::chrono::seconds(this->sensorWaitTime));
 		}
 	} 
@@ -318,19 +321,14 @@ void GeneticAlgorithm::mutate(Wheel * pChild)
 	unsigned short childChromosome = pChild->getChromosome();
  	bool has_bit = childChromosome & mask;
 	unsigned short newChromosome = (childChromosome & ~mask) | ((!has_bit << pos) & mask);
-	// printTest("Pos:", pos);
-	// showbits("OldChromosome", childChromosome);
-	// showbits("NewChromosome", newChromosome);
 	pChild->setChromosome(newChromosome);
 }
 
 void GeneticAlgorithm::tryMutation(Wheel * pChild)
 {
 	int mutationSucces = Random::RandomRange(0, 100);
-	// std::cout << mutationSucces << std::endl;
 	if (mutationSucces < mutationPercentage) 
 		mutate(pChild);
-	// else printTest("No mutation", 0);
 }
 
 void GeneticAlgorithm::setNewGeneration()
