@@ -117,6 +117,7 @@ void GeneticAlgorithm::setCurrentTerrain()
 
 void GeneticAlgorithm::startPopulation()
 {
+	this->generation = 0;
 	for (int amount = 0; amount < this->populationAmount; amount++)
 	{
 		this->population.push(new Wheel(Random::RandomChromosome()));
@@ -167,6 +168,7 @@ void GeneticAlgorithm::setIndividualFitness(Wheel* pWheel)
 	// 			   (1/treadSimilarity)*(tread->getEnergy()-tread->getEnergy()*treadSimilarity);
    	fitnessScore = (1/torqueSimilarity)*torque->getEnergy() + (1/treadSimilarity)*tread->getEnergy();
 	pWheel->setFitnessScore(fitnessScore);
+	pWheel->setEnergeticCost(torque->getEnergy() + tread->getEnergy());
 }
 
 void GeneticAlgorithm::setPopulationFitness()
@@ -189,7 +191,7 @@ bool GeneticAlgorithm::checkConvergence()
 	{
 		if (frequency.second >= convergencePoint)
 		{
-			addConfigurationToVehicle(frequency.first);
+			addWheelToVehicle(frequency.first);
 			resetContainers();
 			return true;
 		}
@@ -198,13 +200,13 @@ bool GeneticAlgorithm::checkConvergence()
 	return false;
 }
 
-void GeneticAlgorithm::addConfigurationToVehicle(int pConfiguration)
+void GeneticAlgorithm::addWheelToVehicle(int pWheelConfiguration)
 {
-	int torqueId = pConfiguration % 10;
-	int treadId = pConfiguration / 10;
+	int torqueId = pWheelConfiguration % 10;
+	int treadId = pWheelConfiguration / 10;
 	Wheel * wheel = new Wheel(torqueId, treadId);
 	setIndividualFitness(wheel);
-	this->vehicle->addConfiguration(this->currentTerrain, wheel);
+	this->vehicle->addWheelForTerrain(this->currentTerrain, wheel);
 }
 
 void GeneticAlgorithm::resetContainers()
@@ -225,26 +227,30 @@ void GeneticAlgorithm::resetContainers()
 void GeneticAlgorithm::startEvolution()
 {
 	srand(time(0));
-	do //Manejar los tiempos para ismular los sensores simular con una espera o usar las distancias?
-		//Cuidado con los threads, arreglar distancia final
+	do
 	{
-		this->getStretch();
-		while (!this->currentStretch.empty()) 
+		getStretch();
+		while (!currentStretch.empty() && vehicle->hasEnergy()) 
 		{
-			this->setCurrentTerrain();
-			this->startPopulation();
-			this->setPopulationFitness();
-			this->generation = 0;
+			setCurrentTerrain();
+			startPopulation();
+			setPopulationFitness();
 			do
 			{				
-				this->evolve();	// creates one generation
+				evolve();
 			} 
-			while (!this->checkConvergence());
+			while (!checkConvergence());
 
-			std::this_thread::sleep_for(std::chrono::seconds(this->sensorWaitTime));
+			std::this_thread::sleep_for(std::chrono::seconds(sensorWaitTime));
 		}
 	} 
-	while (!this->queue->empty());
+	while (!queue->empty() && vehicle->hasEnergy());
+
+	if (vehicle->hasEnergy())
+		std::cout << "You have arrived succesfully at destination!!" << std::endl;
+	else
+		std::cout << "Bummer ... The battery ran out before reaching your destination" << std::endl;
+
 	vehicle->printRouteConfiguration();
 }
 
@@ -259,21 +265,21 @@ std::queue<Wheel*> GeneticAlgorithm::selectFittestParents()
 	return fittest;
 }
 
- void showbits(std::string text, unsigned short x )
+void showbits(std::string text, unsigned short x )
+{
+ int i=0;
+ std::cout<<text;
+ for (i = (sizeof(short) * 8) - 1; i >= 0; i--)
  {
-     int i=0;
-	 std::cout<<text;
-     for (i = (sizeof(short) * 8) - 1; i >= 0; i--)
-     {
-        putchar(x & (1u << i) ? '1' : '0');
-     }
-     printf("\n");
+    putchar(x & (1u << i) ? '1' : '0');
  }
+ printf("\n");
+}
 
- void printTest(std::string text, int value)
- {
-	 std::cout << text << value <<std::endl;
- }
+void printTest(std::string text, int value)
+{
+ std::cout << text << value <<std::endl;
+}
 
 void GeneticAlgorithm::crossover(Wheel* pParent1, Wheel* pParent2, Wheel** pTwins)
 {

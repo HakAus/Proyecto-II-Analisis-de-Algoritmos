@@ -5,6 +5,7 @@ Wheel::Wheel(unsigned short pChromosome)
 {
 	this->chromosome = pChromosome;
 	this->fitnessScore = 0.0;
+	this->energeticCost = 0;
 }
 
 void showbits(std::string text, unsigned char x )
@@ -38,6 +39,7 @@ Wheel::Wheel(int pTorqueId, int pTreadId)
 	this->chromosome = this->chromosome | torqueGenotype;
 	this->chromosome = this->chromosome | treadGenotype;
 	this->fitnessScore = 0.0;
+	this->energeticCost = 0;
 }
 
 
@@ -70,6 +72,16 @@ double Wheel::getFitnessScore() const
 	return this->fitnessScore;
 }
 
+void Wheel::setEnergeticCost(int pEnergy)
+{
+	this->energeticCost = pEnergy;
+}
+
+int Wheel::getEnergeticCost() const
+{
+	return this->energeticCost;
+}
+
 void Wheel::setChromosome(unsigned short pChromosome)
 {
 	this->chromosome = pChromosome;
@@ -85,4 +97,5 @@ void Wheel::print()
 	std::cout << "**** Datos de la llanta ****" << std::endl;
 	showbits2("Cromosoma: ", this->chromosome);
 	std::cout << "fitnessScore: " << this->fitnessScore << std::endl;
+	std::cout << "energeticCost: " << this->energeticCost << std::endl;
 }

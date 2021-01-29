@@ -18,7 +18,8 @@ public:
 	void updateBatteryLevel(int pEnergyUnits);
 	void updateKilometersTravelled(float pKilometers);
 	int getBatteryLevel();
-	void addConfiguration(Terrain* pTerrain, Wheel* pWheel);
+	bool hasEnergy();
+	void addWheelForTerrain(Terrain* pTerrain, Wheel* pWheel);
 	void printRouteConfiguration();
 
 };

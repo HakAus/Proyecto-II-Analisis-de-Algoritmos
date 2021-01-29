@@ -10,6 +10,7 @@ private:
 	const double CHROMOSOME_RANGE_SIZE = 36.45;
 	unsigned short chromosome;
 	double fitnessScore;
+	int energeticCost;
 
 public:
 	Wheel(unsigned short pChromosome);
@@ -18,6 +19,8 @@ public:
 	int getTorqueId() const;
 	void setFitnessScore(double pScore);
 	double getFitnessScore() const;
+	void setEnergeticCost(int pEnergy);
+	int getEnergeticCost() const;
 	void setChromosome(unsigned short pChromosome);
 	unsigned short getChromosome() const;
 	void print();

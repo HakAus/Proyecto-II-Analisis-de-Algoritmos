@@ -68,7 +68,7 @@ public:
 	void pushToPopulation(Wheel* pWheel);
 	void startEvolution();
 	bool checkConvergence();
-	void addConfigurationToVehicle(int pConfiguration);
+	void addWheelToVehicle(int pWheelConfiguration);
 	void setNewGeneration();
 	void resetContainers();
 	Wheel * getResult();
