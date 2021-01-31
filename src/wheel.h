@@ -7,13 +7,20 @@
 class Wheel
 {
 private:
-	const double CHROMOSOME_RANGE_SIZE = 36.45;
-	unsigned short chromosome;
+	double CHROMOSOME_RANGE_SIZE = 9362.15;
+	unsigned int chromosome;
 	double fitnessScore;
 	int energeticCost;
 
+	//debug
+	double overallSimilarity;
+	double torqueSimilarity;
+	double treadSimilarity;
+	double treadEnergyPercentile;
+	double torqueEnergyPercentile;
+
 public:
-	Wheel(unsigned short pChromosome);
+	Wheel(unsigned int pChromosome);
 	Wheel(int pTorqueId, int pTreadId);
 	int getTreadId() const;
 	int getTorqueId() const;
@@ -22,8 +29,20 @@ public:
 	void setEnergeticCost(int pEnergy);
 	int getEnergeticCost() const;
 	void setChromosome(unsigned short pChromosome);
-	unsigned short getChromosome() const;
+	unsigned int getChromosome() const;
 	void print();
+
+	//debug
+	void setOverallSimilarity(double pSimilarity);
+	double getOverallSimilarity() const;
+	void setTorqueSimilarity(double pSimilarity);
+	double getTorqueSimilarity() const;
+	void setTreadSimilarity(double pSimilarity);
+	double getTreadSimilarity() const;
+	void setTreadEnergyPercentile(int pEnergy);
+	double getTreadEnergyPercentile() const;
+	void setTorqueEnergyPercentile(int pEnergy);
+	double getTorqueEnergyPercentile() const;
 
 };
 

@@ -6,8 +6,8 @@ public:
 	static float RandomRange(int minValue, int maxValue) {
 		return minValue + rand()%(maxValue - minValue);
 	}
-	static unsigned short RandomChromosome() {
-		return (unsigned short) rand() % 65536;
+	static unsigned int RandomChromosome() {
+		return (unsigned int) rand() % 4294967296;
 	}
 
 };

@@ -9,10 +9,12 @@
 	},
 	"geneticAlgoConfig":
 	{
-		"travelDistance":10,
-		"populationAmount":15,
-		"convergencePercentage":15,
-		"mutationPercentage":15
+		"fittestExtractionPercentage":0.30,
+		"populationAmount":80,
+		"convergencePercentage":0.80,
+		"mutationPercentage":7,
+		"specificationWiseFitness":true,
+		"sensorWaitTime":4
 	},
 	"torqueTable":[
 		{

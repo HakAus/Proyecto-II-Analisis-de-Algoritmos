@@ -31,7 +31,7 @@ int Vehicle::getBatteryLevel()
 
 void Vehicle::addWheelForTerrain(Terrain* pTerrain, Wheel* pWheel)
 {
-	this->configurations[pTerrain] = pWheel;
+	this->configurations.push_back(std::make_pair(pTerrain,pWheel));
 	updateBatteryLevel(pWheel->getEnergeticCost());
 
 }

@@ -2,7 +2,8 @@
 #ifndef __VEHICLE_H__
 #define __VEHICLE_H__
 
-#include <map>
+#include <vector>
+#include <utility>
 #include "terrain.h"
 #include "wheel.h"
 
@@ -11,7 +12,7 @@ class Vehicle
 private:
 	int batteryLevel;
 	float kilometersTravelled;
-	std::map<Terrain*, Wheel*> configurations;
+	std::vector<std::pair<Terrain*, Wheel*>> configurations;
 
 public:
 	Vehicle();
