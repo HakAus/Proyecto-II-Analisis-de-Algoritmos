@@ -113,6 +113,33 @@
 				"humidity" : 18,
 				"grip" : 68
 			}
+		],
+		"stretch4" : 
+		[
+			{
+				"name" : "Rocoso",
+				"kmStart" : 120,
+				"kmEnd" : 130,
+				"firmness" : 10,
+				"humidity" : 70,
+				"grip" : 95
+			},
+			{
+				"name" : "Arenoso",
+				"kmStart" : 130,
+				"kmEnd" : 140,
+				"firmness" : 80,
+				"humidity" : 95,
+				"grip" : 60
+			},
+			{
+				"name" : "Tierra roja",
+				"kmStart" : 140,
+				"kmEnd" : 150,
+				"firmness" : 62,
+				"humidity" : 50,
+				"grip" : 50
+			}
 		]
 	}
 }
