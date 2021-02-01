@@ -13,7 +13,7 @@
 		"populationAmount":80,
 		"convergencePercentage":0.90,
 		"mutationPercentage":7,
-		"specificationWiseFitness":false,
+		"specificationWiseFitness":true,
 		"sensorWaitTime":4
 	},
 	"torqueTable":[
