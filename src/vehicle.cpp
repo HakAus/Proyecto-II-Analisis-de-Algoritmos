@@ -2,7 +2,7 @@
 
 Vehicle::Vehicle()
 {
-	this->batteryLevel = 100;
+	this->batteryLevel = 7000;
 	this->kilometersTravelled = 0.0;
 }
 
