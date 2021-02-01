@@ -2,7 +2,7 @@
 
 Vehicle::Vehicle()
 {
-	this->batteryLevel = 100;
+	this->batteryLevel = 7000;
 	this->kilometersTravelled = 0.0;
 }
 
@@ -33,7 +33,6 @@ void Vehicle::addWheelForTerrain(Terrain* pTerrain, Wheel* pWheel)
 {
 	this->configurations.push_back(std::make_pair(pTerrain,pWheel));
 	updateBatteryLevel(pWheel->getEnergeticCost());
-
 }
 
 void Vehicle::printRouteConfiguration()
