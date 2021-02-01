@@ -267,26 +267,26 @@ void GeneticAlgorithm::startEvolution()
 	vehicle->printRouteConfiguration();
 }
 
-// std::queue<Wheel*> GeneticAlgorithm::selectFittestParents()
-// {
-// 	std::queue<Wheel*> fittest;
-// 	for (int i = 0; i < numberOfExtractions; i++)
-// 	{
-// 		fittest.push(rankedPopulation.top());
-// 		rankedPopulation.pop();
-// 	}
-// 	return fittest;
-// }
-std::vector<Wheel*> GeneticAlgorithm::selectFittestParents()
+std::queue<Wheel*> GeneticAlgorithm::selectFittestParents()
 {
-	std::vector<Wheel*> fittest;
+	std::queue<Wheel*> fittest;
 	for (int i = 0; i < numberOfExtractions; i++)
 	{
-		fittest.push_back(rankedPopulation.top());
+		fittest.push(rankedPopulation.top());
 		rankedPopulation.pop();
 	}
 	return fittest;
 }
+// std::vector<Wheel*> GeneticAlgorithm::selectFittestParents()
+// {
+// 	std::vector<Wheel*> fittest;
+// 	for (int i = 0; i < numberOfExtractions; i++)
+// 	{
+// 		fittest.push_back(rankedPopulation.top());
+// 		rankedPopulation.pop();
+// 	}
+// 	return fittest;
+// }
 
 void showbits(std::string text, unsigned int x )
 {
@@ -304,57 +304,57 @@ void printTest(std::string text, int value)
  std::cout << text << value <<std::endl;
 }
 
-// void GeneticAlgorithm::crossover(Wheel* pParent1, Wheel* pParent2, Wheel** pTwins)
-// {
-// 	// std::cout << "CROSSOVER" << std::endl;
-// 	int position = Random::RandomRange(8,24);
-// 	// std::cout << "Random cross point: " << position << std::endl;
-// 	generateMasks(position);
-// 	Wheel* parents[2] = { pParent1,pParent2 };
-// 	int parentIndexControll = 1;
-// 	unsigned int childGenotype = 0;
-// 	unsigned int temp = 0;
-// 	// showbits("P1 Genotype:",pParent1->getChromosome());
-// 	// showbits("P2 Genotype:",pParent2->getChromosome());
-// 	// std::cout << "Process:" << std::endl;
-// 	for (int i = 0; i < 2; i++)
-// 	{
-// 		// std::cout << "Left mask applied" << std::endl;
-// 		temp = parents[i]->getChromosome() & leftMask;
-// 		// showbits("Temp", temp);
-// 		childGenotype = childGenotype | temp;
-// 		temp = 0;
-// 		// std::cout << "Right mask applied" << std::endl;
-// 		temp = parents[i+parentIndexControll]->getChromosome() & rightMask;
-// 		// showbits("Temp", temp);
-// 		childGenotype = childGenotype | temp;
-// 		temp = 0;
-
-// 		pTwins[i] = new Wheel(childGenotype);
-// 		parentIndexControll = -parentIndexControll;
-// 		// showbits("Child:", childGenotype);
-// 		childGenotype = 0;
-// 	}
-// }
-
-Wheel* GeneticAlgorithm::crossover(Wheel* pParent1, Wheel* pParent2)	// crossover normal, pero con 1 hijo
+void GeneticAlgorithm::crossover(Wheel* pParent1, Wheel* pParent2, Wheel** pTwins)
 {
+	// std::cout << "CROSSOVER" << std::endl;
 	int position = Random::RandomRange(8,24);
+	// std::cout << "Random cross point: " << position << std::endl;
 	generateMasks(position);
-	// Wheel* parents[2] = { pParent1,pParent2 };
+	Wheel* parents[2] = { pParent1,pParent2 };
+	int parentIndexControll = 1;
 	unsigned int childGenotype = 0;
 	unsigned int temp = 0;
+	// showbits("P1 Genotype:",pParent1->getChromosome());
+	// showbits("P2 Genotype:",pParent2->getChromosome());
+	// std::cout << "Process:" << std::endl;
+	for (int i = 0; i < 2; i++)
+	{
+		// std::cout << "Left mask applied" << std::endl;
+		temp = parents[i]->getChromosome() & leftMask;
+		// showbits("Temp", temp);
+		childGenotype = childGenotype | temp;
+		temp = 0;
+		// std::cout << "Right mask applied" << std::endl;
+		temp = parents[i+parentIndexControll]->getChromosome() & rightMask;
+		// showbits("Temp", temp);
+		childGenotype = childGenotype | temp;
+		temp = 0;
 
-	temp = pParent1->getChromosome() & leftMask;	// get tread from parent
-	childGenotype = childGenotype | temp;
-	temp = 0;
-	temp = pParent2->getChromosome() & rightMask; // get torque from parent
-	childGenotype = childGenotype | temp;
-	temp = 0;
-	// showbits("childGenotype: ",childGenotype);
-	return new Wheel(childGenotype);
-	// childGenotype = 0;
+		pTwins[i] = new Wheel(childGenotype);
+		parentIndexControll = -parentIndexControll;
+		// showbits("Child:", childGenotype);
+		childGenotype = 0;
+	}
 }
+
+// Wheel* GeneticAlgorithm::crossover(Wheel* pParent1, Wheel* pParent2)	// crossover normal, pero con 1 hijo
+// {
+// 	int position = Random::RandomRange(8,24);
+// 	generateMasks(position);
+// 	// Wheel* parents[2] = { pParent1,pParent2 };
+// 	unsigned int childGenotype = 0;
+// 	unsigned int temp = 0;
+
+// 	temp = pParent1->getChromosome() & leftMask;	// get tread from parent
+// 	childGenotype = childGenotype | temp;
+// 	temp = 0;
+// 	temp = pParent2->getChromosome() & rightMask; // get torque from parent
+// 	childGenotype = childGenotype | temp;
+// 	temp = 0;
+// 	// showbits("childGenotype: ",childGenotype);
+// 	return new Wheel(childGenotype);
+// 	// childGenotype = 0;
+// }
 
 void GeneticAlgorithm::generateMasks(int pBytePos)
 {
@@ -421,36 +421,36 @@ void GeneticAlgorithm::pushToPopulation(Wheel * pWheel)
 }
 
 // SELECCION ORDENADA DE LOS MEJORES
-// void GeneticAlgorithm::evolve()
-// {
-// 	std::cout << "Generation: " << this->generation << std::endl;
-// 	std::queue<Wheel*> fittest = this->selectFittestParents();
-// 	// std::cout << "Fittest parents were selected" << std::endl;
-// 	// std::vector<Wheel*> children;
-// 	while (!fittest.empty())
-// 	{
-// 		Wheel * mom = fittest.front();
-// 		fittest.pop();
-// 		Wheel * dad = fittest.front();
-// 		fittest.pop();
-// 		// Wheel* twins[2];
-// 		Wheel* child = crossover(mom,dad);
-// 		// std::cout << "After crossover" << std::endl;
-// 		// for (int twinIndex = 0; twinIndex < 2; twinIndex++)
-// 		// {
-// 		tryMutation(/*twins[twinIndex]*/child);
-// 		// std::cout << "After mutation" << std::endl;
-// 		setIndividualFitness(/*twins[twinIndex]*/child);
-// 		// std::cout << "After setting individual fitness" << std::endl;
-// 		pushToPopulation(/*twins[twinIndex]*/child);
-// 		// }
-// 		pushToPopulation(mom);
-// 		pushToPopulation(dad);
-// 		// std::cout << "After pushing family to the population" << std::endl;
-// 	}
-// 	setNewGeneration();
-// 	this->generation++;
-// }
+void GeneticAlgorithm::evolve()
+{
+	std::cout << "Generation: " << this->generation << std::endl;
+	std::queue<Wheel*> fittest = this->selectFittestParents();
+	// std::cout << "Fittest parents were selected" << std::endl;
+	// std::vector<Wheel*> children;
+	while (!fittest.empty())
+	{
+		Wheel * mom = fittest.front();
+		fittest.pop();
+		Wheel * dad = fittest.front();
+		fittest.pop();
+		Wheel* twins[2];
+		crossover(mom,dad,twins);
+		// std::cout << "After crossover" << std::endl;
+		for (int twinIndex = 0; twinIndex < 2; twinIndex++)
+		{
+			tryMutation(twins[twinIndex]);
+		// std::cout << "After mutation" << std::endl;
+			setIndividualFitness(twins[twinIndex]);
+		// std::cout << "After setting individual fitness" << std::endl;
+			pushToPopulation(twins[twinIndex]);
+		}
+		pushToPopulation(mom);
+		pushToPopulation(dad);
+		// std::cout << "After pushing family to the population" << std::endl;
+	}
+	setNewGeneration();
+	this->generation++;
+}
 
 // SELECCION RANDOM DE LOS MEJORES
 // void GeneticAlgorithm::evolve()
@@ -485,31 +485,31 @@ void GeneticAlgorithm::pushToPopulation(Wheel * pWheel)
 // }
 
 // GENERAR TODA LA POBLACION
-void GeneticAlgorithm::evolve()
-{
-	std::cout << "Generation: " << this->generation << std::endl;
-	std::vector<Wheel*> fittest = this->selectFittestParents();
+// void GeneticAlgorithm::evolve()
+// {
+// 	std::cout << "Generation: " << this->generation << std::endl;
+// 	std::vector<Wheel*> fittest = this->selectFittestParents();
 
-	while (population.size() < this->populationAmount)
-	{
-		int momPosition = Random::RandomRangeInt(0,fittest.size()-1);
-		Wheel * mom = fittest.at(momPosition);
+// 	while (population.size() < this->populationAmount)
+// 	{
+// 		int momPosition = Random::RandomRangeInt(0,fittest.size()-1);
+// 		Wheel * mom = fittest.at(momPosition);
 
-		int dadPosition = Random::RandomRangeInt(0,fittest.size()-1);
-		Wheel * dad = fittest.at(dadPosition);
+// 		int dadPosition = Random::RandomRangeInt(0,fittest.size()-1);
+// 		Wheel * dad = fittest.at(dadPosition);
 
-		Wheel* child = crossover(mom,dad);
+// 		Wheel* child = crossover(mom,dad);
 
-		tryMutation(child);
-		setIndividualFitness(child);
+// 		tryMutation(child);
+// 		setIndividualFitness(child);
 
-		pushToPopulation(child);
-		// pushToPopulation(mom);
-		// pushToPopulation(dad);
-	}
-	setNewGeneration();
-	this->generation++;
-}
+// 		pushToPopulation(child);
+// 		// pushToPopulation(mom);
+// 		// pushToPopulation(dad);
+// 	}
+// 	setNewGeneration();
+// 	this->generation++;
+// }
 
 void GeneticAlgorithm::start()
 {

@@ -59,10 +59,10 @@ public:
 	void setCurrentTerrain();
 	void setIndividualFitness(Wheel* pWheel);
 	void setPopulationFitness();
-	// std::queue<Wheel*> selectFittestParents();
-	std::vector<Wheel*> selectFittestParents();
-	Wheel* crossover(Wheel* pParent1, Wheel* pParent2);
-	// void crossover(Wheel* pParent1, Wheel* pParent2, Wheel** pTwins);
+	std::queue<Wheel*> selectFittestParents();
+	// std::vector<Wheel*> selectFittestParents();
+	// Wheel* crossover(Wheel* pParent1, Wheel* pParent2);
+	void crossover(Wheel* pParent1, Wheel* pParent2, Wheel** pTwins);
 	void generateMasks(int pBytePos);
 	void mutate(Wheel* pChild);
 	void tryMutation(Wheel* pChild);
